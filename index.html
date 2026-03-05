@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="DedTimon - Профессиональные услуги 3D моделирования, Motion дизайна и программирования">
+  <meta name="keywords" content="3D моделирование, Motion дизайн, программирование, портфолио">
+  <title>DedTimon — 3D Моделирование & Motion Дизайн</title>
+  <link rel="icon" type="image/x-icon" href="img/favikin.ico">
+  
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+  <!-- ==== HEADER ==== -->
+  <header class="site-header" id="siteHeader" role="banner">
+    <div class="header-inner">
+      <div class="brand" role="button" tabindex="0" aria-label="Вернуться на главную">
+        <div class="logo-circle" aria-hidden="true">
+          <img src="img/index/logo.png" alt="DedTimon logo" class="logo-img" width="60" height="60">
+        </div>
+        <div class="brand-name">DedTimon</div>
+      </div>
+      
+      <nav class="top-nav" aria-label="Основное меню">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="portfolio.html" class="nav-link">Проекты</a>
+        <a href="services.html" class="nav-link">Услуги</a>
+      </nav>
+      
+      <button class="burger" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="top-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==== HERO SECTION ==== -->
+    <section class="hero" aria-labelledby="hero-title" data-animate="fade-in">
+      <div class="hero-inner container">
+        <div class="intro fade-up">
+          <h1 class="hero-title" id="hero-title">
+            Привет, меня зовут <span class="accent sava-pro">Артём</span>
+          </h1>
+          <p class="hero-subtitle">
+            Создаю <span class="accent sava-pro">3D-модели</span>, <span class="accent sava-pro">Motion-дизайн</span> 
+            и занимаюсь <span class="accent sava-pro">Программированием</span>
+          </p>
+          <p class="lead fade-up">
+            С опытом <strong>более 6 лет</strong>, мой подход объединяет визуальную эстетику и технологии. 
+            Разрабатываю высококачественные модели, анимации и рендеры, оптимизированные для игровых движков и приложений!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== FEATURED PROJECTS CAROUSEL ==== -->
+    <section class="carousel-section" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 class="section-title1 accent sava-pro fade-up" id="projects-title">Лучшие проекты</h2>
+        
+        <div class="carousel-wrap fade-up">
+          <div class="carousel" id="carousel" aria-label="Галерея проектов" tabindex="0">
+            <!-- Carousel items -->
+            <div class="carousel-item" data-index="0">
+              <img src="img/index/1.jpg" alt="Neon City - футуристическая 3D сцена" loading="lazy">
+            </div>
+            <div class="carousel-item" data-index="1">
+              <img src="img/index/2.jpg" alt="Motion Promo - анимационный ролик" loading="lazy">
+            </div>
+            <div class="carousel-item" data-index="2">
+              <img src="img/index/3.jpg" alt="Arch Scene - архитектурная визуализация" loading="lazy">
+            </div>
+            <div class="carousel-item" data-index="3">
+              <img src="img/index/4.jpg" alt="Interior - дизайн интерьера" loading="lazy">
+            </div>
+            <div class="carousel-item" data-index="4">
+              <img src="img/index/5.jpg" alt="Vehicle - 3D модель автомобиля" loading="lazy">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Кнопка для перехода к проектам -->
+        <div class="section-button-container1 fade-up">
+          <a href="portfolio.html" class="section-button minimal-btn">Все проекты</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SERVICES ==== -->
+    <section class="popular-services" aria-labelledby="services-title">
+      <div class="container">
+        <h2 class="section-title accent sava-pro fade-up" id="services-title">Популярные услуги</h2>
+        <div class="services-grid fade-up">
+          <article class="svc svc-left">
+            <div class="svc-card">
+              <img src="img/index/lg.webp" alt="3D логотип с голубым свечением" loading="lazy">
+              <div class="svc-info">
+                <h3 class="sava-pro">3D - 2D Логотипы</h3>
+                <p class="muted">Создаю иконки, баннеры и логотипы, которые запоминаются.</p>
+              </div>
+            </div>
+          </article>
+          
+          <article class="svc svc-center">
+            <div class="svc-card">
+              <img src="img/index/sa.webp" alt="Веб-сайт с современным дизайном" loading="lazy">
+              <div class="svc-info">
+                <h3 class="sava-pro">Сайт под ключ</h3>
+                <p class="muted">Красочный и функциональный дизайн с полной оптимизацией.</p>
+              </div>
+            </div>
+          </article>
+          
+          <article class="svc svc-right">
+            <div class="svc-card">
+              <img src="img/index/cs.webp" alt="3D сцена с архитектурой" loading="lazy">
+              <div class="svc-info">
+                <h3 class="sava-pro">3D Сцены</h3>
+                <p class="muted">Создаю структуры и локации для игр, анимаций и визуализаций.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <!-- Кнопка для перехода к услугам -->
+        <div class="section-button-container fade-up">
+          <a href="services.html" class="section-button minimal-btn">Все услуги</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== CONTACTS ==== -->
+    <section id="contacts" class="contacts-section" aria-labelledby="contacts-title">
+      <div class="container">
+        <h2 class="section-title accent sava-pro fade-up" id="contacts-title">Контакты</h2>
+        <div class="contacts-row fade-up">
+          <a class="contact-item" href="https://www.youtube.com/@Ded_Timon" target="_blank" rel="noopener noreferrer" aria-label="YouTube канал">
+            <img src="img/index/YT.png" alt="" aria-hidden="true">
+            <span>YouTube</span>
+          </a>
+          <a class="contact-item" href="https://vk.com/dedtimon_shop" target="_blank" rel="noopener noreferrer" aria-label="Группа ВКонтакте">
+            <img src="img/index/VK.png" alt="" aria-hidden="true">
+            <span>VK</span>
+          </a>
+          <a class="contact-item" href="https://t.me/ded_x_timon" target="_blank" rel="noopener noreferrer" aria-label="Telegram канал">
+            <img src="img/index/Tg.png" alt="" aria-hidden="true">
+            <span>Telegram</span>
+          </a>
+          <a class="contact-item" href="https://wa.me/79304153589" target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp">
+            <img src="img/index/WA.png" alt="" aria-hidden="true">
+            <span>WhatsApp</span>
+          </a>
+          <a class="contact-item" href="https://kwork.ru/user/ded_timon" target="_blank" rel="noopener noreferrer" aria-label="Профиль на Kwork">
+            <img src="img/index/Kwork.png" alt="" aria-hidden="true">
+            <span>Kwork</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==== FOOTER ==== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> DedTimon. Все права защищены.</div>
+      <a href="#" class="privacy-link" id="openPrivacy">Политика конфиденциальности</a>
+    </div>
+  </footer>
+
+  <!-- ==== PRIVACY MODAL ==== -->
+  <div id="privacyModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="privacy-title">
+    <div class="modal-content">
+      <button class="close-modal" id="closePrivacy" aria-label="Закрыть окно">&times;</button>
+      <h2 class="section-title" id="privacy-title">Политика конфиденциальности</h2>
+      <div class="modal-body">
+        <ul>
+          <li>Персональные данные не передаются третьим лицам без согласия пользователя.</li>
+          <li>Сбор данных осуществляется исключительно для обратной связи и улучшения сервиса.</li>
+          <li>Пользователь имеет право запросить удаление или изменение своих данных.</li>
+          <li>Сайт использует файлы cookie для корректной работы и анализа посещаемости.</li>
+          <li>Все данные обрабатываются в соответствии с законодательством РФ.</li>
+        </ul>
+        <p>Если есть вопросы — свяжитесь через контакты на сайте.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts.js" defer></script>
+</body>
+</html>
