@@ -58,6 +58,7 @@ async function a11y() {
     for (const route of ['/', '/portfolio.html', '/services.html']) {
       await test(`responsive:${width}:${route}`, async () => {
         await page.setViewportSize({ width, height: 1000 }); await load(route); await layout();
+
         await page.screenshot({ path: path.join(out, `view-${width}-${route === '/' ? 'home' : route.slice(1,-5)}.png`), fullPage: route !== '/portfolio.html' });
         const broken = await page.locator('img').evaluateAll(images => images.filter(i => i.loading !== 'lazy' && (!i.complete || !i.naturalWidth)).map(i => i.src));
         assert.deepEqual(broken, []);
@@ -303,6 +304,19 @@ async function a11y() {
     await page.mouse.move(400,200);await page.waitForTimeout(100);await page.mouse.move(420,220);assert.ok(await page.locator('.blue-particle').count()>0);
     await page.waitForTimeout(550);assert.equal(await page.locator('.blue-particle').count(),0,'Particles must not keep an idle loop alive');
     await page.emulateMedia({reducedMotion:'reduce'});await page.mouse.move(450,230);assert.equal(await page.locator('.blue-particle').count(),0);
+  });
+  await test('identity:measured-original-service-layout', async () => {
+    await page.emulateMedia({reducedMotion:'reduce'});
+    for (const width of [320,375,430,768,1024,1440,1920]) for (const route of ['/','/services.html']) {
+      await page.setViewportSize({width,height:1000});await load(route);
+      const data=await page.locator('.services-grid > .svc').evaluateAll(es=>es.map(e=>({top:e.offsetTop,width:e.querySelector('.svc-card').offsetWidth,x:e.querySelector('.svc-card').getBoundingClientRect().x})));
+      const expectedWidth=Math.min(320,width-(route==='/'?62:72));
+      const columns=route==='/'?(width<=768?1:width<=1100?2:3):(width<=480?1:width<=1100?2:3);
+      assert.equal(data[0].width,expectedWidth,`${route} at ${width}: original card width`);
+      assert.equal(data.filter(e=>Math.abs(e.top-data[0].top)<2).length,columns,`${route} at ${width}: original columns`);
+      if(width<=430)assert.ok(Math.abs(data[0].x-(width-expectedWidth)/2)<1);
+      await layout();
+    }
   });
   await test('runtime:no-console-errors',async()=>assert.deepEqual(errors.filter(e=>!e.includes('404 (Not Found)')),[]));
 })().catch(error=>{checks.push({name:'harness',status:'FAIL',reason:error.stack});}).finally(async()=>{

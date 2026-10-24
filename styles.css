@@ -483,4 +483,30 @@ body:has(.services-page) .page-intro h1 { font-size:40px;line-height:1.6; }
 .portfolio-grid,.portfolio-grid1 { animation:original-grid-entry .6s ease-out; }
 @keyframes original-grid-entry { from { opacity:0;transform:translateY(20px); } to { opacity:1;transform:none; } }
 
-@media (max-width:768px) { .popular-services .services-grid { max-width:calc(100% - 40px); } }
+@media (max-width:768px) { .popular-services .services-grid, .services-page .services-grid { max-width:min(400px, calc(100% - 40px)); } }
+
+/* Measured original service layout (main 54bda295): preserve flex wrap and caps. */
+.popular-services:not(.services-page) { padding:80px 40px; }
+.popular-services:not(.services-page) .container { width:min(1200px,100%);padding:24px 16px; }
+.popular-services:not(.services-page) .services-grid { display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:40px;width:100%;max-width:1200px;padding:0; }
+.popular-services:not(.services-page) .svc { display:flex;justify-content:center;flex:1 1 300px;max-width:320px;margin-bottom:20px; }
+.popular-services:not(.services-page) .svc-card { width:100%;max-width:320px; }
+.services-page.container { width:min(1240px,100%);padding-inline:36px; }
+.services-page .services-grid { display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:30px;width:100%;max-width:none; }
+.services-page .svc { display:flex;justify-content:center;flex:0 1 calc((100% - 60px) / 3);width:auto;max-width:380px;margin-bottom:20px; }
+.services-page .clickable-card { width:100%;max-width:320px; }
+.services-page .svc-card { width:100%;max-width:320px; }
+@media(max-width:1100px) {
+ .popular-services:not(.services-page) .services-grid { gap:30px; }
+ .services-page .svc { flex-basis:calc((100% - 30px) / 2);max-width:400px; }
+}
+@media(max-width:768px) {
+ .popular-services:not(.services-page) .svc { flex:0 1 100%;max-width:400px; }
+ .services-page .services-grid { gap:20px; }
+ .services-page .svc { flex-basis:calc((100% - 20px) / 2);max-width:360px; }
+}
+@media(max-width:480px) {
+ .popular-services:not(.services-page) { padding:60px 15px; }
+ .popular-services:not(.services-page) .svc { max-width:100%; }
+ .services-page .svc { flex-basis:100%;max-width:380px; }
+}

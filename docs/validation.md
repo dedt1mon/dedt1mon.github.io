@@ -95,8 +95,16 @@ unapproved; Chromium/emulated viewports do not establish Safari/Firefox or real
 device results, and lab measurements are not field Core Web Vitals.
 
 
-Final mobile identity delta: restored original content-width contact chips,
-180px menu,303px service cards at375px and matching768px menu/CSS boundary.
-Sixteen affected checks passed. Earlier16 preservation comparisons remain bound
-to their recorded sources; the last navigation delta is only767→768 and is covered
-by the mobile checks and final independent source review. Safety guards unchanged.
+Final mobile identity delta initially passed16 behavioral checks, but independent
+pixel/geometry comparison found inherited selector specificity and card-width
+mismatches. The first positive width test exposed three home failures (nine other
+cases passed). Exact original geometry was then measured once at all seven widths.
+The final focused test proves14 home/services layouts: actual card widths, first
+row counts, mobile alignment and no overflow. It PASSes. Home at375 is313px;
+services303px. Home columns at768/1024/1440 are1/2/3; services2/2/3.
+
+The final suite now contains44 browser cases. CI621f1cb was successful but predates
+this independently found size correction; final acceptance requires the successor
+CI recorded in PR #1. No local full suite was repeated. The last navigation delta
+is only767→768 and is covered by the mobile checks and source review. Failed
+harness setup/capture attempts and earlier valid scoped results remain preserved.
