@@ -55,8 +55,8 @@ def local_exists(raw):
 
 scope = 'full'
 if sys.argv[1:]:
-    if len(sys.argv) != 3 or sys.argv[1] != '--scope' or sys.argv[2] not in ['privacy-dark', 'content', 'catalog', 'close-title']:
-        raise SystemExit('Expected --scope privacy-dark, --scope content, --scope catalog, --scope close-title, or no arguments')
+    if len(sys.argv) != 3 or sys.argv[1] != '--scope' or sys.argv[2] not in ['privacy-dark', 'content', 'catalog', 'close-title', 'carousel']:
+        raise SystemExit('Expected --scope privacy-dark, --scope content, --scope catalog, --scope close-title, --scope carousel, or no arguments')
     scope = sys.argv[2]
 
 def write_report():
@@ -69,7 +69,7 @@ def write_report():
 # Local narrow changes can check their explicit contract without replaying them.
 css = (ROOT/'styles.css').read_text(encoding='utf-8')
 script = (ROOT/'scripts.js').read_text(encoding='utf-8')
-if scope not in ['content', 'catalog', 'close-title']:
+if scope not in ['content', 'catalog', 'close-title', 'carousel']:
     for name, doc in pages.items():
         text = texts[name]
         check(f'{name}:privacy link title', bool(re.search(r'<button\b[^>]*id="openPrivacy"[^>]*>Политика конфиденциальности</button>', text)))
@@ -201,6 +201,29 @@ if scope in ['full', 'close-title']:
     check('close-title:project-only CSS scope','#closePortfolioModal' in css and '.project-close-icon' in css and 'transform-box: view-box' in css)
     check('close-title:automatic reduced-motion retained','prefers-reduced-motion' in css)
     if scope=='close-title':write_report()
+
+if scope in ['full', 'carousel']:
+    class CarouselDocument(HTMLParser):
+        def __init__(self,text):
+            super().__init__();self.items=[];self.pending=None;self.feed(text)
+        def handle_starttag(self,t,a):
+            d=dict(a)
+            if t=='a' and 'carousel-item' in d.get('class','').split():self.pending={'anchor':d}
+            elif t=='img' and self.pending is not None:self.pending['image']=d;self.items.append(self.pending);self.pending=None
+    items=CarouselDocument(texts['index.html']).items
+    check('carousel:five original linked images',len(items)==5 and all(x['anchor'].get('href','').startswith('/portfolio.html') and x['image'].get('src') for x in items))
+    check('carousel:native dragging disabled',all(x['anchor'].get('draggable')=='false' and x['image'].get('draggable')=='false' for x in items))
+    preserved=[{part:{k:v for k,v in item[part].items() if k!='draggable'} for part in ['anchor','image']} for item in items]
+    check('carousel:all original media link and accessibility attributes retained',hashlib.sha256(json.dumps(preserved,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()=='53b4617dd29a2a48755f892a0bb99aaa1ea5e4c447259a42f1e1b89705977195')
+    check('carousel:manual controls and status absent',not re.search(r'carousel-controls|carousel-status',texts['index.html']))
+    check('carousel:no leftover controls CSS',not re.search(r'\.carousel-controls|\.carousel-status',css))
+    home_script=script[script.index('function initHomeCarousel()'):script.index('function initProjectTools()',script.index('function initHomeCarousel()'))]
+    check('carousel:no manual movement event handlers',not re.search(r"addEventListener\(['\"](?:keydown|touchstart|touchmove|touchend|pointerdown|pointerup|mousedown|mouseup|drag|dragstart|dragend|click)['\"]",home_script))
+    check('carousel:no manual move/control/state plumbing',not re.search(r'carousel-controls|carousel-status|function move|swiped|startX|startY',home_script))
+    check('carousel:original4000ms autoplay',bool(re.search(r'setTimeout\(.*?,4000\)',home_script)))
+    check('carousel:existing pause guards preserved',all(x in home_script for x in ['!visible','hovered','document.hidden','reducedMotion.matches','wrap.contains(document.activeElement)','Modal.isOpen()']))
+    check('carousel:single active keyboard link retained',all(x in home_script for x in ['item.inert=offset!==0','item.tabIndex=offset===0?0:-1',"item.setAttribute('aria-hidden',String(offset!==0))"]))
+    if scope=='carousel':write_report()
 
 media_refs=set()
 for name,doc in pages.items():

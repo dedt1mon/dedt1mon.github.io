@@ -388,3 +388,46 @@ The harness now waits for the actual computed transform plus two frames. Only
 those three cases were rerun, all PASS; one missing seven-width layout-only case
 was added. Initial evidence remains immutable and successful geometry was not
 replayed. No product-source change followed the first targeted run.
+
+## Home carousel without manual controls — iteration 9
+
+The home «Лучшие проекты» carousel keeps its five project links and images,
+original layout, automatic4-second rotation and existing hover/focus/modal/
+visibility/reduced-motion pauses. Removed the previous/next buttons, hidden
+control status, manual keyboard movement (ArrowLeft/ArrowRight/Home/End), swipe
+handlers and the associated click suppression. Native dragging of these five
+links/images is disabled. Nine unused control/gesture CSS lines were removed;
+no replacement controls or decorative elements were introduced.
+
+The former controls were absolute overlays, so they contributed no flow row.
+Their CSS and markup are removed without deleting the original inter-section
+spacing. Seven-width baseline geometry was captured before the change.
+
+The project media viewer is a separate component and remains unchanged under
+the conservative home-only scope assumption stated to the owner. Source proof against e89ab243
+preserves its entire gallery/close lifecycle, portfolio/services/404 HTML,
+manifest76works/211media, all browser titles and SEO/privacy, asset bytes,
+dependencies and CI. Only home-carousel code, its markup and exact control CSS
+are changed. No full local suite or unchanged close/title/catalog/media check
+is replayed. Existing CI remains unchanged and runs once for the final head.
+
+Local evidence index: test-results/carousel-09 (ignored). Scope is Chromium
+emulated viewports; no new physical-device/Safari/Firefox/deployed-site tests.
+No merge or publication.
+
+Affected validation: **10 static +14 unique Chromium cases PASS**, zero console
+errors. All seven widths320/375/430/768/1024/1440/1920 match the local baseline
+section/wrap/carousel/card geometry within0.01px; no overflow or control row.
+Verified ArrowLeft/ArrowRight/Home/End, touch swipes in both directions, mouse
+drag and native draggable=false do not change the current item. Current-link
+keyboard activation still opens the portfolio. The actual4-second timer still
+advances the original trajectory, hover/focus/reduced-motion pauses remain, and
+all five original linked images are available without JS. Screenshots375/1440
+were visually inspected. No product or test failures in this affected run.
+
+Windows absolute font-dependent dimensions are local same-environment evidence.
+CI on Linux checks portable carousel dimensions, relative positioning, media/
+order, absence of a control row and overflow; it does not claim equivalence to
+Windows text heights. Visibility/modal pause conditions are unchanged source
+reuse, not a new simulated browser result. Earlier manual-control CI expectations
+were updated to the owner's disabled behavior; unrelated assertions remain.

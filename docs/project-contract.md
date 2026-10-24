@@ -196,3 +196,24 @@ focus and reduced motion. Measure local geometry separately from the unchanged
 parent modal fade/scale. Reuse source-bound catalog/privacy/media/SEO evidence
 from e26028a; do not replay the full local suite. Existing PR #1 only, no merge
 or publication.
+
+## Owner amendment — remove manual carousel controls (iteration 9)
+
+Remove the previous/next buttons and every manual advancement path of the home
+«Лучшие проекты» carousel: click controls, ArrowLeft/ArrowRight/Home/End,
+touch swipe handlers and native link/image dragging. Delete their unused UI,
+status plumbing and CSS. Keep the same five project links/media, current-link
+keyboard activation, original 4-second automatic rotation, rendering/transforms
+and hover/focus/visibility/modal/reduced-motion pauses.
+
+The controls were absolute overlays with zero flow contribution. Their removal
+must preserve existing section/carousel/card geometry and leave no control row
+or reserved control spacing. Do not remove the original spacing between sections.
+
+Conservative implementation scope stated to the owner: the home carousel
+is distinct from the project media viewer. The latter remains usable, including
+its media selection controls; do not strand the remaining project media. All
+76 works/211 media, categories/order/copy, close icon, title DedTimon, privacy,
+SEO and other animations remain unchanged. Existing PR #1 only; no merge or
+publication. Validate affected keyboard/touch/drag/automatic behavior, layout on
+320/375/430/768/1024/1440/1920 and console; reuse unchanged e89ab24 evidence.

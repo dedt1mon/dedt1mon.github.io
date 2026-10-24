@@ -146,10 +146,6 @@ ul, ol { padding-left: 1.25rem; }
 .carousel.is-enhanced .carousel-item[data-position='prev'] { transform: translateX(-360px) scale(0.85) rotateY(25deg); }
 .carousel.is-enhanced .carousel-item[data-position='next'] { transform: translateX(360px) scale(0.85) rotateY(-25deg); }
 .carousel.is-enhanced .carousel-item:focus-visible { outline-offset: -6px; }
-.carousel-controls { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
-.carousel-controls button { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 6px 14px; border: 1px solid rgba(0, 229, 255, 0.3); border-radius: 10px; background: var(--surface); color: var(--accent); font-size: 22px; line-height: 1.3; }
-.carousel-controls button:hover { border-color: var(--accent); background: rgba(0, 229, 255, 0.08); }
-.carousel-status { min-width: 52px; color: var(--muted); font-size: 13px; text-align: center; font-variant-numeric: tabular-nums; }
 
 /* Original service artwork, glass surfaces and tilted homepage previews. */
 .popular-services { padding-block: var(--section-space); background: var(--section-wash-soft); }
@@ -418,10 +414,6 @@ ul, ol { padding-left: 1.25rem; }
 /* Exact original motion vocabulary; no generic heading/section reveal. */
 .portfolio-media > a img { transition: transform 500ms ease; }
 .carousel-wrap { position: relative; margin-bottom: 20px; }
-.carousel-controls { position: absolute; inset: 0; margin: 0; pointer-events: none; justify-content: space-between; padding-inline: 8px; }
-.carousel-controls button { pointer-events: auto; opacity: 0; background: var(--control-bg); transition: opacity .3s ease; }
-.carousel-wrap:hover .carousel-controls button, .carousel-wrap:focus-within .carousel-controls button { opacity: 1; }
-@media (hover: none) { .carousel-controls button { opacity: 1; } }
 .page-inactive *, .page-inactive *::before, .page-inactive *::after { animation-play-state: paused !important; }
 .blue-particle { position: fixed; z-index: 60; border-radius: 50%; background: var(--particle); box-shadow: 0 0 8px var(--particle), 0 0 12px var(--particle); pointer-events: none; }
 .reveal-pending { opacity: 0; }
@@ -471,7 +463,6 @@ body:has(.hero) { animation:original-page-fade .45s ease .08s backwards; }
 @keyframes original-page-fade { from { opacity:0; } to { opacity:1; } }
 
 .pointer-trail { position:fixed;inset:0;z-index:60;overflow:hidden;contain:strict;pointer-events:none; }
-.carousel { touch-action:pan-y; }
 
 /* Original container/heading rhythm, without reintroducing nested body scrolling. */
 .carousel-section { position:relative;overflow:hidden; }

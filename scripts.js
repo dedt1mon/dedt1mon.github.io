@@ -638,40 +638,27 @@
 
     function initHomeCarousel() {
       const carousel = $('#carousel'); if (!carousel) return;
-      const items = $$('.carousel-item', carousel), controls = $('.carousel-controls');
-      if (items.length !== 5 || !controls) return;
-      const status = $('.carousel-status', controls);status.setAttribute('aria-live','off');let current=0,timer=0,visible=false,hovered=false;
+      const items = $$('.carousel-item', carousel);
+      if (items.length !== 5) return;
+      let current=0,timer=0,visible=false,hovered=false;
       const wrap=carousel.closest('.carousel-wrap');
       function render() {
         items.forEach((item,index)=>{const offset=(index-current+items.length)%items.length;
           item.dataset.position=['current','next','far-next','far-prev','prev'][offset];
           item.inert=offset!==0;item.tabIndex=offset===0?0:-1;item.setAttribute('aria-hidden',String(offset!==0));
-        }); status.textContent=`${current+1} / ${items.length}`;
+        });
       }
       function schedule() {
         clearTimeout(timer);timer=0;
         if(!visible || hovered || document.hidden || reducedMotion.matches || wrap.contains(document.activeElement) || Modal.isOpen())return;
         timer=setTimeout(()=>{current=(current+1)%items.length;render();schedule();},4000);
       }
-      function move(step){current=(current+step+items.length)%items.length;render();schedule();}
-      $('.previous',controls).addEventListener('click',()=>move(-1));$('.next',controls).addEventListener('click',()=>move(1));
-      carousel.addEventListener('keydown',event=>{
-        if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();
-        if(event.key==='Home')current=0;else if(event.key==='End')current=items.length-1;
-        else current=(current+(event.key==='ArrowRight'?1:-1)+items.length)%items.length;
-        render();focusElement(items[current]);schedule();
-      });
-      let startX=0,startY=0,swiped=false;
-      carousel.addEventListener('touchstart',event=>{startX=event.changedTouches[0].clientX;startY=event.changedTouches[0].clientY;clearTimeout(timer);swiped=false;},{passive:true});
-      carousel.addEventListener('touchend',event=>{const dx=startX-event.changedTouches[0].clientX,dy=startY-event.changedTouches[0].clientY;
-        if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){swiped=performance.now()+400;move(dx>0?1:-1);}else schedule();},{passive:true});
-      carousel.addEventListener('click',event=>{if(swiped&&performance.now()<swiped)event.preventDefault();swiped=false;},true);
       wrap.addEventListener('mouseenter',()=>{hovered=true;schedule();});wrap.addEventListener('mouseleave',()=>{hovered=false;schedule();});
       wrap.addEventListener('focusin',schedule);wrap.addEventListener('focusout',()=>queueMicrotask(schedule));
       document.addEventListener('visibilitychange',schedule);document.addEventListener('site:modalchange',schedule);onMediaChange(reducedMotion,schedule);
       if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule();},{threshold:.1}).observe(carousel);
       window.addEventListener('pagehide',()=>clearTimeout(timer));
-      carousel.classList.add('is-enhanced');controls.hidden=false;render();
+      carousel.classList.add('is-enhanced');render();
     }
 
     function initProjectTools() {
