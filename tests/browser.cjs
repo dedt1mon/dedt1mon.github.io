@@ -288,6 +288,25 @@ async function themeTest(name, run) {
     await page.locator('.carousel-controls .next').click();
     assert.equal(await page.locator('.carousel-item[data-position="current"]').getAttribute('data-index'),'1');
   });
+  await themeTest('theme:focus-contrast', async () => {
+    for (const width of [375,1440]) for (const route of ['/','/portfolio.html','/services.html']) {
+      await page.setViewportSize({width,height:1000});await load(route);
+      for (const selector of ['.brand','.theme-toggle',route==='/'?'.section-button':route==='/services.html'?'.clickable-card':'.portfolio-title a']) {
+        await page.keyboard.press('Tab');await page.locator(selector).first().focus();
+        const ring=await page.locator(selector).first().evaluate(el=>{
+          const rgb=value=>{const n=value.match(/[\d.]+/g).map(Number);return [n[0],n[1],n[2],n.length>3?n[3]:1];};
+          let background=[255,255,255];const parents=[];for(let n=el.parentElement;n;n=n.parentElement)parents.push(n);
+          for(const n of parents.reverse()){const c=rgb(getComputedStyle(n).backgroundColor);background=background.map((v,i)=>c[i]*c[3]+v*(1-c[3]));}
+          const style=getComputedStyle(el),foreground=rgb(style.outlineColor);
+          const luminance=c=>c.slice(0,3).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
+          const a=luminance(foreground),b=luminance(background);
+          return {ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),visible:el.matches(':focus-visible'),style:style.outlineStyle,width:parseFloat(style.outlineWidth)};
+        });
+        assert.ok(ring.visible&&ring.style==='solid'&&ring.width>=3);
+        assert.ok(ring.ratio>=3,`${route} ${selector} at ${width}: focus contrast ${ring.ratio}`);
+      }
+    }
+  });
   await themeTest('motion:original-timing-autoplay-reduced-motion-and-swipe', async () => {
     await page.emulateMedia({reducedMotion:'no-preference'});await page.setViewportSize({width:1440,height:1000});await load('/');
     const timing=await page.locator('.hero-title,.logo-img,.hero-title .accent').evaluateAll(es=>es.map(e=>({cls:e.className,duration:getComputedStyle(e).animationDuration,iterations:getComputedStyle(e).animationIterationCount,easing:getComputedStyle(e).animationTimingFunction})));

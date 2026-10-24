@@ -173,3 +173,14 @@ local suite was repeated. No merge/publication authorized.
 Limits: Chromium/emulated viewports, not Safari/Firefox or physical devices.
 When browser storage is denied, switching works for the current page but the
 browser cannot retain the choice across reload; the system preference is used.
+
+Final Verifier found VER-THEME-01: the inherited cyan focus ring had insufficient
+contrast against Light surfaces despite being present. A dedicated focus token
+now preserves the original Dark ring and supplies deep teal for both explicit
+Light and CSS-only system Light. Two affected browser cases PASS: actual focused
+controls/links on header/body/card surfaces across all three pages at375/1440,
+both themes, with exact visible3px outline and measured contrast>=3:1.
+Only CSS focus color and this positive test changed; all90 earlier cases/captures
+retain their original source bindings. No new Security/QA review or full local
+suite was repeated. Prior finding and b7b26f3 CI remain immutable; successor
+exact-head CI and final Verifier closure are recorded in PR #1.
