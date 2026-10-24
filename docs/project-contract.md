@@ -174,3 +174,25 @@ descending per-section chronology through search, category navigation and modal
 open/close on mobile/desktop. Privacy, centered close, other motion, styles and
 SEO reuse their unchanged source-bound evidence. Existing PR #1 only; no merge
 or publication.
+
+## Owner amendment — centered close icon and browser title (iteration 8)
+
+Scope is only the project viewer close icon and browser-tab title. Keep the
+existing button position, 44px hit area, responsive offsets, color/focus states,
+modal exit animation and all other motion. The container must not rotate, scale
+or translate on hover; only a symmetric centered inner icon rotates 90 degrees
+with the existing 250ms easing. Reduced motion suppresses its rotation. Privacy
+close controls and their styling are outside this correction.
+
+Every document title is exactly DedTimon: index, portfolio, services and404,
+including project/search/hash/privacy states and no-JS. No dynamic title setter
+is needed. Meta descriptions, Open Graph, structured data, canonical, favicon and
+other SEO retain their current values; they do not set the browser tab title.
+
+Acceptance: fixed button dimensions/position, centered icon geometry and rotation
+matrix without local translation/scale, hover/unhover/click frame evidence at
+320/375/430/768/1024/1440/1920; images/video and long/scrolled viewer, keyboard
+focus and reduced motion. Measure local geometry separately from the unchanged
+parent modal fade/scale. Reuse source-bound catalog/privacy/media/SEO evidence
+from e26028a; do not replay the full local suite. Existing PR #1 only, no merge
+or publication.

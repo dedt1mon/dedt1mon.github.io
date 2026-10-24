@@ -121,6 +121,34 @@ async function catalog07NoSoftware(target=page) {
   assert.ok(!/Задействованные программы|Geometry Nodes|After Effects|Blender|Figma|OpenAI|PowerPoint|Visual Studio Code/i.test(await target.locator('body').innerText()));
 }
 
+async function closeTitle08Probe(target, label, {reduced=false, screenshot=false}={}) {
+  await target.mouse.move(0,0);
+  await target.evaluate(()=>{
+    const button=document.querySelector('#closePortfolioModal'),icon=button.querySelector('.project-close-icon'),panel=button.closest('.modal-content'),modal=button.closest('.modal');
+    const matrix=node=>{const m=new DOMMatrixReadOnly(getComputedStyle(node).transform);return {a:m.a,b:m.b,c:m.c,d:m.d,e:m.e,f:m.f}};
+    const sample=()=>{const r=button.getBoundingClientRect(),ir=icon.getBoundingClientRect(),pr=panel.getBoundingClientRect(),pm=matrix(panel),sx=Math.hypot(pm.a,pm.b),sy=Math.hypot(pm.c,pm.d),style=getComputedStyle(icon);return{t:performance.now(),phase:window.closeTitle08.phase,visible:getComputedStyle(modal).display!=='none',button:{width:r.width/sx,height:r.height/sy,cx:(r.x+r.width/2-pr.x)/sx+panel.scrollLeft,cy:(r.y+r.height/2-pr.y)/sy+panel.scrollTop,matrix:matrix(button)},icon:{cx:(ir.x+ir.width/2-r.x-r.width/2)/sx,cy:(ir.y+ir.height/2-r.y-r.height/2)/sy,width:parseFloat(style.width),height:parseFloat(style.height),matrix:matrix(icon)},parentScale:{x:sx,y:sy}}};
+    window.closeTitle08={phase:'rest',frames:[],done:false};window.closeTitle08.before=sample();const start=performance.now();const loop=()=>{window.closeTitle08.frames.push(sample());if(getComputedStyle(modal).display!=='none'&&performance.now()-start<5000)requestAnimationFrame(loop);else window.closeTitle08.done=true};requestAnimationFrame(loop);
+  });
+  await target.evaluate(()=>window.closeTitle08.phase='hover');await target.locator('#closePortfolioModal').hover();await target.waitForFunction(reduce=>{const m=new DOMMatrixReadOnly(getComputedStyle(document.querySelector('.project-close-icon')).transform);return reduce?Math.abs(m.b)<.00001:Math.abs(m.b-1)<.00001&&Math.abs(m.a)<.00001},reduced,{timeout:2000});await target.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+  if(screenshot){const r=await target.locator('#closePortfolioModal').boundingBox();await target.screenshot({path:path.join(out,`${label}-hover.png`),clip:{x:Math.max(0,r.x-20),y:Math.max(0,r.y-20),width:84,height:84}});}
+  await target.evaluate(()=>window.closeTitle08.phase='unhover');await target.mouse.move(0,0);await target.waitForFunction(()=>getComputedStyle(document.querySelector('.project-close-icon')).transform==='none',{},{timeout:2000});await target.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+  await target.evaluate(()=>window.closeTitle08.phase='click-hover');await target.locator('#closePortfolioModal').hover();await target.waitForFunction(reduce=>{const m=new DOMMatrixReadOnly(getComputedStyle(document.querySelector('.project-close-icon')).transform);return reduce?Math.abs(m.b)<.00001:Math.abs(m.b-1)<.00001&&Math.abs(m.a)<.00001},reduced,{timeout:2000});await target.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+  await target.evaluate(()=>window.closeTitle08.phase='close');await target.locator('#closePortfolioModal').click();await target.locator('#portfolioModal').waitFor({state:'hidden'});await target.waitForFunction(()=>window.closeTitle08.done);
+  const trace=await target.evaluate(()=>window.closeTitle08);fs.writeFileSync(path.join(out,`${label}-frames.json`),JSON.stringify(trace,null,2));
+  const frames=trace.frames.filter(f=>f.visible),identity=m=>Math.abs(m.a-1)<.00001&&Math.abs(m.b)<.00001&&Math.abs(m.c)<.00001&&Math.abs(m.d-1)<.00001&&Math.abs(m.e)<.00001&&Math.abs(m.f)<.00001;
+  for(const f of frames){
+    assert.ok(identity(f.button.matrix),'Project button itself must never rotate, scale or translate');
+    assert.ok(Math.abs(f.button.width-44)<.05&&Math.abs(f.button.height-44)<.05,'Button stays44 CSSpx after inherited modal-scale normalization');
+    assert.ok(Math.abs(f.button.cx-trace.before.button.cx)<.1&&Math.abs(f.button.cy-trace.before.button.cy)<.1,'Button local center must remain fixed through hover, scroll-to-control and close');
+    assert.equal(f.icon.width,24);assert.equal(f.icon.height,24);assert.ok(Math.abs(f.icon.cx)<.05&&Math.abs(f.icon.cy)<.05,'SVG center must coincide with button center');
+    const m=f.icon.matrix;assert.ok(Math.abs(Math.hypot(m.a,m.b)-1)<.0001&&Math.abs(Math.hypot(m.c,m.d)-1)<.0001&&Math.abs(m.a*m.c+m.b*m.d)<.0001,'Icon rotation must have unit scale and no skew');assert.ok(Math.abs(m.e)<.00001&&Math.abs(m.f)<.00001,'No local translation');
+    if(reduced)assert.ok(identity(m),'Reduced motion must suppress rotation, not only transition time');
+  }
+  assert.ok(frames.length>=2);
+  if(!reduced){assert.ok(frames.some(f=>f.phase==='hover'&&f.icon.matrix.b>.1&&f.icon.matrix.b<.99),'Actual intermediate icon rotation sampled');assert.ok(frames.some(f=>f.phase==='hover'&&Math.abs(f.icon.matrix.b-1)<.001));assert.ok(frames.some(f=>f.phase==='unhover'&&identity(f.icon.matrix)));assert.ok(frames.some(f=>f.phase==='close'&&f.parentScale.x<.99),'Click check must sample inherited panel shrink without treating it as button scale');}
+  return trace;
+}
+
 (async () => {
   await new Promise(resolve => instance.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${instance.address().port}`;
@@ -664,6 +692,40 @@ async function catalog07NoSoftware(target=page) {
     await input.fill('');assert.equal(await page.locator('.portfolio-card:not([hidden])').count(),76);assert.equal(await page.locator('.portfolio-category-section:not([hidden])').count(),6);assert.deepEqual(await catalog07Order(),catalogExpected.order);await page.keyboard.press('Escape');await layout();
   });
 
+  for(const width of [320,375,430,768,1024,1440,1920])await test(`closeTitle08:hover-unhover-click-geometry:${width}`,async()=>{
+    const probe=await browser.newPage({viewport:{width,height:1000},reducedMotion:'no-preference'});observeErrors(probe);
+    try{await content06Open(probe,'work-01');assert.equal(await probe.title(),'DedTimon');await closeTitle08Probe(probe,`button-${width}`,{screenshot:[375,1440].includes(width)});assert.ok(await probe.locator('#work-01 .project-open').first().evaluate(e=>e===document.activeElement));assert.equal(await probe.title(),'DedTimon');}finally{await probe.close()}
+  });
+  for(const width of [375,1440])for(const scenario of ['portrait','video','long-scroll'])await test(`closeTitle08:varied-media:${width}:${scenario}`,async()=>{
+    const longest=contentManifest.projects.reduce((a,b)=>a.description.length>b.description.length?a:b).id;
+    const project=scenario==='portrait'?'work-02':scenario==='video'?'work-08':longest;
+    const probe=await browser.newPage({viewport:{width,height:scenario==='long-scroll'?500:1000},reducedMotion:'no-preference'});observeErrors(probe);
+    try{await content06Open(probe,project,{video:scenario==='video',scroll:scenario==='long-scroll'});await closeTitle08Probe(probe,`button-${width}-${scenario}`);assert.ok(await probe.locator(`#${project} .project-open`).first().evaluate(e=>e===document.activeElement));}finally{await probe.close()}
+  });
+  for(const width of [375,1440])await test(`closeTitle08:reduced-motion-and-keyboard:${width}`,async()=>{
+    const probe=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});observeErrors(probe);
+    try{const opener=await content06Open(probe,'work-01');await closeTitle08Probe(probe,`button-${width}-reduced`,{reduced:true});await opener.focus();await probe.keyboard.press('Enter');await probe.locator('#portfolioModal').waitFor({state:'visible'});const close=probe.locator('#closePortfolioModal');assert.ok(await close.evaluate(e=>e===document.activeElement));assert.equal(await close.getAttribute('aria-label'),'Закрыть окно');assert.equal(await close.locator('svg').getAttribute('aria-hidden'),'true');assert.equal(await close.locator('svg').getAttribute('focusable'),'false');await probe.keyboard.press('Tab');await probe.keyboard.press('Shift+Tab');assert.ok(await close.evaluate(e=>e===document.activeElement));assert.equal(await close.locator('svg').evaluate(e=>getComputedStyle(e).transform),'none');await probe.keyboard.press('Enter');await probe.locator('#portfolioModal').waitFor({state:'hidden'});assert.ok(await opener.evaluate(e=>e===document.activeElement));}finally{await probe.close()}
+  });
+  await test('closeTitle08:document-title-four-routes-and-interactions',async()=>{
+    await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:375,height:1000});
+    for(const route of ['/','/portfolio.html','/services.html','/404.html']){await page.goto(base+route,{waitUntil:'networkidle'});assert.equal(await page.title(),'DedTimon');assert.equal(await page.locator('title').count(),1);}
+    await load('/portfolio.html');await page.locator('#projectToolsToggle').click();await page.locator('#projectSearch').fill('СкрруджМакДак');assert.equal(await page.title(),'DedTimon');await page.keyboard.press('Escape');await page.locator('#work-76 .project-open').first().click();await page.locator('#portfolioModal').waitFor({state:'visible'});assert.equal(await page.title(),'DedTimon');await page.keyboard.press('Escape');await page.locator('#portfolioModal').waitFor({state:'hidden'});assert.equal(await page.title(),'DedTimon');await page.locator('#projectToolsToggle').click();await page.locator('#projectSearch').fill('');await page.locator('.category-nav a[href="#scenes-title"]').click();assert.equal(await page.title(),'DedTimon');assert.equal(await page.evaluate(()=>location.hash),'#scenes-title');
+  });
+  await test('closeTitle08:no-JS-document-title-four-routes',async()=>{
+    const context=await browser.newContext({javaScriptEnabled:false,reducedMotion:'reduce',viewport:{width:375,height:1000}});
+    try{const probe=await context.newPage();observeErrors(probe);for(const route of ['/','/portfolio.html','/services.html','/404.html']){await probe.goto(base+route);assert.equal(await probe.title(),'DedTimon');assert.equal(await probe.locator('title').count(),1);}}finally{await context.close()}
+  });
+
+  await test('closeTitle08:layout-seven-widths',async()=>{
+    await page.emulateMedia({reducedMotion:'reduce'});
+    for(const width of [320,375,430,768,1024,1440,1920]){
+      await page.setViewportSize({width,height:1000});await content06Open(page,'work-76');await layout();
+      const geometry=await page.locator('.portfolio-modal-content').evaluate(el=>({box:el.getBoundingClientRect().toJSON(),scrollWidth:el.scrollWidth,clientWidth:el.clientWidth}));assert.ok(geometry.box.x>=0&&geometry.box.x+geometry.box.width<=width+1);assert.ok(geometry.scrollWidth<=geometry.clientWidth+1,'Modal must not scroll horizontally');
+      const close=await page.locator('#closePortfolioModal').boundingBox();assert.ok(close.x>=geometry.box.x&&close.x+close.width<=geometry.box.x+geometry.box.width&&close.y>=geometry.box.y);
+      if([375,1440].includes(width))await page.screenshot({path:path.join(out,`close-title-modal-${width}.png`)});
+      await page.keyboard.press('Escape');await page.locator('#portfolioModal').waitFor({state:'hidden'});
+    }
+  });
   await test('runtime:no-console-errors',async()=>assert.deepEqual(errors.filter(e=>!e.includes('404 (Not Found)')),[]));
 })().catch(error=>{checks.push({name:'harness',status:'FAIL',reason:error.stack});}).finally(async()=>{
   if (checks.some(c=>c.status==='FAIL') && page && !page.isClosed()) await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});

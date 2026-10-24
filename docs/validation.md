@@ -337,3 +337,54 @@ and artifact hash are recorded in PR #1 and the local completion index.
 Local evidence: test-results/catalog-07 (ignored). Limits: Chromium emulated
 viewports; no new physical-device/Safari/Firefox or deployed-site checks. No merge
 or publication is authorized or performed.
+
+## Centered project close icon and exact browser title — iteration 8
+
+The project close container now stays44px with its existing responsive offsets.
+Only a symmetric24px decorative SVG X rotates90deg; its viewBox center and
+transform-origin are50%50%, with the original250ms easing. There is no scale or
+translation on the control. The icon follows currentColor and is hidden from
+accessibility APIs; the button retains its label, keyboard semantics and focus.
+Reduced motion suppresses the icon rotation. Privacy controls are unchanged.
+
+The original button center was already stable, but rotating/scaling its whole
+box changed the apparent width from44px to65.45px during the transition. The
+new checks separate that local button geometry from the deliberately preserved
+parent panel close scale/fade. No modal behavior or other motion was changed.
+
+All four HTML documents use exactly `<title>DedTimon</title>`. No runtime title
+writes or separate application-title/manifest override existed. Open Graph,
+meta descriptions, structured data, canonical, favicon and every other head
+value remain identical. Project open/close, search/category and no-JS states
+retain the same browser-tab title.
+
+Source-scope proof against e26028a54aab822ca819d302e469db16fc23dcb7 permits only
+four title replacements, the one project close icon and five scoped CSS lines.
+Scripts, complete catalog/media/order/copy, privacy, other CSS, all non-title SEO,
+assets, dependency locks, server and workflow are unchanged. Prior CI40132744498
+and catalog/close evidence remain bound to their original revision. No unchanged
+full local suite was rerun; the existing required workflow runs once after push.
+
+Validation details and exact-head CI are recorded in the immutable local evidence
+index test-results/close-title-08 and PR #1. Scope remains local Chromium and
+emulated viewports, not new physical-device/Safari/Firefox/deployment acceptance.
+No merge or publication.
+
+Affected validation: **10 static assertions +19 unique Chromium cases PASS**,
+zero console errors and horizontal overflow. Covers all seven widths, portrait/
+landscape images, playing video, longest existing description in a short scrolled
+viewer, hover/unhover/click, keyboard/focus and reduced motion; titles on all four
+routes with/without JS and during search/anchor/project interactions.
+
+15 final frame traces: maximum normalized button-center drift0.000312px,
+44px size error0.000103px and SVG-center error0.000068px (numerical measurement
+precision). Button local transform remains identity; icon uses unit rotation,
+without local translation/scale. Parent modal scale is explicitly normalized
+out, preserving its existing close animation. Screenshots375/1440 inspected.
+
+Initial run preserved15 PASS and three endpoint-sampling failures: fixed300ms
+harness waits advanced before the rendered hover/unhover endpoint under load.
+The harness now waits for the actual computed transform plus two frames. Only
+those three cases were rerun, all PASS; one missing seven-width layout-only case
+was added. Initial evidence remains immutable and successful geometry was not
+replayed. No product-source change followed the first targeted run.

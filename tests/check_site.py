@@ -55,8 +55,8 @@ def local_exists(raw):
 
 scope = 'full'
 if sys.argv[1:]:
-    if len(sys.argv) != 3 or sys.argv[1] != '--scope' or sys.argv[2] not in ['privacy-dark', 'content', 'catalog']:
-        raise SystemExit('Expected --scope privacy-dark, --scope content, --scope catalog, or no arguments')
+    if len(sys.argv) != 3 or sys.argv[1] != '--scope' or sys.argv[2] not in ['privacy-dark', 'content', 'catalog', 'close-title']:
+        raise SystemExit('Expected --scope privacy-dark, --scope content, --scope catalog, --scope close-title, or no arguments')
     scope = sys.argv[2]
 
 def write_report():
@@ -69,7 +69,7 @@ def write_report():
 # Local narrow changes can check their explicit contract without replaying them.
 css = (ROOT/'styles.css').read_text(encoding='utf-8')
 script = (ROOT/'scripts.js').read_text(encoding='utf-8')
-if scope not in ['content', 'catalog']:
+if scope not in ['content', 'catalog', 'close-title']:
     for name, doc in pages.items():
         text = texts[name]
         check(f'{name}:privacy link title', bool(re.search(r'<button\b[^>]*id="openPrivacy"[^>]*>Политика конфиденциальности</button>', text)))
@@ -186,6 +186,21 @@ if scope in ['full', 'catalog']:
         check(f'catalog:{project_id}:exact title and media alt',project['title']==project['original_title']==title and all(title in x['alt'] for x in project['media']))
     check('catalog:search prompts visible content','Название или описание' in texts['portfolio.html'])
     if scope=='catalog':write_report()
+
+if scope in ['full', 'close-title']:
+    for name,text in texts.items():
+        titles=re.findall(r'<title\b[^>]*>(.*?)</title>',text,re.S|re.I)
+        check(f'close-title:{name}:one exact tab title',titles==['DedTimon'])
+    check('close-title:no runtime title writes',not re.search(r'document\.title\s*=|document\[\s*[\'"]title[\'"]\s*\]\s*=',script))
+    markup=re.search(r'<button\b[^>]*id="closePortfolioModal".*?</button>',texts['portfolio.html'],re.S).group(0)
+    nodes=Document(markup).nodes
+    button=next(d for t,d in nodes if t=='button');svg=next(d for t,d in nodes if t=='svg');shape=next(d for t,d in nodes if t=='path')
+    check('close-title:accessible project close button',button.get('type')=='button' and button.get('aria-label')=='Закрыть окно')
+    check('close-title:centered24px decorative SVG',svg.get('class')=='project-close-icon' and svg.get('viewbox')=='0 0 24 24' and svg.get('width')==svg.get('height')=='24' and svg.get('aria-hidden')=='true' and svg.get('focusable')=='false')
+    check('close-title:symmetric X strokes',re.findall(r'\d+',shape.get('d',''))==['4','4','20','20','20','4','4','20'] and shape.get('stroke')=='currentColor' and shape.get('stroke-width')=='2' and shape.get('stroke-linecap')=='round' and shape.get('fill')=='none')
+    check('close-title:project-only CSS scope','#closePortfolioModal' in css and '.project-close-icon' in css and 'transform-box: view-box' in css)
+    check('close-title:automatic reduced-motion retained','prefers-reduced-motion' in css)
+    if scope=='close-title':write_report()
 
 media_refs=set()
 for name,doc in pages.items():
