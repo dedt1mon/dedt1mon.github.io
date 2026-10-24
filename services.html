@@ -1,268 +1,38 @@
 <!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="DedTimon - Профессиональные услуги 3D моделирования, Motion дизайна и программирования">
-  <meta name="keywords" content="3D моделирование, Motion дизайн, программирование, услуги">
-  <title>DedTimon — Услуги</title>
-  <link rel="icon" type="image/x-icon" href="./img/favikin.ico">
-  
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DedTimon</title><meta name="description" content="DedTimon / Дед Тимон: 3D-моделирование персонажей и сцен, логотипы, анимация, презентации и разработка сайтов. Обсудите задачу напрямую с Артёмом."><link rel="canonical" href="https://dedt1mon.github.io/services.html">
+<meta name="theme-color" content="#111218"><link rel="icon" type="image/x-icon" href="/img/favikin.ico"><link rel="apple-touch-icon" href="/img/touch-icon.png">
+<meta property="og:type" content="website"><meta property="og:locale" content="ru_RU"><meta property="og:site_name" content="DedTimon / Дед Тимон"><meta property="og:title" content="Услуги DedTimon — 3D, моушн-дизайн и сайты | Дед Тимон"><meta property="og:description" content="DedTimon / Дед Тимон: 3D-моделирование персонажей и сцен, логотипы, анимация, презентации и разработка сайтов. Обсудите задачу напрямую с Артёмом."><meta property="og:url" content="https://dedt1mon.github.io/services.html"><meta property="og:image" content="https://dedt1mon.github.io/img/social-preview.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="1200"><meta property="og:image:alt" content="Личный логотип DedTimon">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Услуги DedTimon — 3D, моушн-дизайн и сайты | Дед Тимон"><meta name="twitter:description" content="DedTimon / Дед Тимон: 3D-моделирование персонажей и сцен, логотипы, анимация, презентации и разработка сайтов. Обсудите задачу напрямую с Артёмом."><meta name="twitter:image" content="https://dedt1mon.github.io/img/social-preview.jpg"><meta name="twitter:image:alt" content="Личный логотип DedTimon">
+<link rel="stylesheet" href="/styles.css"><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://dedt1mon.github.io/#person", "name": "DedTimon", "alternateName": ["Дед Тимон", "Ded Timon"], "givenName": "Артём", "url": "https://dedt1mon.github.io/", "image": "https://dedt1mon.github.io/img/optimized/0484fdd0f447ca5e-400.webp", "knowsAbout": ["3D-моделирование", "Моушн-дизайн", "Программирование"], "sameAs": ["https://www.youtube.com/@Ded_Timon", "https://t.me/Ded_Timon"]}, {"@type": "WebSite", "@id": "https://dedt1mon.github.io/#website", "name": "DedTimon / Дед Тимон", "url": "https://dedt1mon.github.io/", "inLanguage": "ru", "author": {"@id": "https://dedt1mon.github.io/#person"}}]}</script>
 </head>
-<body>
+<body><a class="skip-link" href="#main-content">Перейти к содержимому</a>
+<header class="site-header" id="siteHeader"><div class="header-inner container">
+<a class="brand" href="/" aria-label="DedTimon — главная"><img class="logo-img" src="/img/optimized/0484fdd0f447ca5e-400.webp" srcset="/img/optimized/0484fdd0f447ca5e-320.webp 320w, /img/optimized/0484fdd0f447ca5e-400.webp 400w" sizes="(max-width: 767px) 40px, 60px" width="400" height="400" alt="" loading="lazy" decoding="async"><span class="brand-name">DedTimon</span></a>
+<nav class="top-nav" id="top-nav" aria-label="Основная навигация"><a class="nav-link" href="/">Главная</a><a class="nav-link" href="/portfolio.html">Проекты</a><a class="nav-link" href="/services.html" aria-current="page">Услуги</a></nav>
 
-  <!-- ==== HEADER ==== -->
-  <header class="site-header" id="siteHeader" role="banner">
-    <div class="header-inner">
-      <div class="brand" role="button" tabindex="0" aria-label="Вернуться на главную">
-        <div class="logo-circle" aria-hidden="true">
-          <img src="./img/index/logo.png" alt="DedTimon logo" class="logo-img" width="60" height="60">
-        </div>
-        <div class="brand-name">DedTimon</div>
-      </div>
-      
-      <nav class="top-nav" aria-label="Основное меню">
-        <a href="index.html" class="nav-link">Главная</a>
-        <a href="portfolio.html" class="nav-link">Проекты</a>
-        <a href="services.html" class="nav-link">Услуги</a>
-      </nav>
-      
-      <button class="burger" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="top-nav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </header>
 
-  <main>
-  <!-- ==== SERVICES SECTION ==== -->
-  <section class="popular-services services-page" aria-labelledby="services-title">
-    <div class="container">
-      <h2 class="section-title2 accent sava-pro fade-up" id="services-title">Все услуги</h2>
-    
-      <div class="services-grid">
-        <!-- Первое изображение (LCP) загружаем сразу -->
-        <article class="svc fade-up animate-card">
-          <a href="https://t.me/Ded_Timon" 
-             class="clickable-card svc-card-link" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             aria-label="Заказать услугу 3D-2D Логотип">
-            <div class="svc-card">
-              <img 
-                src="./img/services/lg.png" 
-                alt="3D-2D Логотип" 
-                width="400" 
-                height="300"
-                loading="eager"
-                decoding="async"
-                class="lcp-image">
-              <div class="svc-info">
-                <h3 class="sava-pro">3D-2D Логотип</h3>
-                <p class="muted">Создание уникальных логотипов в 2D и 3D формате с последующей анимацией и адаптацией под разные носители</p>
-                <span class="order-link">Заказать</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <!-- Остальные изображения загружаем лениво -->
-        <article class="svc fade-up animate-card">
-          <a href="https://t.me/Ded_Timon" 
-             class="clickable-card svc-card-link" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             aria-label="Заказать услугу 3D-2D Моушен-дизайн">
-            <div class="svc-card">
-              <img 
-                src="./img/services/md.png" 
-                alt="3D-2D Моушен-дизайн" 
-                width="400" 
-                height="300"
-                loading="lazy"
-                decoding="async">
-              <div class="svc-info">
-                <h3 class="sava-pro">3D-2D Моушен-дизайн</h3>
-                <p class="muted">Создание динамичной анимации для рекламных роликов, презентаций и социальных сетей</p>
-                <span class="order-link">Заказать</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="svc fade-up animate-card">
-          <a href="https://t.me/Ded_Timon" 
-             class="clickable-card svc-card-link" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             aria-label="Заказать услугу 3D Персонаж">
-            <div class="svc-card">
-              <img 
-                src="./img/services/pr.png" 
-                alt="3D Персонаж" 
-                width="400" 
-                height="300"
-                loading="lazy"
-                decoding="async">
-              <div class="svc-info">
-                <h3 class="sava-pro">3D Персонаж</h3>
-                <p class="muted">Разработка и моделирование уникальных 3D персонажей для игр, анимации и рекламы</p>
-                <span class="order-link">Заказать</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="svc fade-up animate-card">
-          <a href="https://t.me/Ded_Timon" 
-             class="clickable-card svc-card-link" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             aria-label="Заказать услугу Презентации">
-            <div class="svc-card">
-              <img 
-                src="./img/services/prs.png"
-                alt="Презентации"
-                width="400" 
-                height="300"
-                loading="lazy"
-                decoding="async">
-              <div class="svc-info">
-                <h3 class="sava-pro">Презентации</h3>
-                <p class="muted">Создание интерактивных и анимированных презентаций для бизнеса и мероприятий</p>
-                <span class="order-link">Заказать</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="svc fade-up animate-card">
-          <a href="https://t.me/Ded_Timon" 
-             class="clickable-card svc-card-link" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             aria-label="Заказать услугу Сайт под ключ">
-            <div class="svc-card">
-              <img 
-                src="./img/services/sa.png" 
-                alt="Сайт под ключ" 
-                width="400" 
-                height="300"
-                loading="lazy"
-                decoding="async">
-              <div class="svc-info">
-                <h3 class="sava-pro">Сайт под ключ</h3>
-                <p class="muted">Разработка современных адаптивных сайтов с уникальным дизайном и полной функциональностью</p>
-                <span class="order-link">Заказать</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="svc fade-up animate-card">
-          <a href="https://t.me/Ded_Timon" 
-             class="clickable-card svc-card-link" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             aria-label="Заказать услугу 3D Сцена">
-            <div class="svc-card">
-              <img 
-                src="./img/services/cs.png" 
-                alt="3D Сцена" 
-                width="400" 
-                height="300"
-                loading="lazy"
-                decoding="async">
-              <div class="svc-info">
-                <h3 class="sava-pro">3D Сцена</h3>
-                <p class="muted">Создание сложных 3D сцен для визуализации, архитектуры и виртуальных окружений</p>
-                <span class="order-link">Заказать</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="svc fade-up animate-card">
-          <a href="https://t.me/Ded_Timon" 
-             class="clickable-card svc-card-link" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             aria-label="Заказать услугу TG-Бот">
-            <div class="svc-card">
-              <img 
-                src="./img/services/tg.png" 
-                alt="TG-Бот" 
-                width="400" 
-                height="300"
-                loading="lazy"
-                decoding="async">
-              <div class="svc-info">
-                <h3 class="sava-pro">TG-Бот</h3>
-                <p class="muted">Разработка телеграм ботов для автоматизации бизнес-процессов и взаимодействия с клиентами</p>
-                <span class="order-link">Заказать</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="svc fade-up animate-card">
-          <a href="https://t.me/Ded_Timon" 
-             class="clickable-card svc-card-link" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             aria-label="Заказать услугу ChatGPT интеграция">
-            <div class="svc-card">
-              <img 
-                src="./img/services/ch.png" 
-                alt="ChatGPT интеграция" 
-                width="400" 
-                height="300"
-                loading="lazy"
-                decoding="async">
-              <div class="svc-info">
-                <h3 class="sava-pro">ChatGPT</h3>
-                <p class="muted">Интеграция и настройка AI-решений на базе ChatGPT для бизнеса и персонального использования</p>
-                <span class="order-link">Заказать</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
-  </main>
+<button type="button" class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false" aria-controls="top-nav"><span></span><span></span><span></span></button>
+</div></header>
+<main id="main-content" tabindex="-1"><section class="page-intro container"><h1 class="accent">Все услуги</h1></section>
+<section class="container services-page" aria-label="Направления работы"><div class="services-grid"><article class="svc"><a class="clickable-card" href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer"><div class="svc-card"><img class="" src="/img/optimized/6d4a88c6d55b1483-640.webp" srcset="/img/optimized/6d4a88c6d55b1483-320.webp 320w, /img/optimized/6d4a88c6d55b1483-640.webp 640w, /img/optimized/6d4a88c6d55b1483-1280.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" width="640" height="360" alt="Логотипы и графика" loading="lazy" decoding="async"><div class="svc-info"><h2>3D-2D Логотип</h2><p>Логотипы в 2D и 3D, оформление каналов, баннеры и фирменная графика. Можно дополнить анимацией.</p></div></div></a></article>
+<article class="svc"><a class="clickable-card" href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer"><div class="svc-card"><img class="" src="/img/optimized/2113e3f47a83b23c-640.webp" srcset="/img/optimized/2113e3f47a83b23c-320.webp 320w, /img/optimized/2113e3f47a83b23c-640.webp 640w, /img/optimized/2113e3f47a83b23c-1280.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" width="640" height="360" alt="Моушн-дизайн" loading="lazy" decoding="async"><div class="svc-info"><h2>3D-2D Моушен-дизайн</h2><p>Рекламные ролики, анимированные заставки и видеофоны для экранов, презентаций и социальных сетей.</p></div></div></a></article>
+<article class="svc"><a class="clickable-card" href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer"><div class="svc-card"><img class="" src="/img/optimized/f2cc2a0da84543f6-640.webp" srcset="/img/optimized/f2cc2a0da84543f6-320.webp 320w, /img/optimized/f2cc2a0da84543f6-640.webp 640w, /img/optimized/f2cc2a0da84543f6-1280.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" width="640" height="360" alt="3D-персонажи" loading="lazy" decoding="async"><div class="svc-info"><h2>3D Персонаж</h2><p>Моделирование персонажей для игр и анимации. Стиль и детализация — под задачу проекта.</p></div></div></a></article>
+<article class="svc"><a class="clickable-card" href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer"><div class="svc-card"><img class="" src="/img/optimized/2fdead7f5e02a8de-640.webp" srcset="/img/optimized/2fdead7f5e02a8de-320.webp 320w, /img/optimized/2fdead7f5e02a8de-640.webp 640w, /img/optimized/2fdead7f5e02a8de-1280.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" width="640" height="360" alt="Презентации" loading="lazy" decoding="async"><div class="svc-info"><h2>Презентации</h2><p>Структура, визуальное оформление и анимация слайдов, которые помогают последовательно раскрыть идею.</p></div></div></a></article>
+<article class="svc"><a class="clickable-card" href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer"><div class="svc-card"><img class="" src="/img/optimized/d115b10ffedb09bb-640.webp" srcset="/img/optimized/d115b10ffedb09bb-320.webp 320w, /img/optimized/d115b10ffedb09bb-640.webp 640w, /img/optimized/d115b10ffedb09bb-1280.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" width="640" height="360" alt="Разработка сайтов" loading="lazy" decoding="async"><div class="svc-info"><h2>Сайт под ключ</h2><p>Личные сайты и небольшие веб-проекты: от композиции страниц до адаптивного интерфейса.</p></div></div></a></article>
+<article class="svc"><a class="clickable-card" href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer"><div class="svc-card"><img class="" src="/img/optimized/db862caa807c135c-640.webp" srcset="/img/optimized/db862caa807c135c-320.webp 320w, /img/optimized/db862caa807c135c-640.webp 640w, /img/optimized/db862caa807c135c-1280.webp 1280w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" width="640" height="360" alt="3D-сцены и предметы" loading="lazy" decoding="async"><div class="svc-info"><h2>3D Сцена</h2><p>Игровые локации, предметные модели и визуализации. Работа со светом, материалами и композицией.</p></div></div></a></article>
+<article class="svc"><a class="clickable-card" href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer"><div class="svc-card"><img src="/img/optimized/identity-5e36ab0d7e70402e-640.webp" srcset="/img/optimized/identity-5e36ab0d7e70402e-320.webp 320w, /img/optimized/identity-5e36ab0d7e70402e-640.webp 640w, /img/optimized/identity-5e36ab0d7e70402e-1280.webp 1280w" sizes="(max-width: 600px) 90vw, 360px" width="640" height="360" alt="TG-Бот" loading="lazy" decoding="async"><div class="svc-info"><h2>TG-Бот</h2><p>Telegram-боты для автоматизации задач и взаимодействия с клиентами.</p></div></div></a></article><article class="svc"><a class="clickable-card" href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer"><div class="svc-card"><img src="/img/optimized/identity-3519ea6c72575fff-640.webp" srcset="/img/optimized/identity-3519ea6c72575fff-320.webp 320w, /img/optimized/identity-3519ea6c72575fff-640.webp 640w, /img/optimized/identity-3519ea6c72575fff-1280.webp 1280w" sizes="(max-width: 600px) 90vw, 360px" width="640" height="360" alt="ChatGPT" loading="lazy" decoding="async"><div class="svc-info"><h2>ChatGPT</h2><p>Настройка и интеграция решений на базе ChatGPT для рабочих и личных задач.</p></div></div></a></article></div></section>
 
-  <!-- ==== FOOTER ==== -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container footer-inner">
-      <div>© <span id="year"></span> DedTimon. Все права защищены.</div>
-      <a href="#" class="privacy-link" id="openPrivacy">Политика конфиденциальности</a>
-    </div>
-  </footer>
 
-  <!-- ==== PRIVACY MODAL ==== -->
-  <div id="privacyModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="privacy-title">
-    <div class="modal-content">
-      <button class="close-modal" id="closePrivacy" aria-label="Закрыть окно">&times;</button>
-      <h2 class="section-title" id="privacy-title">Политика конфиденциальности</h2>
-      <div class="modal-body">
-        <p>Настоящая политика определяет порядок обработки и защиты персональных данных...</p>
-        <ul>
-          <li>Персональные данные не передаются третьим лицам без согласия пользователя.</li>
-          <li>Сбор данных осуществляется исключительно для обратной связи и улучшения сервиса.</li>
-          <li>Пользователь имеет право запросить удаление или изменение своих данных.</li>
-          <li>Сайт использует файлы cookie для корректной работы и анализа посещаемости.</li>
-          <li>Все данные обрабатываются в соответствии с законодательством РФ.</li>
-        </ul>
-        <p>Если есть вопросы — свяжитесь через контакты на сайте.</p>
-      </div>
-    </div>
-  </div>
+</main>
+<footer class="site-footer"><div class="footer-inner container"><button type="button" class="privacy-link" id="openPrivacy" aria-haspopup="dialog" aria-controls="privacyModal">Политика конфиденциальности</button></div></footer>
 
-  <script src="scripts.js" defer></script>
-</body>
-</html>
+<div id="privacyModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="privacy-title" tabindex="-1"><div class="modal-content"><button type="button" class="close-modal" id="closePrivacy" aria-label="Закрыть окно">×</button><h2 id="privacy-title">Политика конфиденциальности</h2><div class="modal-body privacy-policy">
+<p class="privacy-intro">Это политика личного портфолио DedTimon / Дед Тимон на dedt1mon.github.io. Здесь описано, что происходит с данными при просмотре сайта и переходе по его ссылкам.</p>
+<section><h3>Просмотр сайта и поиск</h3><p>Сайт самостоятельно не собирает персональные данные посетителей. Здесь нет регистрации, личного кабинета, форм обратной связи, заказа или оплаты. Для просмотра работ не нужно сообщать имя, телефон или электронную почту.</p><p>Поиск по проектам выполняется только в вашем браузере. Введённый текст не отправляется автору или на сервер.</p></section>
+<section><h3>Cookies, хранилище и аналитика</h3><p>В текущей версии код сайта не устанавливает cookies и не использует localStorage или sessionStorage. Счётчики аналитики, рекламные трекеры и инструменты записи действий посетителей не подключены.</p></section>
+<section><h3>Изображения, видео и шрифты</h3><p>Материалы портфолио и шрифты загружаются с домена этого сайта. Видео открываются в обычном браузерном плеере. Встроенных плееров YouTube, сторонних виджетов и внешних библиотек, загружаемых при просмотре страницы, нет. Запросы файлов обрабатывает хостинг сайта.</p></section>
+<section><h3>Хостинг GitHub Pages</h3><p>Сайт размещён на GitHub Pages. Согласно <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" target="_blank" rel="noopener noreferrer">документации GitHub Pages</a>, хостинг записывает IP-адрес посетителя в целях безопасности — независимо от наличия аккаунта GitHub. Поэтому отсутствие собственного сбора данных на сайте не означает отсутствия технической обработки у хостинга.</p><p>Подробнее об обработке данных хостингом — в <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">политике конфиденциальности GitHub</a>.</p></section>
+<section><h3>Внешние ссылки</h3><p>На сайте есть ссылки на Telegram, WhatsApp и YouTube. Это обычные переходы во внешние сервисы, а не встроенные интеграции. При переходе вы покидаете сайт; дальнейшая обработка данных, использование cookies и работа с вашим аккаунтом определяются правилами выбранной платформы.</p></section>
+<section><h3>Вопросы о конфиденциальности</h3><p>Связаться со мной можно в <a href="https://t.me/Ded_Timon" target="_blank" rel="noopener noreferrer">Telegram — @Ded_Timon</a>. Если вы напишете, мне будут доступны ваше сообщение и сведения профиля, которые сервис показывает собеседнику. Такая переписка происходит в Telegram, а не через форму на этом сайте. По вопросам о сообщении или переданных мне сведениях можно обратиться в тот же диалог.</p></section>
+</div></div></div><script src="/scripts.js" defer></script></body></html>

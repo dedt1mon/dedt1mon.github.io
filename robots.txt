@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dedt1mon.github.io/sitemap.xml

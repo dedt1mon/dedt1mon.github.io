@@ -1,963 +1,710 @@
-document.addEventListener('DOMContentLoaded', () => {
-  /* ====== CONFIG ====== */
-  const CONFIG = {
-    carousel: { autoplayMs: 4000 },
-    particles: { max: 12, spawnIntervalMs: 90, lifeFrames: 28 }
-  };
+(() => {
+  'use strict';
 
-  /* ====== UTIL ====== */
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-
-  /* ====== УТИЛИТА ДЛЯ MEDIA ====== */
-  function safeParseMedia(el) {
-    try {
-      const data = el.dataset.media;
-      if (!data) return [];
-      const parsed = JSON.parse(data);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (e) {
-      console.warn('Некорректный data-media', el);
-      return [];
-    }
-  }
-
-  /* ====== YEAR ====== */
-  (function setYear() {
-    const els = $$('#year, #year2, #year3');
-    const y = new Date().getFullYear();
-    els.forEach(el => el && (el.textContent = y));
-  })();
-
-  /* ====== PAGE LOAD FADE ====== */
-  (function pageFade() {
-    if (document.querySelector('.portfolio-grid') || document.querySelector('.services-page')) {
-      document.body.style.opacity = '1';
-    } else {
-      document.body.style.opacity = '0';
-      document.body.style.transition = 'opacity 0.45s ease';
-      window.addEventListener('load', () => setTimeout(() => (document.body.style.opacity = '1'), 80));
-    }
-  })();
-
-  /* ====== BURGER MENU ====== */
-  (function burgerInit() {
-    const burger = $('#burgerBtn');
-    const nav = document.querySelector('.top-nav');
-    if (!burger || !nav) return;
-    burger.addEventListener('click', () => {
-      burger.classList.toggle('active');
-      nav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', burger.classList.contains('active'));
-    });
-
-    // close nav on link click (delegated)
-    nav.addEventListener('click', (e) => {
-      if (e.target.matches('.nav-link')) {
-        burger.classList.remove('active');
-        nav.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  })();
-
-  /* ====== SCROLL ANIMATIONS ====== */
-  function initScrollAnimations() {
-    // Исключаем карточки портфолио, так как они обрабатываются отдельно
-    const targets = $$('.fade-up:not(.portfolio-card), .animate-card');
-  
-    if (!targets.length) return;
-
-    if (!('IntersectionObserver' in window)) {
-      targets.forEach(t => {
-        t.classList.add('in-view', 'show');
-      });
-      return;
-    }
-
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view', 'show');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '50px 0px -50px 0px'
-    });
-
-    targets.forEach(t => io.observe(t));
-
-    setTimeout(() => {
-      targets.forEach(t => {
-        const rect = t.getBoundingClientRect();
-        const isVisible = rect.top <= window.innerHeight && rect.bottom >= 0;
-        if (isVisible && !t.classList.contains('in-view')) {
-          t.classList.add('in-view', 'show');
-        }
-      });
-    }, 1000);
-  }
-
-  /* ====== ОТДЕЛЬНЫЙ IntersectionObserver для сеток портфолио ====== */
-  function initScrollAnimationsForGrid(grid) {
-    const cards = grid.querySelectorAll('.portfolio-card');
-    if (!cards.length) return;
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view', 'show');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '50px 0px -50px 0px'
-    });
-    
-    cards.forEach(card => observer.observe(card));
-  }
-
-  /* ====== LAZY IMAGES ====== */
-  function initLazy() {
-    const imgs = $$('img.lazy, img[data-src]');
-    if (!imgs.length) return;
-
-    if ('IntersectionObserver' in window) {
-      const imgIo = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            const src = img.dataset.src || img.getAttribute('data-src');
-            if (src) img.src = src;
-            img.classList.remove('lazy');
-            img.removeAttribute('data-src');
-            obs.unobserve(img);
-          }
-        });
-      }, { rootMargin: '200px' });
-
-      imgs.forEach(img => imgIo.observe(img));
-    } else {
-      imgs.forEach(img => {
-        const src = img.dataset.src || img.getAttribute('data-src');
-        if (src) img.src = src;
-        img.classList.remove('lazy');
-      });
-    }
-  }
-
-  /* ====== CAROUSEL ====== */
-  function initCarousel() {
-    const carousel = $('#carousel');
-    if (!carousel) return;
-
-    const items = $$('.carousel-item', carousel);
-    if (!items.length) return;
-
-    let idx = 0;
-    let autoplay = null;
-    const total = items.length;
-
-    function render() {
-      items.forEach((it, i) => {
-        it.classList.remove('prev', 'active', 'next');
-        const diff = ((i - idx) + total) % total;
-        if (diff === 0) it.classList.add('active');
-        else if (diff === 1) it.classList.add('next');
-        else if (diff === total - 1) it.classList.add('prev');
-      });
-    }
-
-    function next() { idx = (idx + 1) % total; render(); }
-    function prev() { idx = (idx - 1 + total) % total; render(); }
-
-    carousel.addEventListener('click', (e) => {
-      if (e.target.matches('.carousel-next')) { stop(); next(); start(); }
-      if (e.target.matches('.carousel-prev')) { stop(); prev(); start(); }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') { stop(); prev(); start(); }
-      if (e.key === 'ArrowRight') { stop(); next(); start(); }
-    });
-
-    let startX = 0;
-    carousel.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].clientX; stop(); }, { passive: true });
-    carousel.addEventListener('touchend', (e) => {
-      const endX = e.changedTouches[0].clientX;
-      const dist = startX - endX;
-      const threshold = 50;
-      if (Math.abs(dist) > threshold) dist > 0 ? next() : prev();
-      start(); 
-    });
-
-    function start() {
-      stop();
-      autoplay = setInterval(next, CONFIG.carousel.autoplayMs);
-    }
-    function stop() { if (autoplay) clearInterval(autoplay); autoplay = null; }
-
-    render();
-    start();
-  }
-
-  /* ====== HEADER SCROLL ====== */
-  (function headerScroll() {
-    const header = $('#siteHeader');
-    if (!header) return;
-    const onScroll = () => {
-      const y = window.scrollY;
-      header.classList.toggle('scrolled', y > 100);
+  function initSite() {
+    const $ = (selector, context = document) => context.querySelector(selector);
+    const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onMediaChange = (query, callback) => {
+      if (query.addEventListener) query.addEventListener('change', callback);
+      else query.addListener(callback);
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
+    const plainClick = event => !event.defaultPrevented && event.button === 0 &&
+      !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
 
-  /* ====== MODALS ====== */
-  const Modal = (() => {
-    function open(el) {
-      if (!el) return;
-      el.style.display = 'flex';
-      requestAnimationFrame(() => el.classList.add('active'));
-    }
-    function close(el) {
-      if (!el) return;
-      el.classList.remove('active');
-      setTimeout(() => {
-        el.style.display = 'none';
-      }, 300);
-    }
-    function wire(modalSelector, openSelector, closeSelector) {
-      const modal = $(modalSelector);
-      const openBtn = $(openSelector);
-      const closeBtn = $(closeSelector);
-      if (openBtn && modal) openBtn.addEventListener('click', (ev) => { ev.preventDefault(); open(modal); });
-      if (closeBtn && modal) closeBtn.addEventListener('click', () => close(modal));
-      if (modal) {
-        modal.addEventListener('click', (e) => { if (e.target === modal) close(modal); });
+    function mediaURL(value) {
+      if (typeof value !== 'string' || !value.trim()) return '';
+      try {
+        const url = new URL(value, document.baseURI);
+        if (!['http:', 'https:'].includes(url.protocol) ||
+            url.origin !== location.origin || url.username || url.password) return '';
+        return url.href;
+      } catch (error) {
+        return '';
       }
-      return { modal, open, close };
-    }
-    return { wire, open, close };
-  })();
-
-  /* privacy modal */
-  (function initPrivacy() {
-    Modal.wire('#privacyModal', '#openPrivacy', '#closePrivacy');
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const pm = $('#privacyModal');
-        if (pm && pm.classList.contains('active')) Modal.close(pm);
-      }
-    });
-  })();
-
-  /* order modal */
-  (function initOrder() {
-    const orderModal = $('#orderModal');
-    const orderBtns = $$('.order-btn');
-    const closeBtn = orderModal ? orderModal.querySelector('.close-modal') : null;
-    const form = orderModal ? orderModal.querySelector('form') : null;
-    orderBtns.forEach(btn => btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const service = btn.dataset.service || btn.getAttribute('data-service') || 'Услуга';
-      const selected = orderModal ? orderModal.querySelector('#selectedService') : null;
-      if (selected) selected.value = service;
-      Modal.open(orderModal);
-    }));
-    if (closeBtn) closeBtn.addEventListener('click', () => Modal.close(orderModal));
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const reset = () => { form.reset(); Modal.close(orderModal); };
-        try { alert('Заявка отправлена!'); reset(); } catch (err) { reset(); }
-      });
-    }
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && orderModal && orderModal.style.display === 'block') Modal.close(orderModal); });
-  })();
-
-  /* ====== ОСТАНОВКА ВСЕХ ВИДЕО ====== */
-  function stopAllVideos(container) {
-    if (!container) return;
-    container.querySelectorAll('video').forEach(v => {
-      v.pause();
-      v.currentTime = 0;
-    });
-  }
-
-  /* ====== IMPROVED initPortfolioCards() - СИНХРОННАЯ ЗАГРУЗКА С ПОЛНЫМ ОТОБРАЖЕНИЕМ И BLUR ЭФФЕКТОМ ====== */
-  function initPortfolioCards() {
-    const portfolioCards = document.querySelectorAll('.portfolio-card');
-    if (!portfolioCards.length) return;
-
-    // Находим все родительские сетки
-    const portfolioGrids = document.querySelectorAll('.portfolio-grid, .portfolio-grid1');
-    
-    portfolioGrids.forEach(grid => {
-      // Добавляем класс загрузки
-      grid.classList.add('loading');
-      
-      // Находим все карточки в этой сетке
-      const cardsInGrid = Array.from(grid.querySelectorAll('.portfolio-card'));
-      if (!cardsInGrid.length) {
-        grid.classList.remove('loading');
-        grid.classList.add('loaded');
-        return;
-      }
-      
-      let loadedCardsCount = 0;
-      const totalCards = cardsInGrid.length;
-      
-      cardsInGrid.forEach(card => {
-        const mediaBox = card.querySelector('.portfolio-media');
-        if (!mediaBox) {
-          loadedCardsCount++;
-          checkAllCardsLoaded();
-          return;
-        }
-
-        const mediaList = safeParseMedia(card);
-        if (!mediaList.length) {
-          loadedCardsCount++;
-          checkAllCardsLoaded();
-          return;
-        }
-
-        // Находим первое изображение для постера
-        let posterMedia = null;
-        
-        // Сначала ищем изображение с "poster" в имени
-        posterMedia = mediaList.find(item => 
-          item.type === 'image' && item.src && item.src.includes('-poster')
-        );
-        
-        // Если не нашли, ищем первое изображение
-        if (!posterMedia) {
-          posterMedia = mediaList.find(item => item.type === 'image');
-        }
-        
-        // Если все еще не нашли, используем первое медиа
-        if (!posterMedia && mediaList.length > 0) {
-          posterMedia = mediaList[0];
-        }
-
-        // Если нет медиа вообще
-        if (!posterMedia) {
-          loadedCardsCount++;
-          checkAllCardsLoaded();
-          return;
-        }
-
-        // Создаем изображение
-        const isVideo = posterMedia.type === 'video';
-
-        // Очищаем mediaBox перед вставкой
-        mediaBox.innerHTML = '';
-
-        if (isVideo) {
-          mediaBox.classList.add('has-video');
-
-          const placeholder = document.createElement('div');
-          placeholder.className = 'video-placeholder';
-          placeholder.setAttribute('aria-label', 'Видео');
-
-          const playIcon = document.createElement('div');
-          playIcon.className = 'video-play-icon';
-          playIcon.innerHTML = '▶';
-
-          placeholder.appendChild(playIcon);
-          mediaBox.appendChild(placeholder);
-
-          loadedCardsCount++;
-          checkAllCardsLoaded();
-          return;
-        }
-
-        const img = document.createElement('img');
-        img.src = posterMedia.src;
-        img.alt = posterMedia.alt || '';
-        img.loading = 'eager';
-
-        // Загружаем изображение для определения его размеров
-        const tempImg = new Image();
-        tempImg.onload = function() {
-          const aspectRatio = this.width / this.height;
-
-          // Определяем ориентацию изображения
-          if (aspectRatio > 1.5) {
-            mediaBox.classList.add('wide-image');
-          } else if (aspectRatio < 0.67) {
-            mediaBox.classList.add('tall-image');
-          }
-
-          // ⚠️ ИЗМЕНЕННАЯ СТРОКА 541: Используем CSS-переменную для blur эффекта
-          mediaBox.style.setProperty('--media-bg', `url(${posterMedia.src})`);
-        };
-        tempImg.src = posterMedia.src;
-
-        // Создаем обертку для управления загрузкой
-        const wrapper = document.createElement('div');
-        wrapper.className = 'image-wrapper';
-        wrapper.style.width = '100%';
-        wrapper.style.height = '100%';
-        wrapper.style.position = 'relative';
-        wrapper.style.display = 'flex';
-        wrapper.style.alignItems = 'center';
-        wrapper.style.justifyContent = 'center';
-
-        // Обработчик загрузки - убираем blur эффект
-        const imageLoaded = () => {
-          // Добавляем класс loaded для плавного перехода
-          img.classList.add('loaded');
-          loadedCardsCount++;
-          checkAllCardsLoaded();
-        };
-
-        // Проверяем, загружено ли уже изображение
-        if (img.complete) {
-          // Если изображение уже загружено из кэша
-          setTimeout(() => {
-            imageLoaded();
-          }, 50); // Небольшая задержка для плавности
-        } else {
-          // Добавляем обработчики для загрузки
-          img.addEventListener('load', () => {
-            setTimeout(() => {
-              imageLoaded();
-            }, 50);
-          });
-
-          img.addEventListener('error', () => {
-            console.warn('Failed to load image:', img.src);
-            // Загружаем fallback изображение
-            img.src = './img/portfolio/logo/EA.jpg';
-            setTimeout(() => {
-              imageLoaded();
-            }, 50);
-          });
-        }
-
-        // Добавляем стили
-        img.style.maxWidth = '100%';
-        img.style.maxHeight = '100%';
-        img.style.display = 'block';
-
-        wrapper.appendChild(img);
-        mediaBox.appendChild(wrapper);
-      });
-      
-      // Функция проверки загрузки всех карточек в сетке
-      function checkAllCardsLoaded() {
-        if (loadedCardsCount >= totalCards) {
-          // Все карточки загружены
-          setTimeout(() => {
-            grid.classList.remove('loading');
-            grid.classList.add('loaded');
-            
-            // Восстанавливаем анимации для каждой карточки
-            cardsInGrid.forEach((card, index) => {
-              card.style.animationDelay = `${index * 0.1}s`;
-              card.style.animation = 'cardAppear 0.5s ease-out both';
-            });
-            
-            // Запускаем IntersectionObserver для этой сетки
-            initScrollAnimationsForGrid(grid);
-          }, 100);
-        }
-      }
-      
-      // Проверяем на случай, если карточек нет
-      if (totalCards === 0) {
-        grid.classList.remove('loading');
-        grid.classList.add('loaded');
-      }
-    });
-  }
-
-  /* ====== PORTFOLIO MODAL - ИЗМЕНЕНО: видео проигрываются только здесь ====== */
-  function initPortfolioModal() {
-    const modal = $('#portfolioModal');
-    if (!modal) return;
-
-    const titleEl = $('#portfolio-modal-title');
-    const dateEl = $('#projectDate');
-    const descEl = $('#projectDescription');
-    const techList = $('#techList');
-    const galleryContent = $('#galleryContent');
-    const galleryThumbs = $('#galleryThumbnails');
-    const prevBtn = $('#galleryPrev');
-    const nextBtn = $('#galleryNext');
-    const closeBtn = $('#closePortfolioModal');
-
-    let current = null;
-    let currentIndex = 0;
-    let currentVideo = null;
-
-    function parseProjectData(card) {
-      const media = safeParseMedia(card);
-
-      if (media.length === 0) {
-        return {
-          id: card.dataset.project || '1',
-          title: card.dataset.title || card.querySelector('.portfolio-title')?.textContent?.trim() || 'Проект',
-          date: card.dataset.date || '—',
-          description: card.dataset.description || '',
-          technologies: card.dataset.tech ? card.dataset.tech.split('|').map(t => t.trim()) : ['Blender'],
-          media: [{
-            type: 'image',
-            src: './img/portfolio/logo/EA.jpg',
-            alt: card.dataset.title || 'Проект'
-          }]
-        };
-      }
-
-      return {
-        id: card.dataset.project || '1',
-        title: card.dataset.title || card.querySelector('.portfolio-title')?.textContent?.trim() || 'Проект',
-        date: card.dataset.date || '—',
-        description: card.dataset.description || '',
-        technologies: card.dataset.tech ? card.dataset.tech.split('|').map(t => t.trim()) : ['Blender'],
-        media: media
-      };
     }
 
-    function openProject(pid, cardElement) {
-      const project = parseProjectData(cardElement);
-      current = project;
-      currentIndex = 0;
-      
-      if (titleEl) titleEl.textContent = project.title;
-      if (dateEl) dateEl.textContent = project.date;
-      if (descEl) descEl.textContent = project.description || '';
-      
-      if (techList) {
-        techList.innerHTML = '';
-        project.technologies.forEach((t, index) => {
-          const tag = document.createElement('span');
-          tag.className = 'tech-tag';
-          tag.textContent = t;
-          techList.appendChild(tag);
+    function safeParseMedia(element) {
+      try {
+        const parsed = JSON.parse(element.dataset.media || '[]');
+        if (!Array.isArray(parsed)) return [];
+        return parsed.flatMap(item => {
+          if (!item || !['image', 'video'].includes(item.type)) return [];
+          const src = mediaURL(item.src);
+          if (!src) return [];
+          return [{
+            type: item.type,
+            src,
+            preview: mediaURL(item.preview),
+            alt: typeof item.alt === 'string' ? item.alt : ''
+          }];
         });
+      } catch (error) {
+        return [];
       }
-      
-      renderGallery();
-      Modal.open(modal);
     }
 
-    function renderGallery() {
-      if (!current || !current.media.length) return;
-      
-      const currentMedia = current.media[currentIndex];
-      
-      // Останавливаем текущее видео
-      if (currentVideo) {
-        currentVideo.pause();
-        currentVideo.currentTime = 0;
-        currentVideo = null;
-      }
-      
-      if (galleryContent) {
-        galleryContent.classList.add('is-fading');
-        galleryContent.classList.toggle('is-video', currentMedia.type === 'video');
+    function unavailableMedia(message) {
+      const notice = document.createElement('p');
+      notice.className = 'media-unavailable';
+      notice.setAttribute('role', 'status');
+      notice.textContent = message;
+      return notice;
+    }
 
-        setTimeout(() => {
-          galleryContent.innerHTML = '';
-          
-          if (currentMedia.type === 'video') {
-          const videoContainer = document.createElement('div');
-          videoContainer.style.width = '100%';
-          videoContainer.style.height = '100%';
-          videoContainer.style.display = 'flex';
-          videoContainer.style.alignItems = 'center';
-          videoContainer.style.justifyContent = 'center';
-          
-          const video = document.createElement('video');
-          video.src = currentMedia.src;
-          video.poster = 'img/video-placeholder.jpg';
-          video.controls = true;
-          video.autoplay = true; // Автовоспроизведение только в модальном окне
-          video.muted = true; // Без звука для автовоспроизведения
-          video.playsInline = true;
-          video.preload = 'auto';
-          video.style.maxWidth = '100%';
-          video.style.maxHeight = '100%';
-          video.style.borderRadius = '12px';
-          video.style.boxShadow = '0 0 30px rgba(0, 0, 0, 0.3)';
-          
-          currentVideo = video;
-          
-          video.addEventListener('error', () => {
-            console.warn(`Failed to load modal video: ${currentMedia.src}`);
-            const img = document.createElement('img');
-            img.src = './img/portfolio/logo/EA.jpg';
-            img.alt = 'Видео не загружено';
-            img.style.maxWidth = '100%';
-            img.style.maxHeight = '100%';
-            img.style.borderRadius = '12px';
-            videoContainer.innerHTML = '';
-            videoContainer.appendChild(img);
-          });
-          
-          videoContainer.appendChild(video);
-          galleryContent.appendChild(videoContainer);
-        } else {
-          const imgContainer = document.createElement('div');
-          imgContainer.style.width = '100%';
-          imgContainer.style.height = '100%';
-          imgContainer.style.display = 'flex';
-          imgContainer.style.alignItems = 'center';
-          imgContainer.style.justifyContent = 'center';
-          
-          const img = document.createElement('img');
-          img.src = currentMedia.src;
-          img.alt = currentMedia.alt || current.title;
-          img.style.maxWidth = '100%';
-          img.style.maxHeight = '100%';
-          img.style.borderRadius = '12px';
-          img.style.boxShadow = '0 0 30px rgba(0, 0, 0, 0.3)';
-          img.style.objectFit = 'contain';
-          
-          img.addEventListener('error', () => {
-            console.warn(`Failed to load modal image: ${currentMedia.src}`);
-            img.src = './img/portfolio/logo/EA.jpg';
-          });
-          
-          imgContainer.appendChild(img);
-          galleryContent.appendChild(imgContainer);
-        }
+    function focusElement(element) {
+      if (element && element.isConnected) element.focus({ preventScroll: true });
+    }
 
-          requestAnimationFrame(() => {
-            galleryContent.classList.remove('is-fading');
-          });
-        }, 200);
+    /* ====== MODALS ====== */
+    const Modal = (() => {
+      const states = new WeakMap();
+      let activeModal = null;
+      let background = [];
+      let bodyStyles = null;
+      let redirectingFocus = false;
+
+      function stateFor(element) {
+        if (!states.has(element)) states.set(element, { frame: 0, timer: 0, phase: 'closed', opener: null, restoreFocus: true });
+        return states.get(element);
       }
-      
-      if (galleryThumbs) {
-        galleryThumbs.innerHTML = '';
-        current.media.forEach((media, i) => {
-          const thumb = document.createElement('div');
-          const isVideo = media.type === 'video';
-          thumb.className = `gallery-thumbnail ${isVideo ? 'video' : ''} ${i === currentIndex ? 'active' : ''}`;
-          thumb.setAttribute('data-index', i);
-          
-          // Ищем постер для видео в медиа-списке
-          let thumbSrc = media.src;
-          if (media.type === 'video') {
-            // Пытаемся найти постер в том же проекте
-            const posterMedia = current.media.find(m => 
-              m.type === 'image' && 
-              (m.src.includes(media.src.replace('.mp4', '-poster')) || 
-               m.alt === media.alt + ' постер' ||
-               m.src.includes(media.src.replace('.mp4', '')))
-            );
-            
-            if (posterMedia) {
-              thumbSrc = posterMedia.src;
-            } else {
-              // Если не нашли постер, ищем первое изображение в проекте
-              const firstImage = current.media.find(m => m.type === 'image');
-              if (firstImage) {
-                thumbSrc = firstImage.src;
-              } else {
-                // Если вообще нет изображений, используем fallback
-                thumbSrc = './img/portfolio/logo/EA.jpg';
-              }
+
+      function focusableElements(element) {
+        return $$('a[href], button, input, select, textarea, video[controls], [tabindex]', element)
+          .filter(node => {
+            if (node.disabled || node.tabIndex < 0 || node.closest('[hidden], [inert]')) return false;
+            for (let parent = node; parent && parent !== element.parentElement; parent = parent.parentElement) {
+              const style = getComputedStyle(parent);
+              if (style.display === 'none' || style.visibility === 'hidden') return false;
             }
-          }
-          
-          if (isVideo) {
-            const img = document.createElement('img');
-            img.src = 'img/video-placeholder.jpg';
-            img.alt = 'Видео';
-            img.loading = 'lazy';
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.objectFit = 'cover';
-            thumb.appendChild(img);
-
-            const videoIcon = document.createElement('div');
-            videoIcon.style.position = 'absolute';
-            videoIcon.style.top = '50%';
-            videoIcon.style.left = '50%';
-            videoIcon.style.transform = 'translate(-50%, -50%)';
-            videoIcon.style.color = '#fff';
-            videoIcon.style.fontSize = '16px';
-            videoIcon.style.textShadow = '0 0 5px #000';
-            videoIcon.innerHTML = '▶';
-            thumb.appendChild(videoIcon);
-          } else {
-            const img = document.createElement('img');
-            img.src = thumbSrc;
-            img.alt = media.alt || current.title;
-            img.loading = 'lazy';
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.objectFit = 'cover';
-
-            img.addEventListener('error', () => {
-              console.warn(`Failed to load thumbnail: ${thumbSrc}`);
-              img.src = './img/portfolio/logo/EA.jpg';
-            });
-
-            thumb.appendChild(img);
-          }
-          
-          thumb.addEventListener('click', () => {
-            currentIndex = i;
-            renderGallery();
+            return true;
           });
-          galleryThumbs.appendChild(thumb);
+      }
+
+      function lockBackground(element) {
+        bodyStyles = {
+          overflow: document.body.style.overflow,
+          paddingRight: document.body.style.paddingRight,
+          rootOverflow: document.documentElement.style.overflow
+        };
+        const scrollbarWidth = document.documentElement.clientWidth > 0
+          ? Math.max(0, window.innerWidth - document.documentElement.clientWidth) : 0;
+        if (scrollbarWidth) {
+          const padding = parseFloat(getComputedStyle(document.body).paddingRight) || 0;
+          document.body.style.paddingRight = `${padding + scrollbarWidth}px`;
+        }
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        background = Array.from(document.body.children)
+          .filter(node => node !== element && !node.contains(element) && !['SCRIPT', 'STYLE', 'LINK'].includes(node.tagName))
+          .map(node => ({ node, inert: node.inert }));
+        background.forEach(({ node }) => { node.inert = true; });
+      }
+
+      function unlockBackground() {
+        background.forEach(({ node, inert }) => { node.inert = inert; });
+        background = [];
+        if (bodyStyles) {
+          document.body.style.overflow = bodyStyles.overflow;
+          document.body.style.paddingRight = bodyStyles.paddingRight;
+          document.documentElement.style.overflow = bodyStyles.rootOverflow;
+          bodyStyles = null;
+        }
+      }
+
+      function transitionTime(element) {
+        if (reducedMotion.matches) return 0;
+        const milliseconds = value => value.trim().endsWith('ms') ? parseFloat(value) : parseFloat(value) * 1000;
+        return [element, $('.modal-content', element)].filter(Boolean).reduce((longest, node) => {
+          const style = getComputedStyle(node);
+          const durations = style.transitionDuration.split(',').map(milliseconds);
+          const delays = style.transitionDelay.split(',').map(milliseconds);
+          return Math.max(longest, ...durations.map((duration, index) =>
+            (duration || 0) + (delays[index % delays.length] || 0)));
+        }, 0);
+      }
+
+      function finishClose(element, state) {
+        if (state.phase !== 'closing') return;
+        clearTimeout(state.timer);
+        state.timer = 0;
+        state.phase = 'closed';
+        element.style.display = 'none';
+        element.classList.remove('is-closing');
+        element.setAttribute('aria-hidden', 'true');
+        element.inert = true;
+        element.dispatchEvent(new CustomEvent('site:modalclosed'));
+        if (activeModal === element) {
+          activeModal = null;
+          unlockBackground();
+          if (state.restoreFocus) focusElement(state.opener);
+          document.dispatchEvent(new CustomEvent('site:modalchange'));
+        }
+      }
+
+      function close(element, { immediate = false, restoreFocus = true } = {}) {
+        if (!element) return;
+        const state = stateFor(element);
+        if (state.phase === 'closed') return;
+        // Repeated close gestures must not restart or extend the same transition.
+        if (state.phase === 'closing') {
+          if (immediate) {
+            state.restoreFocus = restoreFocus;
+            finishClose(element, state);
+          }
+          return;
+        }
+        cancelAnimationFrame(state.frame);
+        clearTimeout(state.timer);
+        state.frame = 0;
+        state.phase = 'closing';
+        state.restoreFocus = restoreFocus;
+        element.classList.add('is-closing');
+        element.classList.remove('active');
+        element.dispatchEvent(new CustomEvent('site:modalclose'));
+        // Keep the viewport, inert background and focused dialog stable until
+        // both the panel and backdrop have faded. Media is paused immediately.
+        const duration = immediate ? 0 : transitionTime(element);
+        if (duration) state.timer = setTimeout(() => finishClose(element, state), duration);
+        else finishClose(element, state);
+      }
+
+      function open(element, opener = document.activeElement) {
+        if (!element) return;
+        const state = stateFor(element);
+        if (activeModal === element && state.phase === 'open') return;
+        if (activeModal && activeModal !== element) close(activeModal, { immediate: true, restoreFocus: false });
+        const retainedLock = activeModal === element && state.phase === 'closing';
+        cancelAnimationFrame(state.frame);
+        clearTimeout(state.timer);
+        state.timer = 0;
+        state.phase = 'open';
+        state.opener = opener;
+        activeModal = element;
+        element.style.display = 'flex';
+        element.setAttribute('aria-hidden', 'false');
+        element.setAttribute('aria-modal', 'true');
+        if (!element.hasAttribute('tabindex')) element.tabIndex = -1;
+        element.inert = false;
+        if (!retainedLock) lockBackground(element);
+        // Reverse an interrupted close without unlocking or cleaning up the
+        // newly selected project, and without capturing a second lock snapshot.
+        if (retainedLock) element.classList.add('active');
+        element.classList.remove('is-closing');
+        state.frame = requestAnimationFrame(() => {
+          state.frame = 0;
+          if (activeModal === element) element.classList.add('active');
+        });
+        focusElement($('.close-modal', element) || focusableElements(element)[0] || element);
+        document.dispatchEvent(new CustomEvent('site:modalchange'));
+      }
+
+      function wire(modalSelector, openSelector, closeSelector) {
+        const modal = $(modalSelector);
+        if (!modal) return;
+        modal.inert = true;
+        const openButton = openSelector ? $(openSelector) : null;
+        const closeButton = $(closeSelector);
+        if (openButton) openButton.addEventListener('click', event => {
+          event.preventDefault();
+          open(modal, openButton);
+        });
+        if (closeButton) closeButton.addEventListener('click', () => close(modal));
+        modal.addEventListener('click', event => {
+          if (event.target === modal) close(modal);
         });
       }
-      
-      if (prevBtn) prevBtn.style.display = current.media.length > 1 ? 'flex' : 'none';
-      if (nextBtn) nextBtn.style.display = current.media.length > 1 ? 'flex' : 'none';
-    }
 
-    function nextMedia() {
-      if (!current || current.media.length <= 1) return;
-      currentIndex = (currentIndex + 1) % current.media.length;
-      renderGallery();
-    }
-
-    function prevMedia() {
-      if (!current || current.media.length <= 1) return;
-      currentIndex = (currentIndex - 1 + current.media.length) % current.media.length;
-      renderGallery();
-    }
-
-    // Обработчики кликов по карточкам
-    $$('.portfolio-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const pid = card.dataset.project || '1';
-        openProject(pid, card);
-      });
-      
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const pid = card.dataset.project || '1';
-          openProject(pid, card);
+      document.addEventListener('keydown', event => {
+        if (!activeModal || event.defaultPrevented) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          close(activeModal);
+        } else if (event.key === 'Tab') {
+          const elements = focusableElements(activeModal);
+          const first = elements[0] || activeModal;
+          const last = elements[elements.length - 1] || activeModal;
+          if (!elements.includes(document.activeElement) || (event.shiftKey && document.activeElement === first) ||
+              (!event.shiftKey && document.activeElement === last)) {
+            event.preventDefault();
+            focusElement(event.shiftKey ? last : first);
+          }
         }
       });
-      
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('role', 'button');
-      card.setAttribute('aria-label', `Открыть проект: ${card.querySelector('.portfolio-title')?.textContent || 'Проект'}`);
-    });
 
-    if (prevBtn) prevBtn.addEventListener('click', prevMedia);
-    if (nextBtn) nextBtn.addEventListener('click', nextMedia);
-    if (closeBtn) closeBtn.addEventListener('click', () => {
-      if (currentVideo) {
+      document.addEventListener('focusin', event => {
+        if (!activeModal || activeModal.contains(event.target) || redirectingFocus) return;
+        redirectingFocus = true;
+        focusElement(focusableElements(activeModal)[0] || activeModal);
+        redirectingFocus = false;
+      });
+
+      onMediaChange(reducedMotion, () => {
+        if (reducedMotion.matches && activeModal && stateFor(activeModal).phase === 'closing') {
+          close(activeModal, { immediate: true, restoreFocus: stateFor(activeModal).restoreFocus });
+        }
+      });
+      window.addEventListener('pagehide', () => {
+        if (activeModal) close(activeModal, { immediate: true, restoreFocus: false });
+      });
+      return { open, close, wire, isOpen: element => element
+        ? activeModal === element && stateFor(element).phase === 'open' : Boolean(activeModal) };
+    })();
+
+    function initPage() {
+      $$('#year, #year2, #year3').forEach(element => {
+        element.textContent = new Date().getFullYear();
+      });
+      Modal.wire('#privacyModal', '#openPrivacy', '#closePrivacy');
+    }
+
+    function initBurger() {
+      const burger = $('#burgerBtn');
+      const nav = $('#top-nav');
+      if (!burger || !nav) return;
+      const mobile = window.matchMedia('(max-width: 768px)');
+      let open = false;
+
+      function setOpen(value, restoreFocus = false) {
+        open = value && mobile.matches;
+        if (!open && restoreFocus && nav.contains(document.activeElement)) focusElement(burger);
+        burger.classList.toggle('active', open);
+        nav.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', String(open));
+        burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+        nav.inert = mobile.matches && !open;
+        nav.setAttribute('aria-hidden', String(mobile.matches && !open));
+      }
+
+      burger.setAttribute('aria-controls', nav.id);
+      burger.addEventListener('click', () => setOpen(!open));
+      nav.addEventListener('click', event => {
+        if (event.target.closest('.nav-link')) setOpen(false);
+      });
+      document.addEventListener('click', event => {
+        if (open && !burger.contains(event.target) && !nav.contains(event.target)) setOpen(false, true);
+      });
+      document.addEventListener('keydown', event => {
+        if (open && event.key === 'Escape' && !event.defaultPrevented) {
+          event.preventDefault();
+          setOpen(false, true);
+        }
+      });
+      document.addEventListener('site:modalchange', () => {
+        if (Modal.isOpen()) setOpen(false);
+      });
+      onMediaChange(mobile, () => setOpen(false, true));
+      setOpen(false);
+      document.documentElement.classList.add('js');
+    }
+
+    function initGallery() {
+      const modal = $('#portfolioModal');
+      const content = $('#galleryContent');
+      if (!modal || !content) return;
+      const title = $('#portfolio-modal-title');
+      const date = $('#projectDate');
+      const description = $('#projectDescription');
+      const thumbnails = $('#galleryThumbnails');
+      const prevButton = $('#galleryPrev');
+      const nextButton = $('#galleryNext');
+      const galleryMain = $('.gallery-main', modal);
+      let status = $('#galleryStatus');
+      if (!status) {
+        status = document.createElement('p');
+        status.id = 'galleryStatus';
+        status.className = 'gallery-status visually-hidden';
+        status.setAttribute('role', 'status');
+        status.setAttribute('aria-live', 'polite');
+        status.setAttribute('aria-atomic', 'true');
+        if (galleryMain) galleryMain.after(status);
+      }
+      let current = null;
+      let currentIndex = 0;
+      let currentVideo = null;
+      let renderTimer = 0;
+      let renderFrame = 0;
+      let renderVersion = 0;
+
+      function cancelRender() {
+        clearTimeout(renderTimer);
+        cancelAnimationFrame(renderFrame);
+        renderTimer = renderFrame = 0;
+        renderVersion += 1;
+      }
+
+      function releaseVideo() {
+        if (!currentVideo) return;
+        currentVideo.autoplay = false;
         currentVideo.pause();
-        currentVideo.currentTime = 0;
+        currentVideo.removeAttribute('src');
+        currentVideo.load();
         currentVideo = null;
       }
-      Modal.close(modal);
-    });
-    
-    modal.addEventListener('click', (e) => { 
-      if (e.target === modal) {
-        if (currentVideo) {
-          currentVideo.pause();
-          currentVideo.currentTime = 0;
-          currentVideo = null;
-        }
-        Modal.close(modal);
-      }
-    });
-    
-    document.addEventListener('keydown', (e) => {
-      if (!modal || modal.style.display !== 'block') return;
-      if (e.key === 'Escape') {
-        if (currentVideo) {
-          currentVideo.pause();
-          currentVideo.currentTime = 0;
-          currentVideo = null;
-        }
-        Modal.close(modal);
-      }
-      if (e.key === 'ArrowLeft') prevMedia();
-      if (e.key === 'ArrowRight') nextMedia();
-    });
-  }
 
-  /* ====== FLOATING CATEGORIES PANEL ====== */
-  function initFloatingCategories() {
-    const floatingToggle = $('#floatingToggle');
-    const categoriesDropdown = $('#categoriesDropdown');
-    const closeCategories = $('#closeCategories');
-  
-    if (!floatingToggle || !categoriesDropdown) return;
-  
-    floatingToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      floatingToggle.classList.toggle('active');
-      categoriesDropdown.classList.toggle('open');
-    });
-  
-    if (closeCategories) {
-      closeCategories.addEventListener('click', (e) => {
-        e.stopPropagation();
-        floatingToggle.classList.remove('active');
-        categoriesDropdown.classList.remove('open');
-      });
-    }
-  
-    document.addEventListener('click', (e) => {
-      if (!floatingToggle.contains(e.target) && !categoriesDropdown.contains(e.target)) {
-        floatingToggle.classList.remove('active');
-        categoriesDropdown.classList.remove('open');
+      function posterFor(media, project) {
+        if (media.preview) return media.preview;
+        const poster = project.media.find(item => item.type === 'image');
+        return poster ? poster.preview || poster.src : '';
       }
-    });
-  
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        floatingToggle.classList.remove('active');
-        categoriesDropdown.classList.remove('open');
+
+      function syncThumbnails() {
+        if (thumbnails) $$('.gallery-thumbnail', thumbnails).forEach((thumbnail, index) => {
+          thumbnail.classList.toggle('active', index === currentIndex);
+          thumbnail.setAttribute('aria-pressed', String(index === currentIndex));
+        });
       }
-    });
-  
-    const categoryLinks = $$('.category-link');
-    categoryLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const targetElement = $(targetId);
-      
-        if (targetElement) {
-          floatingToggle.classList.remove('active');
-          categoriesDropdown.classList.remove('open');
-        
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+
+      function buildThumbnails() {
+        if (!thumbnails) return;
+        const fragment = document.createDocumentFragment();
+        current.media.forEach((media, index) => {
+          const thumbnail = document.createElement('button');
+          const isVideo = media.type === 'video';
+          thumbnail.type = 'button';
+          thumbnail.className = 'gallery-thumbnail' + (isVideo ? ' video' : '');
+          thumbnail.setAttribute('aria-label',
+            (isVideo ? 'Видео ' : 'Изображение ') + (index + 1) + ' из ' +
+            current.media.length + ': ' + (media.alt || current.title));
+          const source = isVideo ? posterFor(media, current) : media.preview || media.src;
+          if (source) {
+            const image = document.createElement('img');
+            image.alt = '';
+            image.loading = 'lazy';
+            image.decoding = 'async';
+            image.width = 88;
+            image.height = 62;
+            image.addEventListener('error', () => {
+              thumbnail.textContent = String(index + 1);
+            }, { once: true });
+            image.src = source;
+            thumbnail.appendChild(image);
+          } else {
+            thumbnail.textContent = String(index + 1);
+          }
+          thumbnail.addEventListener('click', () => {
+            if (currentIndex !== index) {
+              currentIndex = index;
+              renderGallery();
+            }
           });
-        
-          targetElement.style.transition = 'all 0.3s ease';
-          targetElement.style.boxShadow = '0 0 0 4px rgba(0,229,255,.3)';
-          setTimeout(() => {
-            targetElement.style.boxShadow = 'none';
-          }, 1500);
+          fragment.appendChild(thumbnail);
+        });
+        thumbnails.replaceChildren(fragment);
+        syncThumbnails();
+      }
+
+      function renderGallery(immediate = false) {
+        cancelRender();
+        if (currentVideo) currentVideo.pause();
+        if (!current || !Modal.isOpen(modal)) return;
+        syncThumbnails();
+        const media = current.media[currentIndex];
+        const project = current;
+        const version = renderVersion;
+        if (!media) {
+          releaseVideo();
+          content.replaceChildren(unavailableMedia('Материалы проекта недоступны'));
+          content.classList.remove('is-fading');
+          status.textContent = '';
+          return;
         }
-      });
-    });
-  }
-
-
-  /* ====== BLUE PARTICLES ====== */
-  (function initParticles() {
-    const container = document.body;
-    if (!container) return;
-
-    let particles = [];
-    let lastSpawn = 0;
-    let mouse = { x: -1000, y: -1000 };
-
-    function spawn(x, y) {
-      if (particles.length >= CONFIG.particles.max) return;
-      const el = document.createElement('div');
-      el.className = 'blue-particle';
-      const size = Math.random() * 3 + 2;
-      el.style.width = el.style.height = `${size}px`;
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
-      el.style.opacity = '0.9';
-      el.style.position = 'fixed';
-      el.style.pointerEvents = 'none';
-      el.style.zIndex = '9998';
-      container.appendChild(el);
-      particles.push({
-        el, x, y,
-        vx: (Math.random() - 0.5) * 2,
-        vy: (Math.random() - 0.5) * 2,
-        life: CONFIG.particles.lifeFrames
-      });
-    }
-
-    document.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX; mouse.y = e.clientY;
-      const now = performance.now();
-      if (now - lastSpawn > CONFIG.particles.spawnIntervalMs) {
-        spawn(mouse.x + (Math.random() - 0.5) * 24, mouse.y + (Math.random() - 0.5) * 24);
-        lastSpawn = now;
-      }
-    }, { passive: true });
-
-    setInterval(() => {
-      if (particles.length < 4 && mouse.x > -900) {
-        spawn(mouse.x + (Math.random() - 0.5) * 40, mouse.y + (Math.random() - 0.5) * 40);
-      }
-    }, 400);
-
-    function update() {
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.life--;
-        const lifeRatio = p.life / CONFIG.particles.lifeFrames;
-        p.el.style.left = `${p.x}px`;
-        p.el.style.top = `${p.y}px`;
-        p.el.style.opacity = String(lifeRatio * 0.9);
-        p.el.style.transform = `scale(${0.5 + lifeRatio * 0.6})`;
-        if (p.life <= 0) {
-          p.el.remove();
-          particles.splice(i, 1);
+        status.textContent = (media.type === 'video' ? 'Видео ' : 'Изображение ') +
+          (currentIndex + 1) + ' из ' + current.media.length;
+        const commit = () => {
+          renderTimer = 0;
+          if (version !== renderVersion || !Modal.isOpen(modal)) return;
+          releaseVideo();
+          const container = document.createElement('div');
+          container.className = 'gallery-media-frame';
+          if (media.type === 'video') {
+            const video = document.createElement('video');
+            video.controls = true;
+            video.autoplay = false;
+            video.playsInline = true;
+            video.preload = 'metadata';
+            video.tabIndex = 0;
+            const poster = posterFor(media, project);
+            if (poster) video.poster = poster;
+            video.setAttribute('aria-label', media.alt || project.title);
+            currentVideo = video;
+            video.addEventListener('error', () => {
+              if (currentVideo !== video) return;
+              releaseVideo();
+              container.replaceChildren(unavailableMedia('Не удалось загрузить видео. Прямая ссылка доступна в материалах проекта.'));
+            }, { once: true });
+            video.src = media.src;
+            container.appendChild(video);
+          } else {
+            const image = document.createElement('img');
+            image.alt = media.alt || project.title;
+            image.decoding = 'async';
+            image.addEventListener('error', () => {
+              container.replaceChildren(unavailableMedia('Не удалось загрузить изображение. Прямая ссылка доступна в материалах проекта.'));
+            }, { once: true });
+            image.src = media.src;
+            container.appendChild(image);
+          }
+          content.replaceChildren(container);
+          if (immediate || reducedMotion.matches) content.classList.remove('is-fading');
+          else renderFrame = requestAnimationFrame(() => {
+            renderFrame = 0;
+            if (version === renderVersion) content.classList.remove('is-fading');
+          });
+        };
+        if (immediate || reducedMotion.matches) commit();
+        else {
+          content.classList.add('is-fading');
+          renderTimer = setTimeout(commit, 200);
         }
       }
-      requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  })();
 
-  /* ====== SMOOTH SCROLL FOR HASH LINKS ====== */
-  (function smoothHash() {
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href');
-        if (!href || href === '#') return;
-        const target = document.querySelector(href);
+      function openProject(card, opener) {
+        const media = safeParseMedia(card);
+        if (!media.length) return false;
+        cancelRender();
+        releaseVideo();
+        current = {
+          title: card.dataset.title || $('.portfolio-title', card)?.textContent.trim() || 'Проект',
+          date: card.dataset.date || '',
+          description: card.dataset.description || '',
+          media
+        };
+        currentIndex = 0;
+        if (title) title.textContent = current.title;
+        if (date) date.textContent = current.date;
+        if (description) description.textContent = current.description;
+        [prevButton, nextButton].filter(Boolean).forEach(button => {
+          button.hidden = current.media.length <= 1;
+        });
+        buildThumbnails();
+        Modal.open(modal, opener);
+        renderGallery(true);
+        return true;
+      }
+
+      function move(direction) {
+        if (!current || current.media.length <= 1 || !Modal.isOpen(modal)) return;
+        currentIndex = (currentIndex + direction + current.media.length) % current.media.length;
+        renderGallery();
+      }
+
+      $$('.portfolio-card .project-open').forEach(opener => {
+        const card = opener.closest('.portfolio-card');
+        if (!card || !safeParseMedia(card).length) return;
+        opener.setAttribute('aria-haspopup', 'dialog');
+        opener.setAttribute('aria-controls', modal.id);
+        opener.addEventListener('click', event => {
+          if (plainClick(event) && openProject(card, opener)) event.preventDefault();
+        });
+      });
+      if (prevButton) prevButton.addEventListener('click', () => move(-1));
+      if (nextButton) nextButton.addEventListener('click', () => move(1));
+      Modal.wire('#portfolioModal', null, '#closePortfolioModal');
+      modal.addEventListener('site:modalclose', () => {
+        cancelRender();
+        if (currentVideo) {
+          currentVideo.autoplay = false;
+          currentVideo.pause();
+        }
+      });
+      modal.addEventListener('site:modalclosed', () => {
+        releaseVideo();
+        content.replaceChildren();
+        content.classList.remove('is-fading');
+        if (thumbnails) thumbnails.replaceChildren();
+        status.textContent = '';
+        current = null;
+      });
+      document.addEventListener('keydown', event => {
+        if (!Modal.isOpen(modal) || event.defaultPrevented || event.altKey || event.ctrlKey ||
+            event.metaKey || event.isComposing ||
+            event.target.closest?.('video, input, textarea, select, [contenteditable="true"]')) return;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault();
+          move(event.key === 'ArrowLeft' ? -1 : 1);
+        }
+      });
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && currentVideo) currentVideo.pause();
+      });
+      onMediaChange(reducedMotion, () => {
+        if (reducedMotion.matches && currentVideo) currentVideo.pause();
+      });
+      document.documentElement.classList.add('gallery-ready');
+    }
+
+    function initSearch() {
+      const input = $('#projectSearch');
+      const wrapper = input?.closest('.portfolio-search');
+      const status = $('#searchStatus');
+      const cards = $$('.portfolio-card');
+      if (!input || !wrapper || !cards.length) return;
+      const normalize = value => value.normalize('NFKC').toLocaleLowerCase('ru').replace(/ё/g, 'е');
+      const sections = $$('.portfolio-category-section');
+      const entries = cards.map(card => ({
+        card,
+        text: normalize([
+          card.dataset.title || '',
+          card.dataset.description || '',
+          $('h2', card.closest('.portfolio-category-section') || document)?.textContent || ''
+        ].join(' '))
+      }));
+      const categoryLinks = $$('.category-nav a[href^="#"]').map(link => {
+        let target = null;
+        try { target = document.getElementById(decodeURIComponent(link.hash.slice(1))); } catch (error) { /* Invalid anchors keep their native behavior. */ }
+        return { link, section: target?.closest('.portfolio-category-section') };
+      });
+      function filter() {
+        const terms = normalize(input.value.trim()).split(/\s+/).filter(Boolean);
+        let visible = 0;
+        entries.forEach(entry => {
+          const matches = terms.every(term => entry.text.includes(term));
+          entry.card.hidden = !matches;
+          if (matches) visible += 1;
+        });
+        sections.forEach(section => {
+          section.hidden = !$('.portfolio-card:not([hidden])', section);
+        });
+        categoryLinks.forEach(({ link, section }) => {
+          if (section) link.hidden = section.hidden;
+        });
+        if(status)status.classList.toggle('visually-hidden',!terms.length);
+        if (status) status.textContent = terms.length
+          ? 'Найдено проектов: ' + visible + ' из ' + cards.length
+          : 'Всего проектов: ' + cards.length;
+      }
+      input.addEventListener('input', filter);
+      filter();
+      wrapper.hidden = false;
+    }
+
+    function initOriginalMotion() {
+      const root = document.documentElement;
+      const header=$('#siteHeader');let scrollFrame=0;
+      function headerScroll(){scrollFrame=0;if(header)header.classList.toggle('scrolled',window.scrollY>(header.classList.contains('scrolled')?80:100));}
+      window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(headerScroll);},{passive:true});headerScroll();
+
+      // Only original combined animate-card elements moved; .fade-up alone did not.
+      const targets = $$('.services-page .svc, .portfolio-card');
+      const delays = [50,120,180,240,300,360,420,480];
+      const reveal = element => {
+        element.classList.remove('reveal-pending');
+        if (reducedMotion.matches) return;
+        const service = element.classList.contains('svc');
+        if (service) {
+          const delay=delays[$$('.svc',element.parentElement).indexOf(element)]||0;
+          element.animate([{opacity:0},{opacity:1}],{duration:600,delay,easing:'ease',fill:'backwards'});
+          element.animate([{transform:'translateY(40px) scale(.96)'},{transform:'translateY(0) scale(1)'}],{duration:600,delay,easing:'cubic-bezier(.25,.46,.45,.94)',fill:'backwards'});
+          $('img',element)?.animate([{opacity:0},{opacity:1}],{duration:500,delay,easing:'ease',fill:'backwards'});
+        } else {
+          element.animate([{opacity:0,transform:'translateY(30px) scale(.95)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:500,easing:'ease-out',fill:'backwards'});
+        }
+      };
+      if ('IntersectionObserver' in window && !reducedMotion.matches) {
+        const observer = new IntersectionObserver(entries => {
+          for (const entry of entries) if (entry.isIntersecting) { reveal(entry.target); observer.unobserve(entry.target); }
+        }, {threshold:.1,rootMargin:'50px 0px -50px 0px'});
+        targets.forEach(element => { element.classList.add('reveal-pending'); observer.observe(element); });
+        const expose = () => { observer.disconnect(); targets.forEach(e=>e.classList.remove('reveal-pending')); };
+        onMediaChange(reducedMotion, () => { if(reducedMotion.matches) expose(); });
+        document.addEventListener('focusin', event => { const card=event.target.closest?.('.reveal-pending'); if(card){observer.unobserve(card);card.classList.remove('reveal-pending');} });
+      }
+      onMediaChange(reducedMotion, () => {
+        for (const animation of document.getAnimations()) if (animation.effect instanceof KeyframeEffect && animation.effect.target) {
+          if (reducedMotion.matches && Number.isFinite(animation.effect.getComputedTiming().endTime)) animation.finish();
+        }
+      });
+
+      // Original cyan cursor particles, only on a fine pointer and while actually moving.
+      const fine = matchMedia('(hover: hover) and (pointer: fine)');
+      const layer=document.createElement('div');layer.className='pointer-trail';layer.setAttribute('aria-hidden','true');document.body.append(layer);
+      const particles = new Set(); let last = 0;
+      const clear = () => { particles.forEach(e=>e.remove());particles.clear(); };
+      document.addEventListener('pointermove', event => {
+        if (event.pointerType !== 'mouse' || !fine.matches || reducedMotion.matches || document.hidden || Modal.isOpen()) return;
+        const now=performance.now(); if(now-last<90 || particles.size>=12)return; last=now;
+        const dot=document.createElement('i');dot.className='blue-particle';dot.setAttribute('aria-hidden','true');
+        const size=Math.random()*3+2;dot.style.width=dot.style.height=`${size}px`;
+        dot.style.left=`${event.clientX+(Math.random()-.5)*24}px`;dot.style.top=`${event.clientY+(Math.random()-.5)*24}px`;
+        layer.append(dot);particles.add(dot);
+        const animation=dot.animate([{transform:'translate(0,0) scale(1.1)',opacity:.9},{transform:`translate(${(Math.random()-.5)*56}px,${(Math.random()-.5)*56}px) scale(.5)`,opacity:0}],{duration:28*1000/60,easing:'linear'});
+        animation.onfinish=()=>{dot.remove();particles.delete(dot);};
+      },{passive:true});
+      document.addEventListener('visibilitychange',()=>{root.classList.toggle('page-inactive',document.hidden);if(document.hidden)clear();});
+      document.addEventListener('site:modalchange',clear);
+      onMediaChange(reducedMotion,clear);onMediaChange(fine,clear);window.addEventListener('pagehide',clear);
+    }
+
+    function initHomeCarousel() {
+      const carousel = $('#carousel'); if (!carousel) return;
+      const items = $$('.carousel-item', carousel);
+      if (items.length !== 5) return;
+      let current=0,timer=0,visible=false,hovered=false;
+      const wrap=carousel.closest('.carousel-wrap');
+      function render() {
+        items.forEach((item,index)=>{const offset=(index-current+items.length)%items.length;
+          item.dataset.position=['current','next','far-next','far-prev','prev'][offset];
+          item.inert=offset!==0;item.tabIndex=offset===0?0:-1;item.setAttribute('aria-hidden',String(offset!==0));
+        });
+      }
+      function schedule() {
+        clearTimeout(timer);timer=0;
+        if(!visible || hovered || document.hidden || reducedMotion.matches || wrap.contains(document.activeElement) || Modal.isOpen())return;
+        timer=setTimeout(()=>{current=(current+1)%items.length;render();schedule();},4000);
+      }
+      wrap.addEventListener('mouseenter',()=>{hovered=true;schedule();});wrap.addEventListener('mouseleave',()=>{hovered=false;schedule();});
+      wrap.addEventListener('focusin',schedule);wrap.addEventListener('focusout',()=>queueMicrotask(schedule));
+      document.addEventListener('visibilitychange',schedule);document.addEventListener('site:modalchange',schedule);onMediaChange(reducedMotion,schedule);
+      if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule();},{threshold:.1}).observe(carousel);
+      window.addEventListener('pagehide',()=>clearTimeout(timer));
+      carousel.classList.add('is-enhanced');render();
+    }
+
+    function initProjectTools() {
+      const panel = $('#projectTools');
+      const button = $('#projectToolsToggle');
+      if (!panel || !button) return;
+      function setOpen(open, restoreFocus = false) {
+        if (!open && restoreFocus) focusElement(button);
+        panel.hidden = !open;
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute('aria-label', open ? 'Закрыть категории и поиск' : 'Категории и поиск');
+        if (open) focusElement($('#projectSearch', panel) || $('a', panel));
+      }
+      button.addEventListener('click', () => setOpen(panel.hidden, !panel.hidden));
+      panel.addEventListener('click', event => {
+        const link = event.target.closest('.category-nav a');
+        if (!link) return;
+        const target = document.getElementById(link.hash.slice(1));
+        setOpen(false);
         if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.tabIndex = -1; focusElement(target);
+          if(!reducedMotion.matches)target.animate([{boxShadow:'0 0 0 4px rgba(0,229,255,.3)'},{boxShadow:'0 0 0 4px rgba(0,229,255,.3)',offset:.8},{boxShadow:'0 0 0 0 transparent'}],{duration:1500,easing:'ease'});
         }
       });
-    });
-  })();
-
-  /* ====== DISABLE IMAGE SAVE INTERACTIONS ====== */
-  (function lockImages() {
-    document.addEventListener('contextmenu', (e) => {
-      if (e.target && e.target.tagName === 'IMG') {
-        e.preventDefault();
-      }
-    });
-    document.addEventListener('dragstart', (e) => {
-      if (e.target && e.target.tagName === 'IMG') {
-        e.preventDefault();
-      }
-    });
-  })();
-
-  /* ====== ЗАПУСК ВСЕХ ФУНКЦИЙ ====== */
-  function safeInit(fn, name) {
-    try {
-      fn();
-    } catch(e) {
-      console.error(`Error in ${name}:`, e);
+      document.addEventListener('keydown', event => {
+        if (!panel.hidden && event.key === 'Escape' && !event.defaultPrevented) {
+          event.preventDefault(); setOpen(false, true);
+        }
+      });
+      document.addEventListener('click', event => {
+        if (!panel.hidden && !panel.contains(event.target) && !button.contains(event.target)) {
+          setOpen(false, panel.contains(document.activeElement));
+        }
+      });
+      document.addEventListener('site:modalchange', () => { if (Modal.isOpen()) setOpen(false); });
+      panel.classList.add('is-enhanced');
+      button.hidden = false;
+      setOpen(false);
     }
+
+    [initPage, initBurger, initGallery, initSearch, initOriginalMotion, initHomeCarousel, initProjectTools].forEach(initialize => {
+      try { initialize(); }
+      catch (error) { console.error('Не удалось инициализировать ' + initialize.name + ':', error); }
+    });
   }
 
-  // Запускаем в правильном порядке
-  safeInit(initScrollAnimations, 'initScrollAnimations');
-  safeInit(initLazy, 'initLazy');
-  safeInit(initCarousel, 'initCarousel');
-  safeInit(initPortfolioCards, 'initPortfolioCards');
-  safeInit(initPortfolioModal, 'initPortfolioModal');
-  safeInit(initFloatingCategories, 'initFloatingCategories');
-});
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSite, { once: true });
+  else initSite();
+})();
