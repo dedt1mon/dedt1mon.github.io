@@ -693,7 +693,7 @@
         setOpen(false);
         if (target) {
           target.tabIndex = -1; focusElement(target);
-          if(!reducedMotion.matches)target.animate([{boxShadow:'0 0 0 4px rgba(0,229,255,.3)'},{boxShadow:'0 0 0 4px rgba(0,229,255,.3)',offset:.8},{boxShadow:'0 0 0 0 transparent'}],{duration:1500,easing:'ease'});
+          if(!reducedMotion.matches&&!document.documentElement.classList.contains('motion-paused'))target.animate([{boxShadow:'0 0 0 4px rgba(0,229,255,.3)'},{boxShadow:'0 0 0 4px rgba(0,229,255,.3)',offset:.8},{boxShadow:'0 0 0 0 transparent'}],{duration:1500,easing:'ease'});
         }
       });
       document.addEventListener('keydown', event => {

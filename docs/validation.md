@@ -108,3 +108,14 @@ this independently found size correction; final acceptance requires the successo
 CI recorded in PR #1. No local full suite was repeated. The last navigation delta
 is only767→768 and is covered by the mobile checks and source review. Failed
 harness setup/capture attempts and earlier valid scoped results remain preserved.
+
+Independent Security found SEC-MOTION-01 on ed6c95d: pausing CSS entrance
+animations could leave a newly opened category panel invisible but focusable.
+The affected delta now disables motion into the final visible static state;
+temporary page-visibility pause remains separate. The category heading highlight
+also respects the user pause. Three affected browser cases PASS, including
+paused panels/search/gallery/mobile navigation, autoplay/swipe and console errors.
+The new case checks 375/1440 widths; the suite contains 45 browser cases.
+The original Security finding stays immutable; its focused independent retest
+and final source/CI binding are recorded in PR #1 and the evidence index.
+Normal-motion visual captures are reused only for their unchanged behavior.

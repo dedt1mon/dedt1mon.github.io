@@ -275,7 +275,7 @@ async function a11y() {
     await current().focus();const focused=await current().getAttribute('data-index');await page.waitForTimeout(4200);assert.equal(await current().getAttribute('data-index'),focused,'Autoplay must pause during keyboard interaction');
     await page.keyboard.press('ArrowRight');assert.notEqual(await current().getAttribute('data-index'),focused);
     await page.locator('.motion-toggle').click();assert.equal(await page.locator('.motion-toggle').getAttribute('aria-pressed'),'true');
-    assert.equal(await page.locator('.hero-title').evaluate(e=>getComputedStyle(e).animationPlayState),'paused');
+    assert.equal(await page.locator('.hero-title').evaluate(e=>getComputedStyle(e).animationName),'none');
     await page.locator('#carousel').scrollIntoViewIfNeeded();await page.mouse.move(0,0);const paused=await current().getAttribute('data-index');await page.waitForTimeout(4200);assert.equal(await current().getAttribute('data-index'),paused);
     await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.motion-toggle').waitFor({state:'hidden'});
     assert.equal(await page.locator('.hero-title').evaluate(e=>getComputedStyle(e).animationName),'none');
@@ -316,6 +316,22 @@ async function a11y() {
       assert.equal(data.filter(e=>Math.abs(e.top-data[0].top)<2).length,columns,`${route} at ${width}: original columns`);
       if(width<=430)assert.ok(Math.abs(data[0].x-(width-expectedWidth)/2)<1);
       await layout();
+    }
+  });
+  await test('motion:paused-panels-navigation-and-gallery-remain-visible', async () => {
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    for(const width of [375,1440]) {
+      await page.setViewportSize({width,height:1000});await load('/portfolio.html');await page.locator('.motion-toggle').click();
+      await page.locator('#projectToolsToggle').click();
+      assert.equal(await page.locator('#projectTools').evaluate(e=>getComputedStyle(e).opacity),'1');
+      assert.equal(await page.evaluate(()=>document.activeElement.id),'projectSearch');
+      await page.locator('#projectSearch').fill('zzzzzz');await page.locator('#projectSearch').fill('');
+      assert.ok(await page.locator('.portfolio-grid').evaluateAll(es=>es.every(e=>getComputedStyle(e).opacity==='1')));
+      await page.locator('.category-nav a').first().click();
+      assert.equal(await page.locator('.portfolio-category-section h2').first().evaluate(e=>e.getAnimations().length),0);
+      await page.locator('.project-open').first().click();await page.waitForFunction(()=>getComputedStyle(document.querySelector('#portfolioModal')).opacity==='1');
+      assert.equal(await page.locator('.portfolio-modal-content').evaluate(e=>getComputedStyle(e).opacity),'1');await page.keyboard.press('Escape');
+      if(width===375){await page.locator('#burgerBtn').click();assert.equal(await page.locator('#top-nav').evaluate(e=>getComputedStyle(e).opacity),'1');await page.keyboard.press('Escape');}
     }
   });
   await test('runtime:no-console-errors',async()=>assert.deepEqual(errors.filter(e=>!e.includes('404 (Not Found)')),[]));

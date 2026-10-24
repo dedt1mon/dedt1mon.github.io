@@ -414,7 +414,7 @@ ul, ol { padding-left: 1.25rem; }
 .carousel-wrap:hover .carousel-controls button, .carousel-wrap:focus-within .carousel-controls button { opacity: 1; }
 @media (hover: none) { .carousel-controls button { opacity: 1; } }
 .motion-toggle { color: var(--muted); font-size: 12px; }
-.motion-paused *, .motion-paused *::before, .motion-paused *::after,
+.motion-paused *, .motion-paused *::before, .motion-paused *::after { animation:none !important;transition:none !important;scroll-behavior:auto !important; }
 .page-inactive *, .page-inactive *::before, .page-inactive *::after { animation-play-state: paused !important; }
 .blue-particle { position: fixed; z-index: 60; border-radius: 50%; background: #00e5ff; box-shadow: 0 0 8px #00e5ff, 0 0 12px #00e5ff; pointer-events: none; }
 .reveal-pending { opacity: 0; }
