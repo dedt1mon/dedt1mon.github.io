@@ -11,24 +11,25 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Перейти к содержимому</a>
 
   <!-- ==== HEADER ==== -->
   <header class="site-header" id="siteHeader" role="banner">
     <div class="header-inner">
-      <div class="brand" role="button" tabindex="0" aria-label="Вернуться на главную">
+      <a class="brand" href="index.html" aria-label="Вернуться на главную">
         <div class="logo-circle" aria-hidden="true">
-          <img src="./img/index/logo.png" alt="DedTimon logo" class="logo-img" width="60" height="60">
+          <img src="./img/index/logo.png" alt="DedTimon logo" class="logo-img" width="60" height="60" decoding="async">
         </div>
         <div class="brand-name">DedTimon</div>
-      </div>
+      </a>
       
-      <nav class="top-nav" aria-label="Основное меню">
+      <nav class="top-nav" id="top-nav" aria-label="Основное меню">
         <a href="index.html" class="nav-link">Главная</a>
-        <a href="portfolio.html" class="nav-link">Проекты</a>
+        <a href="portfolio.html" class="nav-link" aria-current="page">Проекты</a>
         <a href="services.html" class="nav-link">Услуги</a>
       </nav>
       
-      <button class="burger" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="top-nav">
+      <button type="button" class="burger" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="top-nav">
         <span></span>
         <span></span>
         <span></span>
@@ -36,7 +37,8 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
+    <h1 class="visually-hidden">Проекты DedTimon</h1>
     <!-- ==== ЛОГОТИПЫ ==== -->
     <section class="portfolio-category-section" aria-labelledby="logos-title">
       <div class="container">
@@ -55,7 +57,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/robotaim2.jpg", "alt": "Никнейм 2"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/robotaim1.jpg" alt="Логотип" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Логотип</h3>
@@ -73,7 +75,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/Luda2.jpg", "alt": "Визитка вариант 2"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/Luda.jpg" alt="Визитки Альфа Банка" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Визитки Альфа Банк</h3>
@@ -90,7 +92,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/Gerp.jpg", "alt": "Официальный герб"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/Gerp.jpg" alt="Герб правового портала" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Герб правового портала</h3>
@@ -107,7 +109,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/kolia.jpg", "alt": "Логотип Душа"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/kolia.jpg" alt="Логотип музыканта" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Логотип музыканта</h3>
@@ -124,7 +126,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/Teatr.jpg", "alt": "Театральный постер"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/Teatr.jpg" alt="Театральный постер" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Театральный постер</h3>
@@ -142,7 +144,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/sani2.jpg", "alt": "Логотип вариант 2 - техничный"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/sani1.jpg" alt="Логотип YouTube-канала" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Логотип YouTube-канала</h3>
@@ -160,7 +162,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/logo2.jpg", "alt": "Логотип ААС вариант 2"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/logo1.jpg" alt="Логотипы курса ААС" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Логотипы курса ААС</h3>
@@ -178,7 +180,7 @@
                      {"type": "video", "src": "./img/portfolio/logo/coin.mp4", "alt": "Анимация монеты"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/coin1.png" alt="Анимированная монета" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Анимированная монета</h3>
@@ -188,14 +190,14 @@
 
           <article class="portfolio-card" 
                    data-title="Логотип EA" 
-                   data-date="19.08.2025"
+                   data-date="13.09.2024"
                    data-description="Разработал логотип с градиентным переходом от серебристого к бронзовому для букв «EA»." 
                    data-tech="Blender | After Effects"
                    data-media='[
                      {"type": "image", "src": "./img/portfolio/logo/EA.jpg", "alt": "Логотип EA"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/EA.jpg" alt="Логотип EA" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Логотип EA</h3>
@@ -212,7 +214,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/gerb.jpg", "alt": "Семейный герб"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/gerb.jpg" alt="Семейный герб" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Семейный герб</h3>
@@ -229,7 +231,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/pubg.jpg", "alt": "Неоновый логотип PUBG"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/pubg.jpg" alt="Неоновый логотип PUBG" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Неоновый логотип PUBG</h3>
@@ -246,7 +248,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/medaliniza.jpg", "alt": "Медальница"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/medaliniza.jpg" alt="Медальница" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Медальница</h3>
@@ -263,7 +265,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/tablichka.jpg", "alt": "Статусная табличка"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/tablichka.jpg" alt="Уличная табличка" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Уличная табличка</h3>
@@ -280,7 +282,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/garash.jpg", "alt": "Логотип Gargegenius"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/garash.jpg" alt="Логотип Gargegenius" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Логотип Gargegenius</h3>
@@ -297,7 +299,7 @@
                      {"type": "image", "src": "./img/portfolio/logo/logotip.jpg", "alt": "Логотип MODERN WEDDING"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/logotip.jpg" alt="Золотая звезда" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Золотая звезда</h3>
@@ -308,13 +310,13 @@
           <article class="portfolio-card" 
                    data-title="Логотип-снежинка" 
                    data-date="08.03.2024" 
-                   data-description="Разработал персональный тдля игрока с никнеймом mopo3i." 
+                   data-description="Разработал персональный для игрока с никнеймом mopo3i." 
                    data-tech="Blender"
                    data-media='[
                      {"type": "image", "src": "./img/portfolio/logo/mpozi.jpg", "alt": "Логотип"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/logo/mpozi.jpg" alt="Логотип-снежинка" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Логотип-снежинка</h3>
@@ -343,7 +345,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/Zombie.mp4", "alt": "Зомби мир"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/Zombie.png" alt="Dying Light Анимация" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Dying Light Анимация</h3>
@@ -361,7 +363,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/Steclopacet.mp4", "alt": "Моушен-дизайн"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/Steclopaket.png" alt="Реклама стеклопакетов" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Реклама стеклопакетов</h3>
@@ -379,7 +381,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/Reklama.mp4", "alt": "Реклама по дереву"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/Reklama.png" alt="Реклама Каменное Дерево" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Реклама Каменное Дерево</h3>
@@ -397,7 +399,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/Holodilnik.mp4", "alt": "Холодильник"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/Holodilnik.png" alt="Реклама холодильника" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Реклама холодильника</h3>
@@ -418,7 +420,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/st3.mp4", "alt": "Ionov"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/st2.png" alt="Видеофон СТАНЦИЯ" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Видеофон СТАНЦИЯ</h3>
@@ -436,7 +438,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/vfx.mp4", "alt": "Ролик для салона красоты"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/vfx.png" alt="Ролик салона красоты" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Ролик салона красоты</h3>
@@ -454,7 +456,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/mopozi2.mp4", "alt": "Гифка"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/mopozi2.png" alt="Гифка для Steam" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Гифка для Steam</h3>
@@ -475,7 +477,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/boston3.mp4", "alt": "BOSTON"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/boston.png" alt="Видеофон Boston" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Видеофон Boston</h3>
@@ -493,7 +495,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/club.mp4", "alt": "ПК клуб"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/club.png" alt="Реклама ПК-клубов" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Реклама ПК-клубов</h3>
@@ -516,7 +518,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/sbornikAF5.mp4", "alt": "Ролик для салона красоты"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/sbornikAF4.png" alt="Сборник учебных работ" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Сборник учебных работ</h3>
@@ -526,7 +528,7 @@
 
           <article class="portfolio-card" 
                    data-title="Фоны для диджея" 
-                   data-date="15.11.2024" 
+                   data-date="11.05.2025" 
                    data-description="Разработал серию из видеофонов для диджея." 
                    data-tech="After Effects"
                    data-media='[
@@ -539,7 +541,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/ionov6.mp4", "alt": "Ionov"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/moshion/ionov1.png" alt="Фоны для диджея" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Фоны для диджея</h3>
@@ -567,7 +569,7 @@
                      {"type": "image", "src": "./img/portfolio/3dperson/Sonik.jpg", "alt": "Соник"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/3dperson/Sonik.jpg" alt="Соник для игры" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Соник для игры</h3>
@@ -588,7 +590,7 @@
                      {"type": "image", "src": "./img/portfolio/3dperson/Elf4.jpg", "alt": "Модная эльфикай"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/3dperson/Elf.jpg" alt="Эльфийка в сцене" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Эльфийка в сцене</h3>
@@ -607,7 +609,7 @@
                      {"type": "image", "src": "./img/portfolio/3dperson/rizar3.jpg", "alt": "Рыцарь"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/3dperson/rizar1.jpg" alt="Рыцарь в доспехах" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Рыцарь в доспехах</h3>
@@ -627,7 +629,7 @@
                      {"type": "image", "src": "./img/portfolio/3dperson/catpers4.jpg", "alt": "Кот"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/3dperson/catpers1.jpg" alt="Кот-персонаж" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Кот-персонаж</h3>
@@ -646,7 +648,7 @@
                      {"type": "image", "src": "./img/portfolio/3dperson/friren3.jpg", "alt": "Фрирен"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/3dperson/friren1.jpg" alt="Фрирен" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Фрирен</h3>
@@ -664,7 +666,7 @@
                      {"type": "image", "src": "./img/portfolio/3dperson/flateshai2.jpg", "alt": "Флатершай"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/3dperson/flateshai1.jpg" alt="Флаттершай модель" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Флаттершай модель</h3>
@@ -684,7 +686,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/luci1.mp4", "alt": "Люси"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/3dperson/luci2.jpg" alt="Люси Киберпанк" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Люси Киберпанк</h3>
@@ -703,7 +705,7 @@
                      {"type": "image", "src": "./img/portfolio/3dperson/spidar3.jpg", "alt": "Паук"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/3dperson/spidar1.jpg" alt="Паук" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Паук</h3>
@@ -732,7 +734,7 @@
                      {"type": "video", "src": "./img/portfolio/presentations/prezent1.mp4", "alt": "Презинтация"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/presentations/prezent1.png" alt="Суворов" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Суворов</h3>
@@ -750,7 +752,7 @@
                      {"type": "video", "src": "./img/portfolio/presentations/prezent2.mp4", "alt": "Презинтация"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/presentations/prezent2.png" alt="Шифрование" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Шифрование</h3>
@@ -768,7 +770,7 @@
                      {"type": "video", "src": "./img/portfolio/presentations/prezent3.mp4", "alt": "Презинтация"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/presentations/prezent3.png" alt="Электрические устройства" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Электрические устройства</h3>
@@ -796,7 +798,7 @@
                      {"type": "image", "src": "./img/portfolio/sait/Sait2.png", "alt": "Сайт"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/sait/Sait2.png" alt="Сайт портфолио" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Сайт портфолио</h3>
@@ -814,7 +816,7 @@
                      {"type": "video", "src": "./img/portfolio/sait/Sait1.mp4", "alt": "Сайт"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/sait/Sait1.png" alt="Сайт стеклопакетов" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Сайт стеклопакетов</h3>
@@ -832,7 +834,7 @@
                      {"type": "video", "src": "./img/portfolio/sait/Sait3.mp4", "alt": "Сайт"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/sait/Sait3.png" alt="Сайт игровых предметов" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Сайт игровых предметов</h3>
@@ -861,7 +863,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/Game.mp4", "alt": "Игра"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Game.png" alt="Игровая сцена" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Игровая сцена</h3>
@@ -879,7 +881,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/Cafe.mp4", "alt": "Кафе"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Cafe.png" alt="Кафе" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Кафе</h3>
@@ -897,7 +899,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/Maonez.mp4", "alt": "Реклама майонеза"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Maonez.png" alt="Реклама майонеза" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Реклама майонеза</h3>
@@ -915,7 +917,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/Kunfu.mp4", "alt": "Кун-фу"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Kunfu.png" alt="Кунг-фу панда" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Кунг-фу панда</h3>
@@ -933,7 +935,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/Scate.mp4", "alt": "Скейт"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Scate.png" alt="Анимация скейтбордиста" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Анимация скейтбордиста</h3>
@@ -950,7 +952,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/Izbushka.jpg", "alt": "Дом мага"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Izbushka.jpg" alt="Избушка" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Избушка</h3>
@@ -969,7 +971,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/House3.jpg", "alt": "Таверна"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/House1.jpg" alt="Средневековая таверна" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Средневековая таверна</h3>
@@ -987,7 +989,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/gorod.mp4", "alt": "Город"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/gorod1.jpg" alt="Город Geometry Nodes" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Город Geometry Nodes</h3>
@@ -1009,7 +1011,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/Ognimet6.jpg", "alt": "Огнемёт"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Ognimet1.jpg" alt="Самодельный огнемёт" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Самодельный огнемёт</h3>
@@ -1035,7 +1037,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/Shcoll10.jpg", "alt": "Локация"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Shcoll1.jpg" alt="Локация для шутера" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Локация для шутера</h3>
@@ -1059,7 +1061,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/priroda8.jpg", "alt": "Пейзаж"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/priroda1.jpg" alt="Лесной пейзаж" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Лесной пейзаж</h3>
@@ -1076,7 +1078,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/ponchik.jpg", "alt": "Пончик"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/ponchik.jpg" alt="Лампа-пончик" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Лампа-пончик</h3>
@@ -1094,7 +1096,7 @@
                      {"type": "video", "src": "./img/portfolio/moshion/Basketboall.mp4", "alt": "Баскетболл"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Basketboall.jpg" alt="Анимация баскетбола" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Анимация баскетбола</h3>
@@ -1111,7 +1113,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/abstreaczi.jpg", "alt": "Абстракция"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/abstreaczi.jpg" alt="Абстрактная композиция" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Абстрактная композиция</h3>
@@ -1130,7 +1132,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/slaim1.mp4", "alt": "Слаймы"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/slaim2.jpg" alt="Анимация слаймов" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Анимация слаймов</h3>
@@ -1147,7 +1149,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/klubnika.jpg", "alt": "Лесная вышка"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/klubnika.jpg" alt="Космическая клубника" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Космическая клубника</h3>
@@ -1167,7 +1169,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/pelmeni1.mp4", "alt": "Лесная вышка"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/pelmeni2.jpg" alt="Анимация пельменей" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Анимация пельменей</h3>
@@ -1191,7 +1193,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/niva8.jpg", "alt": "Гараж"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/niva1.jpg" alt="Заброшенный гараж" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Заброшенный гараж</h3>
@@ -1211,7 +1213,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/zal4.jpg", "alt": "Спальня"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/zal1.jpg" alt="Хай-тек спальня" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Хай-тек спальня</h3>
@@ -1229,7 +1231,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/mashina1.mp4", "alt": "Машина"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/mashina2.jpg" alt="Анимация гонки" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Анимация гонки</h3>
@@ -1250,7 +1252,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/spalni5.jpg", "alt": "Спальня"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/spalni1.jpg" alt="Детская комната" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Детская комната</h3>
@@ -1276,7 +1278,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/vannai10.jpg", "alt": "Ванная"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/vannai1.jpg" alt="Современная ванная" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Современная ванная</h3>
@@ -1297,7 +1299,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/Korabl4.jpg", "alt": "Корабль"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/Korabl.jpg" alt="Остров сокровищ" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Остров сокровищ</h3>
@@ -1315,7 +1317,7 @@
                      {"type": "video", "src": "./img/portfolio/scenes/mech.mp4", "alt": "Мечь"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/mech.jpg" alt="Анимированный меч" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Анимированный меч</h3>
@@ -1334,7 +1336,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/melniza3.jpg", "alt": "Мельница"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/melniza1.jpg" alt="Средневековая мельница" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Средневековая мельница</h3>
@@ -1353,7 +1355,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/derevni2.jpg", "alt": "Загадочная тропа"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/derevni1.jpg" alt="Лесная тропа" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Лесная тропа</h3>
@@ -1372,7 +1374,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/truba1.jpg", "alt": "Труба"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/truba2.jpg" alt="Мистическая труба" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Мистическая труба</h3>
@@ -1391,7 +1393,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/mech3.jpg", "alt": "Меч"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/mech1.jpg" alt="Меч проклятого короля" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Меч проклятого короля</h3>
@@ -1410,7 +1412,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/glok3.jpg", "alt": "Пистолет"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/glok1.jpg" alt="Пистолет Glock" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Пистолет Glock</h3>
@@ -1429,7 +1431,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/kolza3.jpg", "alt": "Кольца"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/kolza1.jpg" alt="Обручальные кольца" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Обручальные кольца</h3>
@@ -1448,7 +1450,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/sakura3.jpg", "alt": "Островок"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/sakura1.jpg" alt="Островок с сакурой" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Островок с сакурой</h3>
@@ -1467,7 +1469,7 @@
                      {"type": "image", "src": "./img/portfolio/scenes/platia3.jpg", "alt": "Платье"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/scenes/platia1.jpg" alt="Вечернее платье" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Вечернее платье</h3>
@@ -1495,7 +1497,7 @@
                      {"type": "image", "src": "./img/portfolio/tg/ckoro.png", "alt": "Бот"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/tg/ckoro.png" alt="Скоро!" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Скоро!</h3>
@@ -1512,7 +1514,7 @@
                      {"type": "image", "src": "./img/portfolio/tg/ckoro.png", "alt": "Бот"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/tg/ckoro.png" alt="Скоро!" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Скоро!</h3>
@@ -1529,7 +1531,7 @@
                      {"type": "image", "src": "./img/portfolio/tg/ckoro.png", "alt": "Бот"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/tg/ckoro.png" alt="Скоро!" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">Скоро!</h3>
@@ -1558,7 +1560,7 @@
                      {"type": "video", "src": "./img/portfolio/ai/Girl.mp4", "alt": "Девушка"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/ai/Girl.png" alt="AI-девушка анимация" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">AI-девушка анимация</h3>
@@ -1575,7 +1577,7 @@
                      {"type": "image", "src": "./img/portfolio/ai/pizza.png", "alt": "Пицца"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/ai/pizza.png" alt="AI-пицца для лого" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">AI-пицца для лого</h3>
@@ -1592,7 +1594,7 @@
                      {"type": "image", "src": "./img/portfolio/ai/skrudz.png", "alt": "Скрудж Магдак"}
                    ]'>
             <div class="portfolio-media">
-              <img src="" alt="" loading="lazy">
+              <img src="./img/portfolio/ai/skrudz.png" alt="AI-Скрудж МакДак" loading="lazy" decoding="async">
             </div>
             <div class="portfolio-info">
               <h3 class="portfolio-title sava-pro">AI-Скрудж МакДак</h3>
@@ -1608,20 +1610,20 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
       <div>© <span id="year"></span> DedTimon. Все права защищены.</div>
-      <a href="#" class="privacy-link" id="openPrivacy">Политика конфиденциальности</a>
+      <button type="button" class="privacy-link" id="openPrivacy">Политика конфиденциальности</button>
     </div>
   </footer>
 
   <!-- ==== FLOATING CATEGORIES PANEL ==== -->
   <div class="floating-categories" id="floatingCategories">
-    <button class="floating-toggle" id="floatingToggle" aria-label="Показать категории">
+    <button type="button" class="floating-toggle" id="floatingToggle" aria-label="Показать категории" aria-expanded="false" aria-controls="categoriesDropdown">
       <span class="plus-icon">+</span>
     </button>
     
     <div class="categories-dropdown" id="categoriesDropdown">
       <div class="categories-header">
         <h4>Категории</h4>
-        <button class="close-categories" id="closeCategories" aria-label="Закрыть">×</button>
+        <button type="button" class="close-categories" id="closeCategories" aria-label="Закрыть категории">×</button>
       </div>
       <div class="categories-list">
         <a href="#logos-title" class="category-link" data-category="logos">Логотипы</a>
@@ -1637,9 +1639,9 @@
   </div>
 
   <!-- ==== PORTFOLIO MODAL (НОВАЯ ВЕРСИЯ) ==== -->
-  <div id="portfolioModal" class="modal portfolio-modal" aria-hidden="true" role="dialog" aria-labelledby="portfolio-modal-title">
+  <div id="portfolioModal" class="modal portfolio-modal" aria-hidden="true" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="portfolio-modal-title">
     <div class="modal-content portfolio-modal-content">
-      <button class="close-modal" id="closePortfolioModal" aria-label="Закрыть окно">&times;</button>
+      <button type="button" class="close-modal" id="closePortfolioModal" aria-label="Закрыть окно">&times;</button>
       
       <div class="portfolio-modal-body">
         <!-- Title moved to top -->
@@ -1651,8 +1653,8 @@
             <div id="galleryContent" class="gallery-content">
               <!-- Content will be inserted by JavaScript -->
             </div>
-            <button class="gallery-nav gallery-prev" id="galleryPrev" aria-label="Предыдущее изображение">‹</button>
-            <button class="gallery-nav gallery-next" id="galleryNext" aria-label="Следующее изображение">›</button>
+            <button type="button" class="gallery-nav gallery-prev" id="galleryPrev" aria-label="Предыдущий материал">‹</button>
+            <button type="button" class="gallery-nav gallery-next" id="galleryNext" aria-label="Следующий материал">›</button>
           </div>
           <div class="gallery-thumbnails" id="galleryThumbnails">
             <!-- Thumbnails will be inserted here by JavaScript -->
@@ -1689,9 +1691,9 @@
   </div>
 
   <!-- ==== PRIVACY MODAL ==== -->
-  <div id="privacyModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="privacy-title">
+  <div id="privacyModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="privacy-title">
     <div class="modal-content">
-      <button class="close-modal" id="closePrivacy" aria-label="Закрыть окно">&times;</button>
+      <button type="button" class="close-modal" id="closePrivacy" aria-label="Закрыть окно">&times;</button>
       <h2 class="section-title" id="privacy-title">Политика конфиденциальности</h2>
       <div class="modal-body">
         <p>Настоящая политика определяет порядок обработки и защиты персональных данных...</p>
@@ -1709,3 +1711,4 @@
 
   <script src="scripts.js" defer></script>
 </body>
+</html>

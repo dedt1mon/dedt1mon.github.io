@@ -30,13 +30,18 @@ img {
 
 html, body {
   max-width: 100%;
-  overflow-x: hidden;
-  height: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }
 
+html {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
+  min-height: 100%;
+  height: auto;
   font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   background: var(--bg-dark);
   color: var(--text-light);
@@ -45,61 +50,35 @@ body {
   line-height: 1.6;
 }
 
-/* ===== BLUR EFFECT FOR LOADING IMAGES ===== */
+/* Content remains visible before JavaScript initializes or when it is unavailable. */
 .portfolio-media img {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
-  filter: blur(10px);
+  opacity: 1;
+  transform: none;
+  filter: none;
 }
 
 .portfolio-media img.loaded {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
-}
-
-/* ===== ПРЕДЗАГРУЗКА ИЗОБРАЖЕНИЙ ===== */
-.portfolio-grid {
-  position: relative;
-}
-
-.portfolio-grid.loaded .portfolio-card {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+  filter: none;
 }
 
 .portfolio-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* Added only after the reveal observer has been initialized successfully. */
+.portfolio-card.reveal-pending {
   opacity: 0;
   transform: translateY(30px) scale(0.95);
-  animation: cardAppear 0.5s ease-out both;
-  animation-play-state: paused;
-}
-
-/* Индикатор загрузки для сетки */
-.portfolio-grid.loading::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(0, 229, 255, 0.2);
-  border-top: 3px solid var(--primary-color);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* ===== BLUE PARTICLES STYLES ===== */
 .blue-particle {
   position: fixed;
+  top: 0;
+  left: 0;
   pointer-events: none;
   z-index: 9998;
   border-radius: 50%;
@@ -253,7 +232,7 @@ body::after {
   border-radius: 14px;
   display: block;
   background: transparent;
-  transition: transform 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
 }
 
 /* Улучшаем отображение для разных соотношений сторон */
@@ -345,6 +324,8 @@ body::after {
   align-items: center;
   gap: 12px;
   cursor: pointer;
+  color: inherit;
+  text-decoration: none;
 }
 
 .logo-circle {
@@ -417,15 +398,17 @@ body::after {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: 0;
+  width: 80%;
   height: 2px;
   background: var(--primary-color);
-  transition: var(--transition);
-  transform: translateX(-50%);
+  transition: transform 0.4s var(--ease-smooth);
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
 }
 
-.nav-link:hover::after {
-  width: 80%;
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
 /* Burger Menu */
@@ -604,12 +587,12 @@ body::after {
   cursor: default !important;
 }
 
-.popular-services .svc-card:hover {
+.popular-services:not(.services-page) .svc-card:hover {
   transform: none !important;
   box-shadow: inherit !important;
 }
 
-.popular-services .svc-card:hover img {
+.popular-services:not(.services-page) .svc-card:hover img {
   transform: none !important;
 }
 
@@ -651,7 +634,9 @@ body::after {
   border-radius: 16px;
   overflow: hidden;
   background: var(--card-bg);
-  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.6s var(--ease-smooth), opacity 0.6s var(--ease-smooth),
+    filter 0.6s var(--ease-smooth), box-shadow 0.6s var(--ease-smooth),
+    border-color 0.6s var(--ease-smooth);
   z-index: 1;
   opacity: 0;
   filter: blur(6px);
@@ -816,10 +801,6 @@ body::after {
   line-height: 1.5;
 }
 
-.popular-services .order-link {
-  display: none !important;
-}
-
 .section-title {
   text-align: center;
   margin-bottom: 60px;
@@ -866,6 +847,7 @@ body::after {
 .services-page .svc {
   flex: 0 1 calc((100% - 60px) / 3);
   max-width: 380px;
+  min-width: 0;
   display: flex;
 }
 
@@ -886,7 +868,7 @@ body::after {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  opacity: 0;
+  opacity: 1;
   transform: scale(1);
   transition: opacity 0.5s ease;
 }
@@ -907,27 +889,9 @@ body::after {
 
 .services-page .muted {
   color: var(--text-muted);
-  margin-bottom: 20px;
+  margin-bottom: 0;
   line-height: 1.6;
   flex-grow: 1;
-}
-
-/* Кнопки заказа только на странице услуг */
-.services-page .order-link {
-  display: inline-block;
-  text-align: center;
-  padding: 12px 24px;
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  margin-top: auto;
-  pointer-events: none;
 }
 
 /* ===== CLICKABLE SERVICE CARDS ===== */
@@ -936,6 +900,9 @@ body::after {
   text-decoration: none;
   color: inherit;
   height: 100%;
+  width: 100%;
+  max-width: 320px;
+  min-width: 0;
   cursor: pointer;
 }
 
@@ -947,11 +914,6 @@ body::after {
 
 .services-page .clickable-card:hover .svc-card img {
   transform: scale(1);
-}
-
-.services-page .clickable-card:hover .order-link {
-  color: var(--primary-color);
-  border-color: rgba(0, 229, 255, 0.3);
 }
 
 /* Индикатор кликабельности для services page */
@@ -1028,7 +990,11 @@ body::after {
 .privacy-link {
   color: var(--primary-color);
   text-decoration: none;
-  transition: var(--transition);
+  transition: color 0.4s var(--ease-smooth);
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
 }
 
 .privacy-link:hover {
@@ -1066,6 +1032,8 @@ body::after {
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
+  max-height: 80dvh;
+  overscroll-behavior: contain;
   overflow-y: auto;
   box-shadow: 0 0 40px rgba(0,229,255,0.2);
   border: 1px solid rgba(0,229,255,0.2);
@@ -1149,22 +1117,16 @@ body::after {
   outline-offset: 2px;
 }
 
-/* ===== SCROLL ANIMATIONS (fixed for all pages) ===== */
+/* ===== SCROLL ANIMATIONS ===== */
 .fade-up.animate-card {
-  opacity: 0;
-  transform: translateY(40px) scale(0.96);
-  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.fade-up.animate-card.in-view,
-.fade-up.animate-card.show {
   opacity: 1;
   transform: translateY(0) scale(1);
+  transition: opacity 0.6s ease, transform 0.6s var(--ease-smooth);
 }
 
-.fade-up.show .svc-card img {
-  opacity: 1;
-  transform: scale(1);
+.fade-up.animate-card.reveal-pending {
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
 }
 
 /* Задержки для анимации карточек услуг */
@@ -1196,7 +1158,7 @@ body::after {
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 30px;
   width: 100%;
   max-width: 1200px;
@@ -1207,7 +1169,7 @@ body::after {
 
 .portfolio-grid1 {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 30px;
   width: 100%;
   max-width: 1200px;
@@ -1221,22 +1183,20 @@ body::after {
   background: var(--card-bg);
   border-radius: 16px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out,
+    box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
   border: 1px solid rgba(255,255,255,0.1);
   backdrop-filter: blur(10px);
   width: 100%;
+  min-width: 0;
   max-width: 380px;
 }
 
-.portfolio-card:hover {
+.portfolio-card:hover:not(.reveal-pending) {
   transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(0,229,255,0.2);
   border-color: rgba(0,229,255,0.3);
-}
-
-.portfolio-card.show {
-  animation-play-state: running !important;
 }
 
 /* видео в карточке */
@@ -1302,7 +1262,8 @@ body::after {
   overflow-y: auto;
   opacity: 0;
   transform: scale(0.9) translateY(20px);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.4s var(--ease-smooth), transform 0.4s var(--ease-smooth);
+  overscroll-behavior: contain;
   padding: 30px;
 }
 
@@ -1610,6 +1571,9 @@ body::after {
 }
 
 .gallery-thumbnail {
+  padding: 0;
+  font: inherit;
+  color: inherit;
   flex-shrink: 0;
   width: 100px;
   height: 70px;
@@ -1655,18 +1619,6 @@ body::after {
   z-index: 1;
 }
 
-/* ===== PORTFOLIO CARD ANIMATIONS ===== */
-@keyframes cardAppear {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -1677,16 +1629,6 @@ body::after {
     transform: translateY(0);
   }
 }
-
-/* Задержки для анимации карточек портфолио */
-.portfolio-card:nth-child(1) { animation-delay: 0.1s; }
-.portfolio-card:nth-child(2) { animation-delay: 0.2s; }
-.portfolio-card:nth-child(3) { animation-delay: 0.3s; }
-.portfolio-card:nth-child(4) { animation-delay: 0.4s; }
-.portfolio-card:nth-child(5) { animation-delay: 0.5s; }
-.portfolio-card:nth-child(6) { animation-delay: 0.6s; }
-.portfolio-card:nth-child(7) { animation-delay: 0.7s; }
-.portfolio-card:nth-child(8) { animation-delay: 0.8s; }
 
 /* ===== FORM STYLES ===== */
 .form-group {
@@ -1803,8 +1745,10 @@ body::after {
   border: 1px solid rgba(0, 229, 255, 0.2);
   backdrop-filter: blur(20px);
   opacity: 0;
+  visibility: hidden;
   transform: translateY(20px) scale(0.95);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth),
+    visibility 0s linear 0.3s;
   pointer-events: none;
   z-index: 10001;
   overflow: hidden;
@@ -1812,8 +1756,10 @@ body::after {
 
 .categories-dropdown.open {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0) scale(1);
   pointer-events: all;
+  transition-delay: 0s;
 }
 
 .categories-header {
@@ -1855,8 +1801,10 @@ body::after {
 
 .categories-list {
   padding: 15px;
-  max-height: 400px;
+  max-height: min(400px, calc(100vh - 200px));
+  max-height: min(400px, calc(100dvh - 200px));
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .category-link {
@@ -1985,15 +1933,51 @@ body::after {
     padding: 8px;
     border-radius: 12px;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
     transform: translateY(-10px);
-    transition: var(--transition);
+    transition: opacity 0.4s var(--ease-smooth), transform 0.4s var(--ease-smooth),
+      visibility 0s linear 0.4s;
+    max-height: calc(100vh - 110px);
+    max-height: calc(100dvh - 110px);
+    overflow-y: auto;
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255,255,255,0.1);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
   
-  .top-nav.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .top-nav.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition-delay: 0s;
+  }
+
+  /* Keep navigation usable if JavaScript is disabled or fails to initialize. */
+  body:not(.nav-ready) .header-inner { flex-wrap: wrap; }
+  body:not(.nav-ready) .top-nav {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    max-height: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    transition: none;
+    overflow: visible;
+  }
+  body:not(.nav-ready) .burger { display: none; }
   
   .nav-link { padding: 12px 16px; border-radius: 8px; margin: 2px 0; }
   
@@ -2082,8 +2066,9 @@ body::after {
   .modal-content { margin: 0; padding: 20px; width: 95%; }
   .close-modal { top: 10px; right: 15px; }
 
-  .portfolio-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  .portfolio-grid,
+  .portfolio-grid1 {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: 20px;
   }
 
@@ -2097,13 +2082,9 @@ body::after {
     margin-bottom: 15px; 
   }
   
-  .gallery-thumbnails { 
-    grid-template-columns: repeat(3, 1fr); 
-  }
-
   .gallery-nav { 
-    width: 40px; 
-    height: 40px; 
+    width: 44px; 
+    height: 44px; 
     font-size: 30px; 
   }
   
@@ -2191,10 +2172,6 @@ body::after {
     padding: 16px;
   }
 
-  .gallery-thumbnails {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .project-links {
     justify-content: center;
   }
@@ -2215,8 +2192,8 @@ body::after {
   }
   
   .gallery-nav {
-    width: 30px;
-    height: 30px;
+    width: 44px;
+    height: 44px;
     font-size: 25px;
   }
   
@@ -2248,11 +2225,79 @@ body::after {
   }
 }
 
-/* Reduced motion support */
+/* ===== KEYBOARD ACCESS AND MEDIA FALLBACKS ===== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100000;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: var(--bg-dark);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 16px));
+  transition: transform 0.2s var(--ease-smooth);
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+}
+
+.portfolio-card.reveal-pending:focus-within,
+.fade-up.animate-card.reveal-pending:focus-within {
+  opacity: 1;
+  transform: none;
+}
+
+.media-unavailable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100px;
+  padding: 16px;
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Reduced motion includes pseudo-elements, scroll and staggered reveal delays. */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+
+  .portfolio-card.reveal-pending,
+  .fade-up.animate-card.reveal-pending {
+    opacity: 1;
+    transform: none;
   }
 }
