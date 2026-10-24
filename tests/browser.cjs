@@ -291,8 +291,10 @@ async function a11y() {
     for(const width of [375,1440]) {
       await page.setViewportSize({width,height:1000});await load('/');
       const current=page.locator('.carousel-item[data-position="current"]');
-      await current.focus();await page.waitForTimeout(650);
+      await current.focus();
       const incoming=page.locator('.carousel-item[data-index="2"]');
+      await page.waitForFunction(()=>{const s=getComputedStyle(document.querySelector('.carousel-item[data-index="2"]'));return s.transform==='none'&&s.filter==='blur(6px)'&&s.opacity==='0';},null,{timeout:1500});
+      assert.ok(await incoming.evaluate(e=>getComputedStyle(e).transitionDuration.split(',').every(v=>v.trim()==='0.6s')));
       const hidden=await incoming.evaluate(e=>{const s=getComputedStyle(e);return {transform:s.transform,filter:s.filter,opacity:s.opacity};});
       assert.deepEqual(hidden,{transform:'none',filter:'blur(6px)',opacity:'0'},'Original hidden cards stay centered, unscaled and blurred');
       await page.keyboard.press('ArrowRight');assert.equal(await incoming.getAttribute('data-position'),'next');
@@ -301,10 +303,11 @@ async function a11y() {
       const side=width===375?280:360;
       assert.ok(middle.x>0&&middle.x<side,`Incoming original trajectory must move outwards from center: ${middle.x}`);
       assert.ok(middle.easing.includes('cubic-bezier(0.25, 0.46, 0.45, 0.94)'));
-      await page.waitForTimeout(550);
+      await page.waitForFunction(target=>{const s=getComputedStyle(document.querySelector('.carousel-item[data-index="2"]'));return new DOMMatrix(s.transform).m41===target&&s.filter==='blur(2px)';},side,{timeout:1500});
       const settled=await incoming.evaluate(e=>({x:new DOMMatrix(getComputedStyle(e).transform).m41,filter:getComputedStyle(e).filter}));
       assert.equal(settled.x,side);assert.equal(settled.filter,'blur(2px)');
-      await page.keyboard.press('ArrowLeft');await page.waitForTimeout(650);
+      await page.keyboard.press('ArrowLeft');
+      await page.waitForFunction(()=>{const s=getComputedStyle(document.querySelector('.carousel-item[data-index="2"]'));return s.transform==='none'&&s.filter==='blur(6px)';},null,{timeout:1500});
       assert.equal(await incoming.evaluate(e=>getComputedStyle(e).transform),'none');
       assert.equal(await incoming.evaluate(e=>getComputedStyle(e).filter),'blur(6px)');
     }
@@ -325,7 +328,10 @@ async function a11y() {
     assert.ok(await last.locator('img').evaluate(e=>e.getAnimations().some(a=>a.effect.getTiming().duration===500)));
     await page.waitForTimeout(1100);assert.equal(await last.evaluate(e=>getComputedStyle(e).opacity),'1');
     await page.mouse.move(400,200);await page.waitForTimeout(100);await page.mouse.move(420,220);assert.ok(await page.locator('.blue-particle').count()>0);
-    await page.waitForTimeout(550);assert.equal(await page.locator('.blue-particle').count(),0,'Particles must not keep an idle loop alive');
+    const lifetimes=await page.locator('.blue-particle').evaluateAll(es=>es.flatMap(e=>e.getAnimations().map(a=>a.effect.getTiming())));
+    assert.ok(lifetimes.length>0&&lifetimes.every(t=>Math.abs(t.duration-28*1000/60)<.001&&t.iterations===1),'Original particles remain finite, 28 frames at 60Hz');
+    await page.waitForFunction(()=>document.querySelectorAll('.blue-particle').length===0,null,{timeout:1500});
+    await page.waitForTimeout(120);assert.equal(await page.locator('.blue-particle').count(),0,'Particles must not keep an idle loop alive');
     await page.emulateMedia({reducedMotion:'reduce'});await page.mouse.move(450,230);assert.equal(await page.locator('.blue-particle').count(),0);
   });
   await test('identity:measured-original-service-layout', async () => {

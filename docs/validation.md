@@ -129,3 +129,14 @@ mobile controls. The suite contains 46 browser cases. CI4d5f8ea (3912 static +45
 browser PASS) remains historical; the successor exact-head CI is recorded in
 PR #1. Earlier motion recordings do not prove this final trajectory correction;
 its own source-bound test does. No unchanged full local suite was repeated.
+
+CI3b923ef passed3912 static assertions and44 browser cases, but two fixed-delay
+motion observations sampled animations before the browser completed their last
+rendered frame. The test harness now waits for the actual exact final properties
+with a1500ms bound, while retaining/asserting original600ms transition duration,
+finite28/60-second particle lifetime, intermediate movement and idle cleanup.
+No application code changed. The first harness correction passed particle cleanup
+but observed hidden opacity/blur too early; the second waits for all three hidden
+properties and passed the trajectory case. Both attempts are preserved. Unchanged
+particle evidence is reused; only the failed trajectory case was rerun locally.
+The final successor CI and source-scope review binding are recorded in PR #1.
