@@ -1,0 +1,49 @@
+# Website refresh — contract v1
+
+Owner goal: substantially improve the existing personal site, preserve its
+purpose/content/history and free GitHub Pages hosting at `dedt1mon.github.io`.
+Source repository: `dedt1mon/dedt1mon.github.io`, baseline remote `54bda2957d08d036293698651ded51199e650685`.
+Five pre-existing local changes were preserved in a separate development commit
+before implementation. The remote one-line portfolio correction was merged.
+
+| Requirement | Acceptance / evidence |
+| --- | --- |
+| R01 Existing project | Existing repo/history; development branch and PR, no direct main push |
+| R02 Content fidelity | 76 substantive projects, 211 real media entries, original assets retained; 3 empty placeholders removed |
+| R03 Identity | Original logo, dark/cyan palette, readable typography; no stock imagery or invented personal facts |
+| R04 Copy | Clear Russian text, visible descriptions and tools, meaningful service descriptions |
+| R05 Contacts | Removed obsolete social/marketplace contacts and icons; retained original YouTube, Telegram and WhatsApp destinations |
+| R06 Responsive | 320/375/430/768/1024/1440/1920px, three pages, no horizontal overflow or clipped controls |
+| R07 Accessibility | Semantic headings, visible keyboard focus, skip link, menu, dialog trap/return, Escape, 44px primary controls, reduced motion |
+| R08 Progressive enhancement | Content/nav/direct original media readable without JS; search/gallery enhance static HTML |
+| R09 SEO | Unique titles/descriptions, canonical, Person+WebSite JSON-LD, OG/cards, favicon, robots and sitemap; content pages indexable |
+| R10 Performance | Responsive WebP previews, explicit image sizes, lazy below-fold images, deferred JS, no video autoplay or cursor animation |
+| R11 Real verification | Chromium responsive/interaction/media/accessibility evidence, actual video playback, no runtime errors, exact-head CI |
+| R12 Independent acceptance | QA then Security then Verifier, current revision + shared compact evidence; findings fixed before acceptance |
+| R13 Deployment boundary | Existing HTTPS Pages checked; new version deployment deferred until owner merge approval |
+| R14 Indexing handoff | Exact Search Console URL-prefix verification/sitemap/URL Inspection instructions; no ranking guarantee |
+
+## Team and Task Graph
+
+1. Astra / Requirements + UX: audit and versioned contract (R01–R14).
+2. Frontend Engineer: responsive CSS and progressive JavaScript (R03/R06–R08/R10).
+3. Astra / Content + Integration: preserve portfolio, improve copy, images/SEO,
+   repair media links, integrate tests and workflow (R02/R04/R05/R09–R11).
+   Work on 2 and 3 is independent until HTML/JS/CSS contract integration.
+4. Targeted static/browser acceptance → PR → exact-head Site quality CI.
+5. Independent QA → Security → Verifier using source/diff/criteria/evidence,
+   without developer reasoning as proof.
+6. Deployment review and owner handoff. Owner-approved merge/publication is a
+   separate action. No paid/cloud AI calls or credential scope changes.
+
+Orchestration is performed through Work/Codex and versioned files/evidence.
+This does not claim autonomous dispatch by the Astra service or reuse the
+pilot-specific V1.0 control/recovery environment as a production runtime.
+
+## Evidence policy
+
+Re-run only affected checks when code/config/environment changes. Record source
+hashes, actual Git revision, Node/OS/architecture and browser/tool versions.
+Share summaries and artifact references; preserve failed attempts. Do not count
+the live old site as a deployment of this candidate. Do not claim lab metrics
+are measured field Core Web Vitals or that search engines must index/rank it.

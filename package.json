@@ -1,0 +1,16 @@
+{
+  "name": "dedtimon-personal-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Development checks only; the published site has no runtime dependencies.",
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "serve": "node tools/serve.cjs",
+    "check": "node --check scripts.js && python tests/check_site.py",
+    "test:browser": "node tests/browser.cjs"
+  },
+  "devDependencies": {
+    "axe-core": "4.11.0",
+    "playwright": "1.62.1"
+  }
+}

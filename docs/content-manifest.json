@@ -1,0 +1,2187 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": "work-01",
+      "title": "Игровой никнейм RobotAim",
+      "original_title": "Логотип",
+      "description": "Объёмное оформление никнейма для YouTube-канала об игре Counter-Strike 2.",
+      "date": "18.02.2026",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/robotaim1.jpg",
+          "alt": "Игровой никнейм RobotAim — кадр 1",
+          "preview": "/img/optimized/abf1b541c76952b6-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/robotaim2.jpg",
+          "alt": "Игровой никнейм RobotAim — кадр 2",
+          "preview": "/img/optimized/3395f36ff0f66710-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/robotaim1.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-02",
+      "title": "Визитки Альфа Банка",
+      "original_title": "Визитки Альфа Банка",
+      "description": "Разработал пару корпоративных визиток для партнёров Альфа Банка.",
+      "date": "12.12.2025",
+      "tech": "Figma",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/Luda.jpg",
+          "alt": "Визитки Альфа Банка — кадр 1",
+          "preview": "/img/optimized/13d6c5c7b0b481fd-200.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/Luda2.jpg",
+          "alt": "Визитки Альфа Банка — кадр 2",
+          "preview": "/img/optimized/3c7c4147f2cff40b-200.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/Luda.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-03",
+      "title": "Герб правового портала",
+      "original_title": "Герб правового портала",
+      "description": "Создал официальный герб для юридического онлайн-ресурса.",
+      "date": "27.08.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/Gerp.jpg",
+          "alt": "Герб правового портала — кадр 1",
+          "preview": "/img/optimized/97cac2149e3838e5-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/Gerp.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-04",
+      "title": "Логотип музыканта",
+      "original_title": "Логотип музыканта",
+      "description": "Разработал эмоциональный логотип для начинающего музыканта.",
+      "date": "22.05.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/kolia.jpg",
+          "alt": "Логотип музыканта — кадр 1",
+          "preview": "/img/optimized/6ab41e1ffb03a2c0-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/kolia.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-05",
+      "title": "Театральный постер",
+      "original_title": "Театральный постер",
+      "description": "Создал постер для театральной постановки о противостоянии любви и гнева.",
+      "date": "25.03.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/Teatr.jpg",
+          "alt": "Театральный постер — кадр 1",
+          "preview": "/img/optimized/44307635fbc6807f-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/Teatr.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-06",
+      "title": "Логотип YouTube-канала",
+      "original_title": "Логотип YouTube-канала",
+      "description": "Создал два логотипа для YouTube-канала о реставрации автомобилей.",
+      "date": "18.11.2024",
+      "tech": "After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/sani1.jpg",
+          "alt": "Логотип YouTube-канала — кадр 1",
+          "preview": "/img/optimized/8d05bdc1dead826a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/sani2.jpg",
+          "alt": "Логотип YouTube-канала — кадр 2",
+          "preview": "/img/optimized/588ab3910c6d4fee-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/sani1.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-07",
+      "title": "Логотипы курса ААС",
+      "original_title": "Логотипы курса ААС",
+      "description": "Разработал логотип для онлайн-курса «Архитектура Аппаратных Средств».",
+      "date": "15.11.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/logo1.jpg",
+          "alt": "Логотипы курса ААС — кадр 1",
+          "preview": "/img/optimized/8f2f8baf0c5320b5-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/logo2.jpg",
+          "alt": "Логотипы курса ААС — кадр 2",
+          "preview": "/img/optimized/37b86f3e297aa6f6-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/logo1.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-08",
+      "title": "Анимированная монета",
+      "original_title": "Анимированная монета",
+      "description": "Создал анимированную гифку вращающейся монеты для личного бренда.",
+      "date": "28.10.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/coin1.png",
+          "alt": "Анимированная монета — кадр 1",
+          "preview": "/img/optimized/d3613572f73771b1-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/logo/coin.mp4",
+          "alt": "Анимированная монета — видео 2",
+          "preview": "/img/optimized/d3613572f73771b1-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/coin1.png",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-09",
+      "title": "Логотип EA",
+      "original_title": "Логотип EA",
+      "description": "Разработал логотип с градиентным переходом от серебристого к бронзовому для букв «EA».",
+      "date": "13.09.2024",
+      "tech": "Blender | After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/EA.jpg",
+          "alt": "Логотип EA — кадр 1",
+          "preview": "/img/optimized/3f279f3cb5395a22-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/EA.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-10",
+      "title": "Семейный герб",
+      "original_title": "Семейный герб",
+      "description": "Создал персональный семейный герб по техническому заданию клиента.",
+      "date": "29.08.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/gerb.jpg",
+          "alt": "Семейный герб — кадр 1",
+          "preview": "/img/optimized/5325ad47355463da-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/gerb.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-11",
+      "title": "Неоновый логотип PUBG",
+      "original_title": "Неоновый логотип PUBG",
+      "description": "Разработал неоновый логотип для магазина игровых предметов в PUBG.",
+      "date": "12.06.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/pubg.jpg",
+          "alt": "Неоновый логотип PUBG — кадр 1",
+          "preview": "/img/optimized/6b9c50d87afdbfee-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/pubg.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-12",
+      "title": "Медальница",
+      "original_title": "Медальница",
+      "description": "Создал модель медальницы для наград и достижений в реальной жизни.",
+      "date": "17.05.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/medaliniza.jpg",
+          "alt": "Медальница — кадр 1",
+          "preview": "/img/optimized/f67c18472467cf64-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/medaliniza.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-13",
+      "title": "Уличная табличка",
+      "original_title": "Уличная табличка",
+      "description": "Разработал дизайн уличной таблички для частного дома.",
+      "date": "29.04.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/tablichka.jpg",
+          "alt": "Уличная табличка — кадр 1",
+          "preview": "/img/optimized/677735bce79ee582-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/tablichka.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-14",
+      "title": "Логотип Gargegenius",
+      "original_title": "Логотип Gargegenius",
+      "description": "Логотип для бренда Gargegenius, который занимается ремонтом автомобилей.",
+      "date": "15.04.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/garash.jpg",
+          "alt": "Логотип Gargegenius — кадр 1",
+          "preview": "/img/optimized/36a755e3a591200f-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/garash.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-15",
+      "title": "Логотип Modern Wedding",
+      "original_title": "Золотая звезда",
+      "description": "Объёмный логотип для свадебного агентства Modern Wedding.",
+      "date": "12.03.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/logotip.jpg",
+          "alt": "Логотип Modern Wedding — кадр 1",
+          "preview": "/img/optimized/6e564f18b3573947-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/logotip.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-16",
+      "title": "Логотип-снежинка",
+      "original_title": "Логотип-снежинка",
+      "description": "Персональный логотип для игрока с никнеймом mopo3i.",
+      "date": "08.03.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/mpozi.jpg",
+          "alt": "Логотип-снежинка — кадр 1",
+          "preview": "/img/optimized/747332b0df9935b2-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/mpozi.jpg",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-17",
+      "title": "Dying Light Анимация",
+      "original_title": "Dying Light Анимация",
+      "description": "Создал динамичную анимацию в стиле игры Dying Light в рамках курса Starikov Production.",
+      "date": "22.10.2025",
+      "tech": "After Effects | Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/Zombie.png",
+          "alt": "Dying Light Анимация — кадр 1",
+          "preview": "/img/optimized/796146f7a78f8a88-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/Zombie.mp4",
+          "alt": "Dying Light Анимация — видео 2",
+          "preview": "/img/optimized/796146f7a78f8a88-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/Zombie.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-18",
+      "title": "Реклама стеклопакетов",
+      "original_title": "Реклама стеклопакетов",
+      "description": "Разработал рекламный ролик для компании по производству стеклопакетов.",
+      "date": "22.05.2025",
+      "tech": "After Effects | Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/Steclopaket.png",
+          "alt": "Реклама стеклопакетов — кадр 1",
+          "preview": "/img/optimized/e395a177b7d9baf5-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/Steclopacet.mp4",
+          "alt": "Реклама стеклопакетов — видео 2",
+          "preview": "/img/optimized/e395a177b7d9baf5-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/Steclopaket.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-19",
+      "title": "Реклама Каменное Дерево",
+      "original_title": "Реклама Каменное Дерево",
+      "description": "Создал рекламу нового продукта для компании «КАМЕННОЕ ДЕРЕВО».",
+      "date": "21.01.2025",
+      "tech": "After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/Reklama.png",
+          "alt": "Реклама Каменное Дерево — кадр 1",
+          "preview": "/img/optimized/48a4d01b35abd8ed-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/Reklama.mp4",
+          "alt": "Реклама Каменное Дерево — видео 2",
+          "preview": "/img/optimized/48a4d01b35abd8ed-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/Reklama.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-20",
+      "title": "Реклама холодильника",
+      "original_title": "Реклама холодильника",
+      "description": "Создал рекламный ролик холодильника для конкурса моушен-дизайна.",
+      "date": "09.12.2024",
+      "tech": "After Effects | Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/Holodilnik.png",
+          "alt": "Реклама холодильника — кадр 1",
+          "preview": "/img/optimized/f316467997da60e4-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/Holodilnik.mp4",
+          "alt": "Реклама холодильника — видео 2",
+          "preview": "/img/optimized/f316467997da60e4-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/Holodilnik.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-21",
+      "title": "Видеофон СТАНЦИЯ",
+      "original_title": "Видеофон СТАНЦИЯ",
+      "description": "Разработал набор анимированных фонов для музыкального исполнителя.",
+      "date": "15.11.2024",
+      "tech": "After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/st2.png",
+          "alt": "Видеофон СТАНЦИЯ — кадр 1",
+          "preview": "/img/optimized/eae603d2271a1c78-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/st1.mp4",
+          "alt": "Видеофон СТАНЦИЯ — видео 2",
+          "preview": "/img/optimized/eae603d2271a1c78-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/st2.mp4",
+          "alt": "Видеофон СТАНЦИЯ — видео 3",
+          "preview": "/img/optimized/eae603d2271a1c78-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/st.mp4",
+          "alt": "Видеофон СТАНЦИЯ — видео 4",
+          "preview": "/img/optimized/eae603d2271a1c78-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/st3.mp4",
+          "alt": "Видеофон СТАНЦИЯ — видео 5",
+          "preview": "/img/optimized/eae603d2271a1c78-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/st2.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-22",
+      "title": "Ролик салона красоты",
+      "original_title": "Ролик салона красоты",
+      "description": "Создал рекламный ролик для салона красоты.",
+      "date": "15.11.2024",
+      "tech": "After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/vfx.png",
+          "alt": "Ролик салона красоты — кадр 1",
+          "preview": "/img/optimized/61e0d3bd4411dc5f-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/vfx.mp4",
+          "alt": "Ролик салона красоты — видео 2",
+          "preview": "/img/optimized/61e0d3bd4411dc5f-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/vfx.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-23",
+      "title": "Гифка для Steam",
+      "original_title": "Гифка для Steam",
+      "description": "Создал анимированную гифку для Steam-аккаунта.",
+      "date": "30.10.2024",
+      "tech": "After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/mopozi2.png",
+          "alt": "Гифка для Steam — кадр 1",
+          "preview": "/img/optimized/46f164ad4370a3da-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/mopozi2.mp4",
+          "alt": "Гифка для Steam — видео 2",
+          "preview": "/img/optimized/46f164ad4370a3da-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/mopozi2.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-24",
+      "title": "Видеофон Boston",
+      "original_title": "Видеофон Boston",
+      "description": "Разработал цикл видеофонов для клуба «BOSTON».",
+      "date": "20.10.2024",
+      "tech": "After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/boston.png",
+          "alt": "Видеофон Boston — кадр 1",
+          "preview": "/img/optimized/9c9951eeb5115888-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/boston.mp4",
+          "alt": "Видеофон Boston — видео 2",
+          "preview": "/img/optimized/9c9951eeb5115888-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/boston1.mp4",
+          "alt": "Видеофон Boston — видео 3",
+          "preview": "/img/optimized/9c9951eeb5115888-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/boston2.mp4",
+          "alt": "Видеофон Boston — видео 4",
+          "preview": "/img/optimized/9c9951eeb5115888-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/boston3.mp4",
+          "alt": "Видеофон Boston — видео 5",
+          "preview": "/img/optimized/9c9951eeb5115888-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/boston.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-25",
+      "title": "Реклама ПК-клубов",
+      "original_title": "Реклама ПК-клубов",
+      "description": "Создал рекламу для международной сети ПК-клубов.",
+      "date": "18.09.2024",
+      "tech": "After Effects | Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/club.png",
+          "alt": "Реклама ПК-клубов — кадр 1",
+          "preview": "/img/optimized/051b4a4798f85fb2-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/club.mp4",
+          "alt": "Реклама ПК-клубов — видео 2",
+          "preview": "/img/optimized/051b4a4798f85fb2-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/club.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-26",
+      "title": "Сборник учебных работ",
+      "original_title": "Сборник учебных работ",
+      "description": "Собрал портфолио из учебных работ по моушен-дизайну.",
+      "date": "30.08.2024",
+      "tech": "After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/sbornikAF4.png",
+          "alt": "Сборник учебных работ — кадр 1",
+          "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/sbornikAF4.mp4",
+          "alt": "Сборник учебных работ — видео 2",
+          "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/sbornikAF1.mp4",
+          "alt": "Сборник учебных работ — видео 3",
+          "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/sbornikAF2.mp4",
+          "alt": "Сборник учебных работ — видео 4",
+          "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/sbornikAF3.mp4",
+          "alt": "Сборник учебных работ — видео 5",
+          "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/sbornikAF6.mp4",
+          "alt": "Сборник учебных работ — видео 6",
+          "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/sbornikAF5.mp4",
+          "alt": "Сборник учебных работ — видео 7",
+          "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/sbornikAF4.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-27",
+      "title": "Фоны для диджея",
+      "original_title": "Фоны для диджея",
+      "description": "Разработал серию из видеофонов для диджея.",
+      "date": "11.05.2025",
+      "tech": "After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/ionov1.png",
+          "alt": "Фоны для диджея — кадр 1",
+          "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/ionov1.mp4",
+          "alt": "Фоны для диджея — видео 2",
+          "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/ionov2.mp4",
+          "alt": "Фоны для диджея — видео 3",
+          "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/ionov3.mp4",
+          "alt": "Фоны для диджея — видео 4",
+          "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/ionov4.mp4",
+          "alt": "Фоны для диджея — видео 5",
+          "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/ionov5.mp4",
+          "alt": "Фоны для диджея — видео 6",
+          "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/ionov6.mp4",
+          "alt": "Фоны для диджея — видео 7",
+          "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/ionov1.png",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-28",
+      "title": "Соник для игры",
+      "original_title": "Соник для игры",
+      "description": "Создал 3D-модель персонажа Соника для игрового проекта.",
+      "date": "25.07.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Sonik.jpg",
+          "alt": "Соник для игры — кадр 1",
+          "preview": "/img/optimized/a91a0c97ca063baa-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/Sonik.jpg",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-29",
+      "title": "Эльфийка в гараже",
+      "original_title": "Эльфийка в сцене",
+      "description": "3D-персонаж эльфийки в сцене гаража.",
+      "date": "08.06.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Elf.jpg",
+          "alt": "Эльфийка в гараже — кадр 1",
+          "preview": "/img/optimized/0da7585938ff50e4-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Elf1.jpg",
+          "alt": "Эльфийка в гараже — кадр 2",
+          "preview": "/img/optimized/672362c9c1aea306-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Elf2.jpg",
+          "alt": "Эльфийка в гараже — кадр 3",
+          "preview": "/img/optimized/1c49e4f55305f8e6-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Elf3.jpg",
+          "alt": "Эльфийка в гараже — кадр 4",
+          "preview": "/img/optimized/2fbc34a6e97baa26-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Elf4.jpg",
+          "alt": "Эльфийка в гараже — кадр 5",
+          "preview": "/img/optimized/35a7a84e763b5189-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/Elf.jpg",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-30",
+      "title": "Рыцарь в доспехах",
+      "original_title": "Рыцарь в доспехах",
+      "description": "Создал детализированную модель фэнтезийного рыцаря в доспехах.",
+      "date": "03.07.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/rizar1.jpg",
+          "alt": "Рыцарь в доспехах — кадр 1",
+          "preview": "/img/optimized/2dbe1d4f7bb3086d-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/rizar2.jpg",
+          "alt": "Рыцарь в доспехах — кадр 2",
+          "preview": "/img/optimized/978b68d9fe06d6ed-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/rizar3.jpg",
+          "alt": "Рыцарь в доспехах — кадр 3",
+          "preview": "/img/optimized/1bba870a85a45aee-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/rizar1.jpg",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-31",
+      "title": "Кот-персонаж",
+      "original_title": "Кот-персонаж",
+      "description": "Разработал кота-персонажа для игрового проекта.",
+      "date": "21.06.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/catpers1.jpg",
+          "alt": "Кот-персонаж — кадр 1",
+          "preview": "/img/optimized/ea9a5dc9bac62c92-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/catpers2.jpg",
+          "alt": "Кот-персонаж — кадр 2",
+          "preview": "/img/optimized/ceb8f63401f9beee-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/catpers3.jpg",
+          "alt": "Кот-персонаж — кадр 3",
+          "preview": "/img/optimized/75144085feca7033-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/catpers4.jpg",
+          "alt": "Кот-персонаж — кадр 4",
+          "preview": "/img/optimized/73df85c9f9e97bb7-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/catpers1.jpg",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-32",
+      "title": "Фрирен",
+      "original_title": "Фрирен",
+      "description": "Создал 3D-модель персонажа Фрирен из аниме.",
+      "date": "19.05.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/friren1.jpg",
+          "alt": "Фрирен — кадр 1",
+          "preview": "/img/optimized/3c830a91d1c9b6cd-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/friren2.jpg",
+          "alt": "Фрирен — кадр 2",
+          "preview": "/img/optimized/d03655722111cef4-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/friren3.jpg",
+          "alt": "Фрирен — кадр 3",
+          "preview": "/img/optimized/4eeb28dd447d7529-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/friren1.jpg",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-33",
+      "title": "Флаттершай",
+      "original_title": "Флаттершай модель",
+      "description": "Стилизованная 3D-модель Флаттершай из My Little Pony.",
+      "date": "09.03.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/flateshai1.jpg",
+          "alt": "Флаттершай — кадр 1",
+          "preview": "/img/optimized/13539c089fe2164a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/flateshai2.jpg",
+          "alt": "Флаттершай — кадр 2",
+          "preview": "/img/optimized/56b966eec91ab922-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/flateshai1.jpg",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-34",
+      "title": "Люси Киберпанк",
+      "original_title": "Люси Киберпанк",
+      "description": "Создал детализированную 3D-модель Люси из аниме «Киберпанк: Бегущие по краю».",
+      "date": "28.02.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/luci2.jpg",
+          "alt": "Люси Киберпанк — кадр 1",
+          "preview": "/img/optimized/a44a7fa9664dc5c4-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/luci3.jpg",
+          "alt": "Люси Киберпанк — кадр 2",
+          "preview": "/img/optimized/1429aaef5656b38a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/luci4.jpg",
+          "alt": "Люси Киберпанк — кадр 3",
+          "preview": "/img/optimized/d8bb66ebf9f51a10-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/3dperson/luci1.mp4",
+          "alt": "Люси Киберпанк — видео 4",
+          "preview": "/img/optimized/a44a7fa9664dc5c4-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/luci2.jpg",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-35",
+      "title": "Паук",
+      "original_title": "Паук",
+      "description": "Создал стилизованную 3D-модель Паука в уникальном дизайне.",
+      "date": "07.10.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/spidar1.jpg",
+          "alt": "Паук — кадр 1",
+          "preview": "/img/optimized/e6b948b42610bda5-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/spidar2.jpg",
+          "alt": "Паук — кадр 2",
+          "preview": "/img/optimized/d3c52bee5bddcc39-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/spidar3.jpg",
+          "alt": "Паук — кадр 3",
+          "preview": "/img/optimized/7fd04f2350f8770e-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/spidar1.jpg",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-36",
+      "title": "Суворов",
+      "original_title": "Суворов",
+      "description": "Создал информационную презентацию об Александре Суворове.",
+      "date": "08.02.2024",
+      "tech": "PowerPoint",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/presentations/prezent1.png",
+          "alt": "Суворов — кадр 1",
+          "preview": "/img/optimized/1e6be2fb9cb69822-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/presentations/prezent1.mp4",
+          "alt": "Суворов — видео 2",
+          "preview": "/img/optimized/1e6be2fb9cb69822-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/presentations/prezent1.png",
+      "category": "presentations-title"
+    },
+    {
+      "id": "work-37",
+      "title": "Шифрование",
+      "original_title": "Шифрование",
+      "description": "Разработал образовательную презентацию «Шифрование с открытым ключом».",
+      "date": "05.02.2024",
+      "tech": "PowerPoint",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/presentations/prezent2.png",
+          "alt": "Шифрование — кадр 1",
+          "preview": "/img/optimized/49e91453bf561dab-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/presentations/prezent2.mp4",
+          "alt": "Шифрование — видео 2",
+          "preview": "/img/optimized/49e91453bf561dab-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/presentations/prezent2.png",
+      "category": "presentations-title"
+    },
+    {
+      "id": "work-38",
+      "title": "Электрические устройства",
+      "original_title": "Электрические устройства",
+      "description": "Создал учебную презентацию «Устройство и практическое применение электрических устройств».",
+      "date": "02.02.2024",
+      "tech": "PowerPoint",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/presentations/prezent3.png",
+          "alt": "Электрические устройства — кадр 1",
+          "preview": "/img/optimized/58e132b5e8f81be7-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/presentations/prezent3.mp4",
+          "alt": "Электрические устройства — видео 2",
+          "preview": "/img/optimized/58e132b5e8f81be7-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/presentations/prezent3.png",
+      "category": "presentations-title"
+    },
+    {
+      "id": "work-39",
+      "title": "Сайт портфолио",
+      "original_title": "Сайт портфолио",
+      "description": "Разработал современный многостраниный сайт-портфолио.",
+      "date": "12.01.2026",
+      "tech": "Visual Studio Code",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/Sait2.png",
+          "alt": "Сайт портфолио — кадр 1",
+          "preview": "/img/optimized/9af45519cf1d2fa0-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/Sait2.png",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-40",
+      "title": "Сайт стеклопакетов",
+      "original_title": "Сайт стеклопакетов",
+      "description": "Создал сайт для компании по продаже стеклопакетов.",
+      "date": "25.09.2025",
+      "tech": "Visual Studio Code",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/Sait1.png",
+          "alt": "Сайт стеклопакетов — кадр 1",
+          "preview": "/img/optimized/2f70a45e72219adc-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/Sait1.mp4",
+          "alt": "Сайт стеклопакетов — видео 2",
+          "preview": "/img/optimized/2f70a45e72219adc-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/Sait1.png",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-41",
+      "title": "Сайт игровых предметов",
+      "original_title": "Сайт игровых предметов",
+      "description": "Разработал специализированный сайт для продажи внутриигровых предметов.",
+      "date": "22.07.2024",
+      "tech": "Visual Studio Code",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/Sait3.png",
+          "alt": "Сайт игровых предметов — кадр 1",
+          "preview": "/img/optimized/36496979a5fa3c41-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/Sait3.mp4",
+          "alt": "Сайт игровых предметов — видео 2",
+          "preview": "/img/optimized/36496979a5fa3c41-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/Sait3.png",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-42",
+      "title": "Игровая сцена",
+      "original_title": "Игровая сцена",
+      "description": "Создал игровую сцену в стиле Warcraft для кастомной мини-игры.",
+      "date": "25.11.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Game.png",
+          "alt": "Игровая сцена — кадр 1",
+          "preview": "/img/optimized/619b7c658e99ce4a-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/Game.mp4",
+          "alt": "Игровая сцена — видео 2",
+          "preview": "/img/optimized/619b7c658e99ce4a-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Game.png",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-43",
+      "title": "Кафе",
+      "original_title": "Кафе",
+      "description": "Создал уличное кафе с динамичной рекламой для студента факультета графики.",
+      "date": "21.11.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Cafe.png",
+          "alt": "Кафе — кадр 1",
+          "preview": "/img/optimized/9afeb7d21b9fe169-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/Cafe.mp4",
+          "alt": "Кафе — видео 2",
+          "preview": "/img/optimized/9afeb7d21b9fe169-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Cafe.png",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-44",
+      "title": "Реклама майонеза",
+      "original_title": "Реклама майонеза",
+      "description": "Создал 3D-анимацию для рекламы майонеза частной компании.",
+      "date": "30.10.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Maonez.png",
+          "alt": "Реклама майонеза — кадр 1",
+          "preview": "/img/optimized/254d9627f0b89a7c-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/Maonez.mp4",
+          "alt": "Реклама майонеза — видео 2",
+          "preview": "/img/optimized/254d9627f0b89a7c-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Maonez.png",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-45",
+      "title": "Кунг-фу панда",
+      "original_title": "Кунг-фу панда",
+      "description": "Создал анимационную сцену тренировки из «Кунг-фу панды».",
+      "date": "10.10.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Kunfu.png",
+          "alt": "Кунг-фу панда — кадр 1",
+          "preview": "/img/optimized/f412683dc7fae694-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/Kunfu.mp4",
+          "alt": "Кунг-фу панда — видео 2",
+          "preview": "/img/optimized/f412683dc7fae694-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Kunfu.png",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-46",
+      "title": "Анимация скейтбордиста",
+      "original_title": "Анимация скейтбордиста",
+      "description": "Создал анимацию парня, катающегося на скейтборде.",
+      "date": "08.10.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Scate.png",
+          "alt": "Анимация скейтбордиста — кадр 1",
+          "preview": "/img/optimized/5d5388bc301b5c78-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/Scate.mp4",
+          "alt": "Анимация скейтбордиста — видео 2",
+          "preview": "/img/optimized/5d5388bc301b5c78-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Scate.png",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-47",
+      "title": "Избушка",
+      "original_title": "Избушка",
+      "description": "Создал низкополигональную модель дома мага в стиле low-poly.",
+      "date": "19.08.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Izbushka.jpg",
+          "alt": "Избушка — кадр 1",
+          "preview": "/img/optimized/3c7a28ed2c1eea5f-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Izbushka.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-48",
+      "title": "Средневековая таверна",
+      "original_title": "Средневековая таверна",
+      "description": "Создал детализированную 3D-модель средневековой таверны.",
+      "date": "19.08.2025",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/House1.jpg",
+          "alt": "Средневековая таверна — кадр 1",
+          "preview": "/img/optimized/1b8cac5e00666ff3-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/House2.jpg",
+          "alt": "Средневековая таверна — кадр 2",
+          "preview": "/img/optimized/babe4a044ef2fa2b-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/House3.jpg",
+          "alt": "Средневековая таверна — кадр 3",
+          "preview": "/img/optimized/0f9596a9ad452e78-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/House1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-49",
+      "title": "Город Geometry Nodes",
+      "original_title": "Город Geometry Nodes",
+      "description": "Создал процедурный городской пейзаж с использованием Geometry Nodes.",
+      "date": "28.11.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/gorod1.jpg",
+          "alt": "Город Geometry Nodes — кадр 1",
+          "preview": "/img/optimized/fa1cadec64059de6-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/gorod.mp4",
+          "alt": "Город Geometry Nodes — видео 2",
+          "preview": "/img/optimized/fa1cadec64059de6-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/gorod1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-50",
+      "title": "Самодельный огнемёт",
+      "original_title": "Самодельный огнемёт",
+      "description": "Создал 3D-модель самодельного огнемёта для игры, где всё делается из подручных средств.",
+      "date": "17.11.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Ognimet1.jpg",
+          "alt": "Самодельный огнемёт — кадр 1",
+          "preview": "/img/optimized/ce1c73d2c9b2639d-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Ognimet2.jpg",
+          "alt": "Самодельный огнемёт — кадр 2",
+          "preview": "/img/optimized/6b53f653d778bcee-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Ognimet3.jpg",
+          "alt": "Самодельный огнемёт — кадр 3",
+          "preview": "/img/optimized/32945c25ce4d1ef0-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Ognimet4.jpg",
+          "alt": "Самодельный огнемёт — кадр 4",
+          "preview": "/img/optimized/903d4fea16041cf8-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Ognimet5.jpg",
+          "alt": "Самодельный огнемёт — кадр 5",
+          "preview": "/img/optimized/cf59b0684250e252-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Ognimet6.jpg",
+          "alt": "Самодельный огнемёт — кадр 6",
+          "preview": "/img/optimized/c6c7cdb7eb7ff4a1-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Ognimet1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-51",
+      "title": "Локация для шутера",
+      "original_title": "Локация для шутера",
+      "description": "Разработал игровую локацию для 3D-шутера.",
+      "date": "25.12.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll1.jpg",
+          "alt": "Локация для шутера — кадр 1",
+          "preview": "/img/optimized/47e918e4f4f18a7f-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll2.jpg",
+          "alt": "Локация для шутера — кадр 2",
+          "preview": "/img/optimized/f2a0b5695c00af30-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll3.jpg",
+          "alt": "Локация для шутера — кадр 3",
+          "preview": "/img/optimized/b4382f2898eb4ef1-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll4.jpg",
+          "alt": "Локация для шутера — кадр 4",
+          "preview": "/img/optimized/e0721cf6aa96f8ef-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll5.jpg",
+          "alt": "Локация для шутера — кадр 5",
+          "preview": "/img/optimized/e50a1c028d531ac6-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll6.jpg",
+          "alt": "Локация для шутера — кадр 6",
+          "preview": "/img/optimized/d11b6f435f2443c2-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll7.jpg",
+          "alt": "Локация для шутера — кадр 7",
+          "preview": "/img/optimized/6531706c68041c9e-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll8.jpg",
+          "alt": "Локация для шутера — кадр 8",
+          "preview": "/img/optimized/9db32a486276dc8a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll9.jpg",
+          "alt": "Локация для шутера — кадр 9",
+          "preview": "/img/optimized/c55ac05861434caf-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Shcoll10.jpg",
+          "alt": "Локация для шутера — кадр 10",
+          "preview": "/img/optimized/751849086530daad-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Shcoll1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-52",
+      "title": "Лесной пейзаж",
+      "original_title": "Лесной пейзаж",
+      "description": "Создал реалистичный лесной пейзаж с дорогой.",
+      "date": "26.10.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/priroda1.jpg",
+          "alt": "Лесной пейзаж — кадр 1",
+          "preview": "/img/optimized/5b233533c57d8219-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/priroda2.jpg",
+          "alt": "Лесной пейзаж — кадр 2",
+          "preview": "/img/optimized/0034a931c571ee05-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/priroda3.jpg",
+          "alt": "Лесной пейзаж — кадр 3",
+          "preview": "/img/optimized/5c430e332e2ebcc1-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/priroda4.jpg",
+          "alt": "Лесной пейзаж — кадр 4",
+          "preview": "/img/optimized/91b1ce0dce9c8b47-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/priroda5.jpg",
+          "alt": "Лесной пейзаж — кадр 5",
+          "preview": "/img/optimized/36f57fe1b1dd2507-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/priroda6.jpg",
+          "alt": "Лесной пейзаж — кадр 6",
+          "preview": "/img/optimized/69e169c264bca97a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/priroda7.jpg",
+          "alt": "Лесной пейзаж — кадр 7",
+          "preview": "/img/optimized/98858e74d1cfdb63-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/priroda8.jpg",
+          "alt": "Лесной пейзаж — кадр 8",
+          "preview": "/img/optimized/2236a8209bccae99-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/priroda1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-53",
+      "title": "Лампа-пончик",
+      "original_title": "Лампа-пончик",
+      "description": "Создал модель настольной лампы в виде пончика для творческого конкурса.",
+      "date": "29.09.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/ponchik.jpg",
+          "alt": "Лампа-пончик — кадр 1",
+          "preview": "/img/optimized/b25389a66289db08-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/ponchik.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-54",
+      "title": "Анимация баскетбола",
+      "original_title": "Анимация баскетбола",
+      "description": "Создал анимацию броска в баскетбол.",
+      "date": "30.07.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Basketboall.jpg",
+          "alt": "Анимация баскетбола — кадр 1",
+          "preview": "/img/optimized/0f73363866279ec2-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/Basketboall.mp4",
+          "alt": "Анимация баскетбола — видео 2",
+          "preview": "/img/optimized/0f73363866279ec2-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Basketboall.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-55",
+      "title": "Абстрактная композиция",
+      "original_title": "Абстрактная композиция",
+      "description": "Создал экспериментальную абстрактную композицию.",
+      "date": "26.05.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/abstreaczi.jpg",
+          "alt": "Абстрактная композиция — кадр 1",
+          "preview": "/img/optimized/0b899c2c556e5e86-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/abstreaczi.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-56",
+      "title": "Анимация слаймов",
+      "original_title": "Анимация слаймов",
+      "description": "Создал анимацию слаймов на поляне.",
+      "date": "30.04.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/slaim2.jpg",
+          "alt": "Анимация слаймов — кадр 1",
+          "preview": "/img/optimized/0afdf2d79c8a87d1-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/slaim3.jpg",
+          "alt": "Анимация слаймов — кадр 2",
+          "preview": "/img/optimized/2dec3f238673846f-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/slaimi1.mp4",
+          "alt": "Анимация слаймов — видео 3",
+          "preview": "/img/optimized/0afdf2d79c8a87d1-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/slaim2.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-57",
+      "title": "Космическая клубника",
+      "original_title": "Космическая клубника",
+      "description": "Создал стилизованную модель клубники в галактическом стиле.",
+      "date": "26.04.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/klubnika.jpg",
+          "alt": "Космическая клубника — кадр 1",
+          "preview": "/img/optimized/48af8e04cdce4f56-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/klubnika.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-58",
+      "title": "Анимация пельменей",
+      "original_title": "Анимация пельменей",
+      "description": "3D-анимация тарелки с пельменями.",
+      "date": "23.04.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/pelmeni2.jpg",
+          "alt": "Анимация пельменей — кадр 1",
+          "preview": "/img/optimized/88d6a8b0ab0871c7-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/pelmeni3.jpg",
+          "alt": "Анимация пельменей — кадр 2",
+          "preview": "/img/optimized/de2b9c4881c6f371-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/pelmeni4.jpg",
+          "alt": "Анимация пельменей — кадр 3",
+          "preview": "/img/optimized/61f49d7d4b39ac6a-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/pelmeni1.mp4",
+          "alt": "Анимация пельменей — видео 4",
+          "preview": "/img/optimized/88d6a8b0ab0871c7-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/pelmeni2.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-59",
+      "title": "Заброшенный гараж",
+      "original_title": "Заброшенный гараж",
+      "description": "Создал детализированную сцену заброшенного гаража с ретро-автомобилями.",
+      "date": "13.04.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/niva1.jpg",
+          "alt": "Заброшенный гараж — кадр 1",
+          "preview": "/img/optimized/34b44e16f2818cbe-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/niva2.jpg",
+          "alt": "Заброшенный гараж — кадр 2",
+          "preview": "/img/optimized/77c8353faadcef7f-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/niva3.jpg",
+          "alt": "Заброшенный гараж — кадр 3",
+          "preview": "/img/optimized/c13ff35574fa832a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/niva4.jpg",
+          "alt": "Заброшенный гараж — кадр 4",
+          "preview": "/img/optimized/258d7241b03d5dac-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/niva5.jpg",
+          "alt": "Заброшенный гараж — кадр 5",
+          "preview": "/img/optimized/6bacc4c24a56d30b-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/niva6.jpg",
+          "alt": "Заброшенный гараж — кадр 6",
+          "preview": "/img/optimized/7a2417349ba19271-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/niva7.jpg",
+          "alt": "Заброшенный гараж — кадр 7",
+          "preview": "/img/optimized/7c4408e5d3c8db32-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/niva8.jpg",
+          "alt": "Заброшенный гараж — кадр 8",
+          "preview": "/img/optimized/5de6b08af9dfd734-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/niva1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-60",
+      "title": "Хай-тек спальня",
+      "original_title": "Хай-тек спальня",
+      "description": "Создал сцену современной спальни в хай-тек стиле.",
+      "date": "10.04.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/zal1.jpg",
+          "alt": "Хай-тек спальня — кадр 1",
+          "preview": "/img/optimized/d04f0c70eadc0f5f-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/zal2.jpg",
+          "alt": "Хай-тек спальня — кадр 2",
+          "preview": "/img/optimized/2f2a2fa11c2956e9-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/zal3.jpg",
+          "alt": "Хай-тек спальня — кадр 3",
+          "preview": "/img/optimized/72f1aae7c2b175a0-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/zal4.jpg",
+          "alt": "Хай-тек спальня — кадр 4",
+          "preview": "/img/optimized/a6f393734a353791-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/zal1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-61",
+      "title": "Анимация гонки",
+      "original_title": "Анимация гонки",
+      "description": "Создал динамичную анимацию гоночного заезда.",
+      "date": "01.04.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/mashina2.jpg",
+          "alt": "Анимация гонки — кадр 1",
+          "preview": "/img/optimized/66a4261cbcfb0e83-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/mashina1.mp4",
+          "alt": "Анимация гонки — видео 2",
+          "preview": "/img/optimized/66a4261cbcfb0e83-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/mashina2.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-62",
+      "title": "Детская комната",
+      "original_title": "Детская комната",
+      "description": "Создал модель детской комнаты в хай-тек стиле.",
+      "date": "16.03.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/spalni1.jpg",
+          "alt": "Детская комната — кадр 1",
+          "preview": "/img/optimized/c2d8f5af3999f633-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/spalni2.jpg",
+          "alt": "Детская комната — кадр 2",
+          "preview": "/img/optimized/62a47ff4bb744459-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/spalni3.jpg",
+          "alt": "Детская комната — кадр 3",
+          "preview": "/img/optimized/c532d0831b8ab9ff-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/spalni4.jpg",
+          "alt": "Детская комната — кадр 4",
+          "preview": "/img/optimized/8a706eaedd8a7dee-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/spalni5.jpg",
+          "alt": "Детская комната — кадр 5",
+          "preview": "/img/optimized/d1838cb255f4be86-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/spalni1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-63",
+      "title": "Современная ванная",
+      "original_title": "Современная ванная",
+      "description": "Создал детализированную сцену современной ванной комнаты в стиле минимализм.",
+      "date": "03.03.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai1.jpg",
+          "alt": "Современная ванная — кадр 1",
+          "preview": "/img/optimized/98a626b6a569cd39-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai2.jpg",
+          "alt": "Современная ванная — кадр 2",
+          "preview": "/img/optimized/d162088ae1423476-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai3.jpg",
+          "alt": "Современная ванная — кадр 3",
+          "preview": "/img/optimized/c8b74853a9c125f0-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai4.jpg",
+          "alt": "Современная ванная — кадр 4",
+          "preview": "/img/optimized/cf48596d2dfb25bd-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai5.jpg",
+          "alt": "Современная ванная — кадр 5",
+          "preview": "/img/optimized/88579939c6f9bba8-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai6.jpg",
+          "alt": "Современная ванная — кадр 6",
+          "preview": "/img/optimized/d9ad90afd5cf1524-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai7.jpg",
+          "alt": "Современная ванная — кадр 7",
+          "preview": "/img/optimized/3528713c5b863d1e-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai8.jpg",
+          "alt": "Современная ванная — кадр 8",
+          "preview": "/img/optimized/8c7aac9f31e6bb31-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai9.jpg",
+          "alt": "Современная ванная — кадр 9",
+          "preview": "/img/optimized/7a44995fa05d735e-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/vannai10.jpg",
+          "alt": "Современная ванная — кадр 10",
+          "preview": "/img/optimized/6829b49937ee1311-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/vannai1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-64",
+      "title": "Остров сокровищ",
+      "original_title": "Остров сокровищ",
+      "description": "Создал фэнтезийную сцену острова сокровищ с пиратским кораблём.",
+      "date": "14.02.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Korabl.jpg",
+          "alt": "Остров сокровищ — кадр 1",
+          "preview": "/img/optimized/dd5a3bae4a961a2d-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Korabl1.jpg",
+          "alt": "Остров сокровищ — кадр 2",
+          "preview": "/img/optimized/3551876343d49428-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Korabl2.jpg",
+          "alt": "Остров сокровищ — кадр 3",
+          "preview": "/img/optimized/e51d13efee9c6fee-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Korabl3.jpg",
+          "alt": "Остров сокровищ — кадр 4",
+          "preview": "/img/optimized/4296e7a5900e0b02-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/Korabl4.jpg",
+          "alt": "Остров сокровищ — кадр 5",
+          "preview": "/img/optimized/b642575416f3269c-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/Korabl.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-65",
+      "title": "Анимированный меч",
+      "original_title": "Анимированный меч",
+      "description": "Создал модель магического меча.",
+      "date": "15.01.2024",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/mech.jpg",
+          "alt": "Анимированный меч — кадр 1",
+          "preview": "/img/optimized/ade160bc0e91be61-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/scenes/mech.mp4",
+          "alt": "Анимированный меч — видео 2",
+          "preview": "/img/optimized/ade160bc0e91be61-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/mech.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-66",
+      "title": "Средневековая мельница",
+      "original_title": "Средневековая мельница",
+      "description": "Создал стилизованную модель ветряной мельницы в средневековом стиле.",
+      "date": "26.12.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/melniza1.jpg",
+          "alt": "Средневековая мельница — кадр 1",
+          "preview": "/img/optimized/3d635d77ec60a23a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/melniza2.jpg",
+          "alt": "Средневековая мельница — кадр 2",
+          "preview": "/img/optimized/d427b53484415371-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/melniza3.jpg",
+          "alt": "Средневековая мельница — кадр 3",
+          "preview": "/img/optimized/0ec2efb691c8dc2d-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/melniza1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-67",
+      "title": "Лесная тропа",
+      "original_title": "Лесная тропа",
+      "description": "Создал атмосферную сцену загадочной лесной тропы.",
+      "date": "09.12.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/derevni1.jpg",
+          "alt": "Лесная тропа — кадр 1",
+          "preview": "/img/optimized/dabd1f9a0af7b90f-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/derevni3.jpg",
+          "alt": "Лесная тропа — кадр 2",
+          "preview": "/img/optimized/2eefd8dcde1e4107-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/derevni2.jpg",
+          "alt": "Лесная тропа — кадр 3",
+          "preview": "/img/optimized/134cfdc8055feeab-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/derevni1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-68",
+      "title": "Мистическая труба",
+      "original_title": "Мистическая труба",
+      "description": "Создал сцену мистической трубы в заброшенной индустриальной зоне.",
+      "date": "07.12.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/truba2.jpg",
+          "alt": "Мистическая труба — кадр 1",
+          "preview": "/img/optimized/bc1eacc9712c0381-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/truba3.jpg",
+          "alt": "Мистическая труба — кадр 2",
+          "preview": "/img/optimized/1db4fa5c942d7394-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/truba1.jpg",
+          "alt": "Мистическая труба — кадр 3",
+          "preview": "/img/optimized/47c5ec05c119d685-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/truba2.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-69",
+      "title": "Меч проклятого короля",
+      "original_title": "Меч проклятого короля",
+      "description": "Создал детализированную модель церемониального меча проклятого короля.",
+      "date": "02.12.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/mech1.jpg",
+          "alt": "Меч проклятого короля — кадр 1",
+          "preview": "/img/optimized/0935081a52f276b2-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/mech2.jpg",
+          "alt": "Меч проклятого короля — кадр 2",
+          "preview": "/img/optimized/7308ae5f6411217c-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/mech3.jpg",
+          "alt": "Меч проклятого короля — кадр 3",
+          "preview": "/img/optimized/96a94c2722690a72-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/mech1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-70",
+      "title": "Пистолет Glock",
+      "original_title": "Пистолет Glock",
+      "description": "Создал реалистичную 3D-модель пистолета Glock.",
+      "date": "30.11.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/glok1.jpg",
+          "alt": "Пистолет Glock — кадр 1",
+          "preview": "/img/optimized/59171a042c12fdae-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/glok2.jpg",
+          "alt": "Пистолет Glock — кадр 2",
+          "preview": "/img/optimized/36122e9748b077ca-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/glok3.jpg",
+          "alt": "Пистолет Glock — кадр 3",
+          "preview": "/img/optimized/8b9c94215ee25691-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/glok1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-71",
+      "title": "Обручальные кольца",
+      "original_title": "Обручальные кольца",
+      "description": "Создал элегантную модель пары обручальных колец.",
+      "date": "07.10.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/kolza1.jpg",
+          "alt": "Обручальные кольца — кадр 1",
+          "preview": "/img/optimized/b41671e4fbed70a5-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/kolza2.jpg",
+          "alt": "Обручальные кольца — кадр 2",
+          "preview": "/img/optimized/e0f2bf9e88862a3b-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/kolza3.jpg",
+          "alt": "Обручальные кольца — кадр 3",
+          "preview": "/img/optimized/9e3833d00209668a-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/kolza1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-72",
+      "title": "Островок с сакурой",
+      "original_title": "Островок с сакурой",
+      "description": "Создал красочную и умиротворяющую сцену маленького острова с цветущей сакурой.",
+      "date": "07.10.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/sakura1.jpg",
+          "alt": "Островок с сакурой — кадр 1",
+          "preview": "/img/optimized/9a0e48a1af543b96-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/sakura2.jpg",
+          "alt": "Островок с сакурой — кадр 2",
+          "preview": "/img/optimized/9339c49b720f503f-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/sakura3.jpg",
+          "alt": "Островок с сакурой — кадр 3",
+          "preview": "/img/optimized/c81c530c914019e1-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/sakura1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-73",
+      "title": "Вечернее платье",
+      "original_title": "Вечернее платье",
+      "description": "Создал 3D-модель элегантного вечернего платья.",
+      "date": "07.10.2023",
+      "tech": "Blender",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/platia1.jpg",
+          "alt": "Вечернее платье — кадр 1",
+          "preview": "/img/optimized/dddb0b9828212fff-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/platia2.jpg",
+          "alt": "Вечернее платье — кадр 2",
+          "preview": "/img/optimized/a7510fe590864d33-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/platia3.jpg",
+          "alt": "Вечернее платье — кадр 3",
+          "preview": "/img/optimized/dc96748946172054-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/platia1.jpg",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-74",
+      "title": "Анимация AI-персонажа",
+      "original_title": "AI-девушка анимация",
+      "description": "Анимация с персонажем, сгенерированным нейросетью, и последующей доработкой.",
+      "date": "30.08.2025",
+      "tech": "OpenAI | After Effects",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/ai/Girl.png",
+          "alt": "Анимация AI-персонажа — кадр 1",
+          "preview": "/img/optimized/ac95f3e30cc75b14-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/ai/Girl.mp4",
+          "alt": "Анимация AI-персонажа — видео 2",
+          "preview": "/img/optimized/ac95f3e30cc75b14-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/ai/Girl.png",
+      "category": "ai-title"
+    },
+    {
+      "id": "work-75",
+      "title": "AI-изображение для логотипа",
+      "original_title": "AI-пицца для лого",
+      "description": "Изображение пиццы, сгенерированное для логотипа компании.",
+      "date": "20.05.2025",
+      "tech": "OpenAI",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/ai/pizza.png",
+          "alt": "AI-изображение для логотипа — кадр 1",
+          "preview": "/img/optimized/f8cf6352f0fcb1e3-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/ai/pizza.png",
+      "category": "ai-title"
+    },
+    {
+      "id": "work-76",
+      "title": "Скрудж МакДак · AI-иллюстрация",
+      "original_title": "AI-Скрудж МакДак",
+      "description": "Стилизованное изображение Скруджа МакДака для Steam-профиля, созданное с помощью нейросети.",
+      "date": "11.02.2025",
+      "tech": "OpenAI",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/ai/skrudz.png",
+          "alt": "Скрудж МакДак · AI-иллюстрация — кадр 1",
+          "preview": "/img/optimized/d941076649726812-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/ai/skrudz.png",
+      "category": "ai-title"
+    }
+  ],
+  "source_project_count": 79,
+  "published_project_count": 76,
+  "removed_empty_placeholders": 3,
+  "media_count": 211
+}

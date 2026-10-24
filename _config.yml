@@ -1,0 +1,10 @@
+# Preserve existing GitHub Pages branch publishing. Development/evidence is not a site.
+exclude:
+  - node_modules
+  - tests
+  - tools
+  - docs
+  - test-results
+  - package.json
+  - pnpm-lock.yaml
+  - README.md
