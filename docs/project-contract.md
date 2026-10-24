@@ -95,3 +95,26 @@ Acceptance: both themes at all seven R06 widths; local persistence, system chang
 no-JS fallback, blocked storage, keyboard/focus, gallery/video, reduced-motion,
 console/overflow and original content/SEO preservation. See theme.md. Same PR #1;
 no merge or publication without owner approval.
+
+
+## Owner amendment — narrow final corrections (iteration 5)
+
+This amendment supersedes iteration 4 only where it requires a Light theme.
+The visible privacy link and dialog title are exactly «Политика конфиденциальности»;
+do not rename them without an owner request. Its short factual text remains,
+with the obsolete theme-storage sentence removed.
+
+Dark is the only palette. Remove the toggle, theme bootstrap, localStorage
+preference, system color-scheme following, light CSS and unused theme tokens.
+Preserve the existing dark colors, focus visibility, original effects and
+prefers-reduced-motion. No replacement controls or redesign.
+
+Restore the original main 54bda295 category anchor: right/bottom 30px above 768px,
+20px at 481–768px, 15px at 320–480px. Button 60px desktop / 50px mobile; panel shares
+its right edge with a 10px gap and widths 280/250/220px. Keep working navigation,
+search, keyboard support, safe viewport bounds and existing dark contrast.
+
+Affected acceptance: privacy title/link, no theme code/storage/system switching,
+category alignment/interaction at 320/375/430/768/1024/1440/1920, console, focus,
+reduced motion and responsive layout. Reuse unchanged source-bound media/SEO/
+security evidence; update existing PR #1 only. No merge or publication.

@@ -1,3 +1,7 @@
+> Historical decision, superseded by owner iteration 5: the website now uses
+> only its original dark theme. Light palette, switch, bootstrap and preference
+> storage are removed. The record below is retained as history, not current policy.
+
 # Dark / Light — presentation decision and acceptance
 
 Owner scope: original design and motion, two coherent themes, no copyright line

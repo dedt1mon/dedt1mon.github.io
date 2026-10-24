@@ -184,3 +184,46 @@ Only CSS focus color and this positive test changed; all90 earlier cases/capture
 retain their original source bindings. No new Security/QA review or full local
 suite was repeated. Prior finding and b7b26f3 CI remain immutable; successor
 exact-head CI and final Verifier closure are recorded in PR #1.
+
+
+## Owner narrow final corrections — iteration 5
+
+The exact footer link and dialog heading «Политика конфиденциальности» are
+restored on all four pages. The existing factual privacy text remains; only the
+obsolete sentence about saving a theme choice was removed.
+
+The site is dark-only. Removed theme.js, its header control, Light selectors,
+system color preference handling, preference storage and unused theme tokens.
+The existing dark palette/focus colors, artwork, original animations and
+prefers-reduced-motion remain. Prior iteration 4 describes historical behavior.
+
+Category positioning was measured against original main
+54bda2957d08d036293698651ded51199e650685. The button is 60px at desktop / 50px
+at mobile, with right/bottom offsets 30px (>768), 20px (481–768), 15px (<=480).
+The panel shares the same right edge, has a 10px anchor gap, and original widths
+280/250/220px. The Arial 28/24px glyph and weight300 restore the original center;
+current accessible dark contrast and working navigation/search are preserved.
+
+Affected checks: **32 static + 33 Chromium browser cases PASS**, zero failures
+or console errors. Browser coverage includes 21 page/width layouts, original
+button/glyph/panel measurements at 320/375/430/768/1024/1440/1920, resize/open/
+scroll, category keyboard navigation/focus, privacy dialogs, system-Light still
+rendering Dark (including no-JS), reduced motion and skip link. Screenshots of
+375/1440 category panels and privacy plus seven-width page captures are retained.
+Root visually inspected the final mobile privacy and mobile/desktop categories.
+
+The local run was explicitly targeted: no unchanged gallery/video/SEO suite was
+replayed. Source-scope proof against c1c28bc8d8ce864933b034ab80215e531f5a62b3
+confirms scripts.js, all media, content manifest, lockfile, robots, sitemap and
+workflow unchanged. HTML changes are exactly the theme removals and privacy edit;
+76 works/211 media and existing metadata remain. Previous QA/Security/Verifier
+records keep their original source bindings. This is scoped evidence reuse,
+not a claim that old checks ran again. Preview permissions only narrow by
+removing theme.js from its public allowlist; no dependency or CI policy changes.
+
+Local evidence index: test-results/narrow-05 (ignored, not published). Static
+scope uses --scope privacy-dark; default CI still executes every retained full
+static/media assertion. The existing PR workflow will run once for the new head;
+its exact-head result and artifact digest are recorded in PR #1/service evidence.
+No merge or publication. Limit: emulated Chromium viewports; physical devices,
+Safari and Firefox are not newly tested.

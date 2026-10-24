@@ -51,6 +51,41 @@ def local_exists(raw):
         return parsed.fragment in {d.get('id') for _,d in target.nodes}
     return True
 
+scope = 'full'
+if sys.argv[1:]:
+    if sys.argv[1:] != ['--scope', 'privacy-dark']:
+        raise SystemExit('Expected --scope privacy-dark or no arguments')
+    scope = 'privacy-dark'
+
+def write_report():
+    report={'status':'PASS' if all(c['status']=='PASS' for c in checks) else 'FAIL','passed':sum(c['status']=='PASS' for c in checks),'failed':[c['name'] for c in checks if c['status']=='FAIL'],'source_hashes':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in [*pages,'scripts.js','styles.css','tests/check_site.py','sitemap.xml','robots.txt']},'checks':checks,'scope':scope}
+    (RESULTS/'static.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+    print(json.dumps({k:report[k] for k in ['status','passed','failed']},ensure_ascii=True))
+    sys.exit(report['status']!='PASS')
+
+# The default CI path still executes every existing media/SEO/static assertion.
+# Local narrow changes can check their explicit contract without replaying them.
+css = (ROOT/'styles.css').read_text(encoding='utf-8')
+script = (ROOT/'scripts.js').read_text(encoding='utf-8')
+for name, doc in pages.items():
+    text = texts[name]
+    check(f'{name}:privacy link title', bool(re.search(r'<button\b[^>]*id="openPrivacy"[^>]*>Политика конфиденциальности</button>', text)))
+    check(f'{name}:privacy dialog title', bool(re.search(r'<h2\b[^>]*id="privacy-title"[^>]*>Политика конфиденциальности</h2>', text)))
+    check(f'{name}:privacy link targets dialog', any(d.get('id')=='openPrivacy' and d.get('aria-controls')=='privacyModal' for _,d in doc.nodes))
+    check(f'{name}:obsolete privacy copy absent', 'О данных на сайте' not in text and 'Только выбранная тема' not in text)
+    check(f'{name}:theme bootstrap absent', not any(t=='script' and 'theme.js' in d.get('src','') for t,d in doc.nodes))
+    check(f'{name}:theme controls and classes absent', not re.search(r'theme-toggle|theme-sun|theme-moon|data-theme|Светлая тема',text))
+check('theme runtime file removed', not (ROOT/'theme.js').exists())
+check('light selectors and scheme detection removed', not re.search(r'data-theme|theme-toggle|theme-sun|theme-moon|prefers-color-scheme|color-scheme\s*:\s*light', css))
+check('dark-only color scheme', bool(re.search(r'color-scheme\s*:\s*dark',css)))
+check('theme storage and runtime removed', not re.search(r'localStorage|sessionStorage|dedtimon-theme|prefers-color-scheme|data-theme|theme-toggle',script))
+check('reduced motion retained', 'prefers-reduced-motion' in css and 'prefers-reduced-motion' in script)
+check('theme unused tokens removed', '--surface-raised' not in css and '--hero-shadow' not in css)
+check('preview no obsolete theme route', 'theme.js' not in (ROOT/'tools/serve.cjs').read_text(encoding='utf-8'))
+check('package no obsolete theme check', 'theme.js' not in (ROOT/'package.json').read_text(encoding='utf-8'))
+if scope == 'privacy-dark':
+    write_report()
+
 media_refs=set()
 for name,doc in pages.items():
     nodes=doc.nodes
@@ -66,11 +101,6 @@ for name,doc in pages.items():
     check(f'{name}:structured identity', any(any(x.get('@type')=='Person' and x.get('name')=='DedTimon' and 'Дед Тимон' in x.get('alternateName',[]) for x in data.get('@graph',[])) for data in doc.jsonld))
     check(f'{name}:brand text', 'DedTimon' in texts[name] and 'Дед Тимон' in texts[name])
     check(f'{name}:removed contacts', not re.search(r'vk\.com|kwork|вконтакте|\bVK\b',texts[name],re.I))
-    theme_scripts=[d for t,d in nodes if t=='script' and d.get('src')=='/theme.js']
-    head=texts[name].split('</head>',1)[0]
-    check(f'{name}:early local theme bootstrap',len(theme_scripts)==1 and '/theme.js' in head and head.index('/theme.js') < head.index('/styles.css') and 'async' not in theme_scripts[0] and 'defer' not in theme_scripts[0])
-    theme_buttons=[d for t,d in nodes if t=='button' and 'theme-toggle' in d.get('class','').split()]
-    check(f'{name}:accessible hidden theme toggle',len(theme_buttons)==1 and theme_buttons[0].get('type')=='button' and theme_buttons[0].get('aria-label')=='Светлая тема' and theme_buttons[0].get('aria-pressed') in ['true','false'] and 'hidden' in theme_buttons[0])
     check(f'{name}:copyright and manual motion UI removed','©' not in texts[name] and not re.search(r'motion-toggle|Возобновить анимации|Приостановить анимации',texts[name]))
 
     for i,(tag,d) in enumerate(nodes):
@@ -100,17 +130,13 @@ check('visible original descriptions',all(c['data-description'] in texts['portfo
 check('all original media represented', {m['src'] for p in manifest['projects'] for m in p['media']}==media_refs)
 check('no deleted contact icons',not any((ROOT/'img/index'/name).exists() for name in ['VK.png','Kwork.png']))
 css=(ROOT/'styles.css').read_text(encoding='utf-8')
-theme=(ROOT/'theme.js').read_text(encoding='utf-8')
 script=(ROOT/'scripts.js').read_text(encoding='utf-8')
-check('theme bootstrap remains local and dependency-free',all(not d.get('src','').startswith(('http:','https:','//')) for doc in pages.values() for t,d in doc.nodes if t=='script'))
+check('scripts remain local and dependency-free',all(not d.get('src','').startswith(('http:','https:','//')) for doc in pages.values() for t,d in doc.nodes if t=='script'))
 check('automatic reduced-motion support retained','prefers-reduced-motion' in css and 'prefers-reduced-motion' in script)
-check('manual animation control fully removed',not re.search(r'motion-toggle|Возобновить анимации|Приостановить анимации',script+theme))
+check('manual animation control fully removed',not re.search(r'motion-toggle|Возобновить анимации|Приостановить анимации',script))
 for raw in re.findall(r'url\([\'\"]?([^\)\'\"]+)',css): check('CSS resource:'+raw,local_exists(raw))
 urls=[n.text for n in ET.parse(ROOT/'sitemap.xml').getroot().iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
 check('sitemap exactly published content',urls==['https://dedt1mon.github.io/','https://dedt1mon.github.io/portfolio.html','https://dedt1mon.github.io/services.html'])
 robots=(ROOT/'robots.txt').read_text()
 check('robots allow+sitemap','Allow: /' in robots and 'Disallow: /' not in robots and 'Sitemap: https://dedt1mon.github.io/sitemap.xml' in robots)
-report={'status':'PASS' if all(c['status']=='PASS' for c in checks) else 'FAIL','passed':sum(c['status']=='PASS' for c in checks),'failed':[c['name'] for c in checks if c['status']=='FAIL'],'source_hashes':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in [*pages,'theme.js','scripts.js','styles.css','tests/check_site.py','sitemap.xml','robots.txt']},'checks':checks}
-(RESULTS/'static.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
-print(json.dumps({k:report[k] for k in ['status','passed','failed']},ensure_ascii=True))
-sys.exit(report['status']!='PASS')
+write_report()

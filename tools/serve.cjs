@@ -11,7 +11,7 @@ function server() {
     catch { res.writeHead(400); res.end(); return; }
     if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405); res.end(); return; }
     const parts = pathname.split('/').filter(Boolean);
-    const publicRootFiles = ['index.html', 'portfolio.html', 'services.html', '404.html', 'scripts.js', 'theme.js', 'styles.css', 'robots.txt', 'sitemap.xml'];
+    const publicRootFiles = ['index.html', 'portfolio.html', 'services.html', '404.html', 'scripts.js', 'styles.css', 'robots.txt', 'sitemap.xml'];
     const allowed = !parts.length || (parts.length === 1 && publicRootFiles.includes(parts[0])) || ['img', 'fonts'].includes(parts[0]);
     const filename = path.resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname));
     if (parts.some(p => p.startsWith('.') || p.includes('\\')) || !filename.startsWith(root + path.sep)) {
