@@ -561,7 +561,76 @@
       wrapper.hidden = false;
     }
 
-    [initPage, initBurger, initGallery, initSearch].forEach(initialize => {
+    function initHomeCarousel() {
+      const carousel = $('#carousel');
+      if (!carousel) return;
+      const items = $$('.carousel-item', carousel);
+      const controls = $('.carousel-controls');
+      if (items.length !== 5 || !controls) return;
+      const status = $('.carousel-status', controls);
+      let current = 0;
+      function render() {
+        items.forEach((item, index) => {
+          const offset = (index - current + items.length) % items.length;
+          item.dataset.position = ['current', 'next', 'far-next', 'far-prev', 'prev'][offset];
+          item.inert = offset !== 0;
+          item.tabIndex = offset === 0 ? 0 : -1;
+          item.setAttribute('aria-hidden', String(offset !== 0));
+        });
+        status.textContent = `${current + 1} / ${items.length}`;
+      }
+      function move(step) { current = (current + step + items.length) % items.length; render(); }
+      $('.previous', controls).addEventListener('click', () => move(-1));
+      $('.next', controls).addEventListener('click', () => move(1));
+      carousel.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        if (event.key === 'Home') current = 0;
+        else if (event.key === 'End') current = items.length - 1;
+        else current = (current + (event.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length;
+        render(); focusElement(items[current]);
+      });
+      carousel.classList.add('is-enhanced');
+      controls.hidden = false;
+      render();
+    }
+
+    function initProjectTools() {
+      const panel = $('#projectTools');
+      const button = $('#projectToolsToggle');
+      if (!panel || !button) return;
+      function setOpen(open, restoreFocus = false) {
+        if (!open && restoreFocus) focusElement(button);
+        panel.hidden = !open;
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute('aria-label', open ? 'Закрыть категории и поиск' : 'Категории и поиск');
+        if (open) focusElement($('#projectSearch', panel) || $('a', panel));
+      }
+      button.addEventListener('click', () => setOpen(panel.hidden, !panel.hidden));
+      panel.addEventListener('click', event => {
+        const link = event.target.closest('.category-nav a');
+        if (!link) return;
+        const target = document.getElementById(link.hash.slice(1));
+        setOpen(false);
+        if (target) { target.tabIndex = -1; focusElement(target); }
+      });
+      document.addEventListener('keydown', event => {
+        if (!panel.hidden && event.key === 'Escape' && !event.defaultPrevented) {
+          event.preventDefault(); setOpen(false, true);
+        }
+      });
+      document.addEventListener('click', event => {
+        if (!panel.hidden && !panel.contains(event.target) && !button.contains(event.target)) {
+          setOpen(false, panel.contains(document.activeElement));
+        }
+      });
+      document.addEventListener('site:modalchange', () => { if (Modal.isOpen()) setOpen(false); });
+      panel.classList.add('is-enhanced');
+      button.hidden = false;
+      setOpen(false);
+    }
+
+    [initPage, initBurger, initGallery, initSearch, initHomeCarousel, initProjectTools].forEach(initialize => {
       try { initialize(); }
       catch (error) { console.error('Не удалось инициализировать ' + initialize.name + ':', error); }
     });

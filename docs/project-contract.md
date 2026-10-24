@@ -1,4 +1,4 @@
-# Website refresh — contract v1
+# Website refresh — contract v2
 
 Owner goal: substantially improve the existing personal site, preserve its
 purpose/content/history and free GitHub Pages hosting at `dedt1mon.github.io`.
@@ -47,3 +47,15 @@ hashes, actual Git revision, Node/OS/architecture and browser/tool versions.
 Share summaries and artifact references; preserve failed attempts. Do not count
 the live old site as a deployment of this candidate. Do not claim lab metrics
 are measured field Core Web Vitals or that search engines must index/rank it.
+
+
+## Owner visual correction — version 2
+
+The owner rejected the first visual redesign. Original main
+`54bda2957d08d036293698651ded51199e650685` is the visual source of truth;
+`eb2ecb89d2d17e1b224675142d1a5a8d2f7f2f8b` remains the technical baseline.
+R03 now requires recognizable original composition, SavaPro display typography,
+bright cyan glow, centered greeting, five-image depth carousel, tilted homepage
+service cards, glass portfolio cards, floating category control and icon contacts.
+All other technical/content requirements remain. No revert, history rewrite,
+new PR, merge or publication. See visual-restoration.md for evidence scope.

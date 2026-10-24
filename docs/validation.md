@@ -21,3 +21,31 @@ network guarantee. Full logs and screenshots are artifacts, not model context.
 
 Final exact-head CI and QA/Security/Verifier results are linked in the PR review
 evidence. New public Pages deployment requires the owner's merge approval.
+
+## Owner visual correction — original identity restored
+
+The first redesign's visual acceptance was superseded by the owner's correction.
+Its historical technical evidence above remains unchanged. Visual source:
+original main 54bda2957d08d036293698651ded51199e650685; technical base: eb2ecb89.
+See visual-restoration.md and contract v2 for the new visual acceptance criteria.
+
+Restoration checks: 4024 static assertions PASS; 39 real Chromium cases PASS.
+After final heading/spacing refinements, only 29 affected cases were rerun and
+passed; ten unchanged gallery/video/search/privacy/media/performance/404/runtime
+cases were retained with their original source hashes. Added cases cover depth
+carousel keyboard controls, mobile controls, category-panel focus/Escape,
+no-JS home links, eight original services and bounded/reduced motion.
+Twenty preservation checks prove unchanged project contracts/metadata, original
+media, safe gallery implementation, dependencies, preview server and workflow.
+
+Original-main and corrected screenshots at 1440 and 375 are retained in the
+local site-identity-02 comparison evidence. Original nested-scroll sections were
+captured through native scrollIntoView, not by treating blank clipped full-page
+capture regions as design. Current no-JS descriptions stay visible and all 76
+projects / 211 media entries remain. No data from the earlier reports is
+relabeled as a new execution or a new SHA.
+
+Final exact-head CI and independent visual QA/Security/Verifier report hashes
+are recorded in the same PR #1. New public deployment is still deferred until
+owner approval. Performance samples are lab resource transfers, not total page
+weight or field Core Web Vitals.

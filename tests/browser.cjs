@@ -117,7 +117,7 @@ async function a11y() {
     assert.equal(await page.locator('#galleryContent video').count(),0);
   });
   await test('portfolio:search+zero-results+reset', async () => {
-    await load('/portfolio.html'); const input=page.locator('#projectSearch'); await input.fill('сакурой');
+    await load('/portfolio.html'); await page.locator('#projectToolsToggle').click(); const input=page.locator('#projectSearch'); await input.fill('сакурой');
     await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].filter(c=>!c.hidden).length===1);
     await input.fill('zzzzzz-nothing'); await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].every(c=>c.hidden));
     assert.ok((await page.locator('#searchStatus').textContent()).length>0);
@@ -168,6 +168,64 @@ async function a11y() {
     const response=await page.goto(base+'/intentional-404'); assert.equal(response.status(),404);
     await page.getByRole('heading',{name:'Здесь пока пусто.'}).waitFor();
     assert.equal(await page.getByRole('link',{name:'На главную',exact:true}).getAttribute('href'),'/');
+  });
+  await test('identity:home-composition+carousel-keyboard', async () => {
+    await page.setViewportSize({width:1440,height:1000}); await load('/');
+    assert.deepEqual(await page.locator('main > section').evaluateAll(es=>es.map(e=>e.className)),['hero','carousel-section','popular-services','contacts-section']);
+    assert.equal(await page.locator('.hero-art').count(),0);
+    assert.equal(await page.locator('.carousel-item').count(),5);
+    assert.equal(await page.locator('.popular-services .svc').count(),3);
+    const title=await page.locator('.hero-title').boundingBox(); assert.ok(Math.abs(title.x+title.width/2-720)<4);
+    const current=()=>page.locator('.carousel-item[data-position="current"]');
+    const first=await current().getAttribute('href'); await current().focus();
+    await page.keyboard.press('ArrowRight'); assert.equal(await current().getAttribute('data-index'),'1');
+    assert.ok(await current().evaluate(el=>el===document.activeElement));
+    await page.keyboard.press('End'); assert.equal(await current().getAttribute('data-index'),'4');
+    await page.keyboard.press('ArrowRight'); assert.equal(await current().getAttribute('href'),first);
+    assert.equal(await page.locator('.carousel-item:not([inert])').count(),1);
+    await page.locator('.carousel-controls .previous').click(); assert.equal(await current().getAttribute('data-index'),'4');
+    await page.locator('.carousel-controls .next').click(); assert.equal(await current().getAttribute('data-index'),'0');
+    assert.equal(await page.locator('.carousel-item[tabindex="0"]').count(),1);
+    await a11y();
+  });
+  await test('identity:mobile-carousel+tools-focus', async () => {
+    for(const width of [320,375,430]) {
+      await page.setViewportSize({width,height:900}); await load('/');
+      for(const selector of ['.carousel-controls .previous','.carousel-controls .next']) {
+        await page.locator(selector).scrollIntoViewIfNeeded(); const box=await page.locator(selector).boundingBox();
+        assert.ok(box.width>=44&&box.height>=44&&box.x>=0&&box.x+box.width<=width);
+        await page.locator(selector).click();
+      }
+      await load('/portfolio.html'); const toggle=page.locator('#projectToolsToggle');
+      await toggle.click(); assert.equal(await toggle.getAttribute('aria-expanded'),'true');
+      assert.equal(await page.evaluate(()=>document.activeElement.id),'projectSearch'); await layout();
+      await page.keyboard.press('Escape'); assert.equal(await toggle.getAttribute('aria-expanded'),'false');
+      assert.ok(await toggle.evaluate(el=>el===document.activeElement));
+      await toggle.click(); await page.locator('.category-nav a[href="#scenes-title"]').click();
+      assert.equal(await page.evaluate(()=>document.activeElement.id),'scenes-title');
+      assert.equal(await toggle.getAttribute('aria-expanded'),'false'); await layout();
+    }
+  });
+  await test('identity:no-JS-home-carousel-and-original-services', async () => {
+    const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:320,height:900}});
+    const fallback=await context.newPage();await fallback.goto(base+'/');
+    assert.equal(await fallback.locator('.carousel-item:visible').count(),5);
+    for(const link of await fallback.locator('.carousel-item').all())assert.ok((await link.getAttribute('href')).startsWith('/portfolio.html'));
+    assert.equal(await fallback.locator('.carousel-controls:visible').count(),0);
+    assert.ok(await fallback.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+    await fallback.goto(base+'/services.html'); assert.equal(await fallback.locator('.svc').count(),8);
+    await fallback.getByRole('heading',{name:'TG-Бот',exact:true}).waitFor();
+    await fallback.getByRole('heading',{name:'ChatGPT',exact:true}).waitFor();
+    await context.close();
+  });
+  await test('identity:reduced-motion-and-normal-motion', async () => {
+    await page.setViewportSize({width:1440,height:1000}); await page.emulateMedia({reducedMotion:'no-preference'}); await load('/');
+    const animations=await page.locator('.logo-img,.hero-title,.accent').evaluateAll(es=>es.map(e=>({name:getComputedStyle(e).animationName,count:getComputedStyle(e).animationIterationCount})));
+    assert.ok(animations.some(x=>x.name!=='none'));assert.ok(animations.every(x=>x.count!=='infinite'));
+    await page.emulateMedia({reducedMotion:'reduce'});
+    assert.ok(await page.locator('.logo-img,.hero-title,.accent').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationName==='none')));
+    await page.locator('.carousel-controls .next').click();
+    assert.equal(await page.locator('.carousel-item[data-position="current"]').getAttribute('data-index'),'1');
   });
   await test('runtime:no-console-errors',async()=>assert.deepEqual(errors.filter(e=>!e.includes('404 (Not Found)')),[]));
 })().catch(error=>{checks.push({name:'harness',status:'FAIL',reason:error.stack});}).finally(async()=>{
