@@ -65,7 +65,7 @@
       let redirectingFocus = false;
 
       function stateFor(element) {
-        if (!states.has(element)) states.set(element, { frame: 0, timer: 0, phase: 'closed', opener: null });
+        if (!states.has(element)) states.set(element, { frame: 0, timer: 0, phase: 'closed', opener: null, restoreFocus: true });
         return states.get(element);
       }
 
@@ -126,30 +126,44 @@
 
       function finishClose(element, state) {
         if (state.phase !== 'closing') return;
+        clearTimeout(state.timer);
         state.timer = 0;
         state.phase = 'closed';
         element.style.display = 'none';
+        element.classList.remove('is-closing');
+        element.setAttribute('aria-hidden', 'true');
+        element.inert = true;
         element.dispatchEvent(new CustomEvent('site:modalclosed'));
+        if (activeModal === element) {
+          activeModal = null;
+          unlockBackground();
+          if (state.restoreFocus) focusElement(state.opener);
+          document.dispatchEvent(new CustomEvent('site:modalchange'));
+        }
       }
 
       function close(element, { immediate = false, restoreFocus = true } = {}) {
         if (!element) return;
         const state = stateFor(element);
         if (state.phase === 'closed') return;
+        // Repeated close gestures must not restart or extend the same transition.
+        if (state.phase === 'closing') {
+          if (immediate) {
+            state.restoreFocus = restoreFocus;
+            finishClose(element, state);
+          }
+          return;
+        }
         cancelAnimationFrame(state.frame);
         clearTimeout(state.timer);
         state.frame = 0;
         state.phase = 'closing';
+        state.restoreFocus = restoreFocus;
+        element.classList.add('is-closing');
         element.classList.remove('active');
         element.dispatchEvent(new CustomEvent('site:modalclose'));
-        if (activeModal === element) {
-          activeModal = null;
-          unlockBackground();
-          if (restoreFocus) focusElement(state.opener);
-          document.dispatchEvent(new CustomEvent('site:modalchange'));
-        }
-        element.setAttribute('aria-hidden', 'true');
-        element.inert = true;
+        // Keep the viewport, inert background and focused dialog stable until
+        // both the panel and backdrop have faded. Media is paused immediately.
         const duration = immediate ? 0 : transitionTime(element);
         if (duration) state.timer = setTimeout(() => finishClose(element, state), duration);
         else finishClose(element, state);
@@ -157,9 +171,10 @@
 
       function open(element, opener = document.activeElement) {
         if (!element) return;
-        if (activeModal === element) return;
-        if (activeModal) close(activeModal, { immediate: true, restoreFocus: false });
         const state = stateFor(element);
+        if (activeModal === element && state.phase === 'open') return;
+        if (activeModal && activeModal !== element) close(activeModal, { immediate: true, restoreFocus: false });
+        const retainedLock = activeModal === element && state.phase === 'closing';
         cancelAnimationFrame(state.frame);
         clearTimeout(state.timer);
         state.timer = 0;
@@ -171,7 +186,11 @@
         element.setAttribute('aria-modal', 'true');
         if (!element.hasAttribute('tabindex')) element.tabIndex = -1;
         element.inert = false;
-        lockBackground(element);
+        if (!retainedLock) lockBackground(element);
+        // Reverse an interrupted close without unlocking or cleaning up the
+        // newly selected project, and without capturing a second lock snapshot.
+        if (retainedLock) element.classList.add('active');
+        element.classList.remove('is-closing');
         state.frame = requestAnimationFrame(() => {
           state.frame = 0;
           if (activeModal === element) element.classList.add('active');
@@ -220,7 +239,16 @@
         redirectingFocus = false;
       });
 
-      return { open, close, wire, isOpen: element => element ? activeModal === element : Boolean(activeModal) };
+      onMediaChange(reducedMotion, () => {
+        if (reducedMotion.matches && activeModal && stateFor(activeModal).phase === 'closing') {
+          close(activeModal, { immediate: true, restoreFocus: stateFor(activeModal).restoreFocus });
+        }
+      });
+      window.addEventListener('pagehide', () => {
+        if (activeModal) close(activeModal, { immediate: true, restoreFocus: false });
+      });
+      return { open, close, wire, isOpen: element => element
+        ? activeModal === element && stateFor(element).phase === 'open' : Boolean(activeModal) };
     })();
 
     function initPage() {
@@ -507,9 +535,6 @@
       });
       document.addEventListener('visibilitychange', () => {
         if (document.hidden && currentVideo) currentVideo.pause();
-      });
-      window.addEventListener('pagehide', () => {
-        if (Modal.isOpen(modal)) Modal.close(modal, { immediate: true, restoreFocus: false });
       });
       onMediaChange(reducedMotion, () => {
         if (reducedMotion.matches && currentVideo) currentVideo.pause();

@@ -118,3 +118,30 @@ Affected acceptance: privacy title/link, no theme code/storage/system switching,
 category alignment/interaction at 320/375/430/768/1024/1440/1920, console, focus,
 reduced motion and responsive layout. Reuse unchanged source-bound media/SEO/
 security evidence; update existing PR #1 only. No merge or publication.
+
+
+## Owner amendment — privacy, project copy and centered close (iteration 6)
+
+Only these three areas change. The privacy title remains exactly «Политика
+конфиденциальности». Its six sections describe actual site behavior: no own
+personal-data collection/forms/accounts, local search, no storage/analytics,
+same-origin media/fonts, GitHub Pages security IP logging, external links and
+the existing Telegram contact. No invented legal identity, jurisdiction,
+retention deadline, compliance guarantee or third-party integration.
+
+All 76 descriptions are individually grounded in prior copy and visible media;
+no invented clients/results/tools/dates/awards. Preserve all 211 media and every
+non-description manifest field. The short description is visible immediately
+below the title in the existing viewer and also in native no-JS details.
+
+Close preserves the original 400ms easing/scale vocabulary, but exits around
+the panel center without a vertical offset. Keep body scroll lock, background
+inertness and modal focus until the panel/backdrop fade completes; then clean
+media and return focus. Repeated close is idempotent; interrupted close/reopen
+must not double-lock or clear the new project. Reduced motion remains immediate.
+
+Affected evidence only: factual policy, 76 descriptions and media invariants,
+viewer close frame sampling at all seven R06 widths, image/video/long/scrolled
+content, real keyboard/focus, rapid reopen, reduced motion, console and overflow.
+Reuse unchanged original motion/navigation/SEO/assets and delivery policy.
+Existing PR #1 only; no merge or publication.

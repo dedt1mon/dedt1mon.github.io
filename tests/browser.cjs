@@ -56,6 +56,62 @@ async function assertDarkOnly(target = page) {
   assert.equal(await target.locator('.motion-toggle').count(),0);
   assert.equal(await target.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(17, 18, 24)','Current dark palette must remain under every system preference');
 }
+'use strict';
+// Affected content/close helpers; no media inventory, navigation or SEO replay.
+async function content06Open(target, projectId, { video = false, scroll = false } = {}) {
+  await target.goto(base + '/portfolio.html', { waitUntil: 'networkidle' });
+  await target.evaluate(() => document.fonts.ready);
+  const opener=target.locator(`#${projectId} .project-open`).first();
+  await opener.click();
+  await target.waitForFunction(() => getComputedStyle(document.querySelector('#portfolioModal')).opacity === '1' && getComputedStyle(document.querySelector('.portfolio-modal-content')).opacity === '1');
+  if(video) {
+    const index=await target.locator(`#${projectId}`).evaluate(e=>JSON.parse(e.dataset.media).findIndex(m=>m.type==='video'));
+    assert.ok(index>=0);await target.locator('#galleryThumbnails button').nth(index).click();
+    await target.locator('#galleryContent video').waitFor({state:'visible'});
+    await target.locator('#galleryContent video').evaluate(async v=>{v.muted=true;await v.play()});
+    await target.waitForFunction(()=>document.querySelector('#galleryContent video')?.currentTime>0);
+  } else await target.locator('#galleryContent img').evaluate(i=>i.decode());
+  await target.waitForTimeout(450);
+  if(scroll) {
+    const overflow=await target.locator('.portfolio-modal-content').evaluate(e=>{e.scrollTop=e.scrollHeight;return e.scrollTop});
+    assert.ok(overflow>0,'Real viewer must scroll in the short viewport');
+  }
+  return opener;
+}
+async function content06Close(target, via, label, { reduced = false } = {}) {
+  const before=await target.evaluate(()=>({scrollY,body:document.body.style.overflow,root:document.documentElement.style.overflow}));
+  await target.evaluate(()=>{
+    const modal=document.querySelector('#portfolioModal'),content=modal.querySelector('.modal-content');
+    const sample=()=>{const r=content.getBoundingClientRect(),m=getComputedStyle(modal),c=getComputedStyle(content);return{t:performance.now(),cx:r.x+r.width/2,cy:r.y+r.height/2,width:r.width,height:r.height,opacity:+m.opacity,contentOpacity:+c.opacity,display:m.display,backdrop:m.backdropFilter,locked:document.body.style.overflow==='hidden'&&document.documentElement.style.overflow==='hidden',inert:document.querySelector('main').inert,inside:modal.contains(document.activeElement),ariaHidden:modal.getAttribute('aria-hidden'),media:document.querySelector('#galleryContent').childElementCount,videoPaused:document.querySelector('#galleryContent video')?.paused,scrollY,scrollTop:content.scrollTop}};
+    window.__contentClose={before:sample(),frames:[],events:[],done:false};
+    modal.addEventListener('site:modalclose',()=>{window.__contentClose.started=performance.now();window.__contentClose.events.push({name:'close',...sample()});queueMicrotask(()=>window.__contentClose.events.push({name:'after-close',...sample()}));const loop=()=>{window.__contentClose.frames.push(sample());if(getComputedStyle(modal).display!=='none')requestAnimationFrame(loop);else window.__contentClose.done=true};requestAnimationFrame(loop)},{once:true});
+    modal.addEventListener('site:modalclosed',()=>window.__contentClose.events.push({name:'closed',...sample()}),{once:true});
+  });
+  if(via==='X')await target.locator('#closePortfolioModal').click();
+  else if(via==='Escape')await target.keyboard.press('Escape');
+  else await target.mouse.click(2,Math.floor((target.viewportSize()?.height||1000)/2));
+  await target.waitForFunction(()=>window.__contentClose?.done,{},{timeout:3000});
+  const trace=await target.evaluate(()=>window.__contentClose);
+  fs.writeFileSync(path.join(out,`${label}-frames.json`),JSON.stringify(trace,null,2));
+  const visible=trace.frames.filter(f=>f.display!=='none');
+  for(const f of visible) {
+    assert.ok(Math.abs(f.cx-trace.before.cx)<=1&&Math.abs(f.cy-trace.before.cy)<=1,`Viewer center moved: ${JSON.stringify(f)}`);
+    assert.ok(f.locked&&f.inert&&f.inside,'Lock, background inert and modal focus must last through fade');
+    assert.equal(f.ariaHidden,'false');assert.equal(f.media,trace.before.media,'Media cleanup must wait for final hide');
+    assert.equal(f.scrollY,before.scrollY,'Background scroll must remain stable');
+    assert.ok(f.backdrop.includes('blur('),'Backdrop must remain attached during the fade');
+    assert.ok(Math.abs(f.opacity-f.contentOpacity)<.06,'Backdrop and content fade must remain synchronized');
+    if(f.videoPaused!==undefined)assert.ok(f.videoPaused,'Video pauses immediately during close');
+  }
+  for(let i=1;i<visible.length;i++)assert.ok(visible[i].opacity<=visible[i-1].opacity+.005,'Backdrop must never blink back in');
+  if(!reduced){assert.ok(visible.length>=3,'Normal motion must have multiple real rendered frames');assert.ok(visible.some(f=>f.opacity>.05&&f.opacity<.95),'Normal motion must fade, not disappear');}
+  else assert.ok(trace.events.find(e=>e.name==='closed').t-trace.started<100,'Reduced motion finishes without a long transition');
+  assert.equal(trace.events.filter(e=>e.name==='closed').length,1);
+  const final=await target.evaluate(()=>({hidden:getComputedStyle(document.querySelector('#portfolioModal')).display==='none',aria:document.querySelector('#portfolioModal').getAttribute('aria-hidden'),inert:document.querySelector('main').inert,body:document.body.style.overflow,root:document.documentElement.style.overflow,media:document.querySelector('#galleryContent').childElementCount,focus:document.activeElement.closest('.portfolio-card')?.id,scrollY}));
+  assert.ok(final.hidden&&!final.inert);assert.equal(final.aria,'true');assert.equal(final.body,'');assert.equal(final.root,'');assert.equal(final.media,0);assert.equal(final.scrollY,before.scrollY);
+  return {trace,final};
+}
+
 (async () => {
   await new Promise(resolve => instance.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${instance.address().port}`;
@@ -451,12 +507,105 @@ async function assertDarkOnly(target = page) {
     }
     await layout();
   });
+  const contentManifest=JSON.parse(fs.readFileSync(path.join(root,'docs/content-manifest.json'),'utf8'));
+  await test('content06:all-76-descriptions-manifest-native-and-modal',async()=>{
+    await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:1440,height:1000});await load('/portfolio.html');
+    assert.equal(contentManifest.projects.length,76);assert.equal(new Set(contentManifest.projects.map(p=>p.description.trim())).size,76);
+    for(const project of contentManifest.projects){
+      const card=page.locator(`#${project.id}`);assert.equal(await card.getAttribute('data-description'),project.description);
+      assert.equal((await card.locator('.project-summary').textContent()).trim(),project.description);
+      assert.ok(project.description.trim().length>0,`${project.id}: nonempty individual description`);
+      assert.deepEqual(JSON.parse(await card.getAttribute('data-media')),project.media);
+      await card.locator('.project-open').first().click();await page.locator('#portfolioModal').waitFor({state:'visible'});
+      assert.equal((await page.locator('#projectDescription').textContent()).trim(),project.description);
+      assert.equal((await page.locator('#portfolio-modal-title').textContent()).trim(),project.title);
+      assert.ok(await page.locator('#projectDescription').evaluate(e=>!!(e.compareDocumentPosition(document.querySelector('#galleryContent'))&Node.DOCUMENT_POSITION_FOLLOWING)),'Description must precede project media');
+      await page.keyboard.press('Escape');await page.locator('#portfolioModal').waitFor({state:'hidden'});
+    }
+    assert.equal(await page.locator('.project-files a').count(),211);
+  });
+  await test('content06:no-JS-76-descriptions-211-media',async()=>{
+    const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:375,height:1000}});
+    try{const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/portfolio.html');
+      for(const project of contentManifest.projects){const card=probe.locator(`#${project.id}`);await card.locator('summary').click();assert.ok(await card.locator('.project-summary').isVisible());assert.equal((await card.locator('.project-summary').textContent()).trim(),project.description);}
+      assert.equal(await probe.locator('.project-files a:visible').count(),211);await layout(probe);
+    }finally{await context.close()}
+  });
+  for(const width of [320,375,430,768,1024,1440,1920])await test(`content06:privacy-factual-local-only:${width}`,async()=>{
+    const context=await browser.newContext({viewport:{width,height:1000},reducedMotion:'reduce'});
+    try{const probe=await context.newPage();observeErrors(probe);const external=[],requests=[];
+      probe.on('request',r=>{requests.push({url:r.url(),method:r.method()});if(!r.url().startsWith(base)&&!r.url().startsWith('data:'))external.push(r.url())});
+      for(const route of ['/','/portfolio.html','/services.html','/404.html']){
+        await probe.goto(base+route,{waitUntil:'networkidle'});await probe.locator('#openPrivacy').click();await probe.locator('#privacyModal').waitFor({state:'visible'});
+        const policy=probe.locator('#privacyModal .privacy-policy');assert.ok(await policy.isVisible());
+        assert.deepEqual(await policy.locator('h3').allTextContents(),['Просмотр сайта и поиск','Cookies, хранилище и аналитика','Изображения, видео и шрифты','Хостинг GitHub Pages','Внешние ссылки','Вопросы о конфиденциальности']);
+        assert.ok(await policy.locator('a[href="https://t.me/Ded_Timon"]').count());
+        const text=await policy.innerText();for(const word of ['GitHub Pages','Telegram','WhatsApp','YouTube','IP'])assert.ok(text.includes(word),word);
+        assert.equal(await probe.locator('form,iframe').count(),0);
+        assert.deepEqual(await probe.evaluate(()=>({cookies:document.cookie,local:localStorage.length,session:sessionStorage.length})),{cookies:'',local:0,session:0});
+        const geometry=await probe.locator('#privacyModal .modal-content').evaluate(el=>{
+          const r=el.getBoundingClientRect(),close=el.querySelector('.close-modal').getBoundingClientRect(),heading=el.querySelector('h2'),range=document.createRange();range.selectNodeContents(heading);
+          const glyphs=[...range.getClientRects()].map(r=>r.toJSON()),style=getComputedStyle(el.querySelector('.privacy-policy'));
+          const overflow=[...el.querySelectorAll('.privacy-policy p,.privacy-policy a,.privacy-policy h3')].map(e=>e.getBoundingClientRect()).filter(x=>x.left<r.left-1||x.right>r.right+1).length;
+          return{box:r.toJSON(),close:close.toJSON(),glyphs,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,font:parseFloat(style.fontSize),line:parseFloat(style.lineHeight),overflow};
+        });
+        assert.ok(geometry.box.x>=0&&geometry.box.x+geometry.box.width<=width+1);assert.ok(geometry.scrollWidth<=geometry.clientWidth+1);assert.equal(geometry.overflow,0);
+        assert.ok(geometry.close.width>=44&&geometry.close.height>=44);assert.ok(geometry.font>=16&&geometry.line>=24);
+        assert.ok(geometry.glyphs.every(r=>r.right<=geometry.close.x||r.x>=geometry.close.right||r.bottom<=geometry.close.y||r.y>=geometry.close.bottom),'Privacy heading glyphs must not overlap close control');
+        const contact=policy.locator('a[href="https://t.me/Ded_Timon"]');await contact.focus();
+        assert.ok(await contact.evaluate(e=>e===document.activeElement));
+        const contactBox=await contact.boundingBox();assert.ok(contactBox.y>=geometry.box.y&&contactBox.y+contactBox.height<=geometry.box.y+geometry.box.height+1,'Contact must scroll into view and receive focus');
+        await a11y(probe);
+        if(route==='/')await probe.screenshot({path:path.join(out,`privacy-content-${width}.png`)});
+        await probe.keyboard.press('Escape');await probe.locator('#privacyModal').waitFor({state:'hidden'});assert.equal(await probe.evaluate(()=>document.activeElement.id),'openPrivacy');
+        if(route==='/portfolio.html'){await probe.locator('#projectToolsToggle').click();await probe.locator('#projectSearch').fill('content06-private-local-query');await probe.waitForTimeout(100);await probe.keyboard.press('Escape');}
+      }
+      assert.ok(requests.every(r=>['GET','HEAD'].includes(r.method)&&!r.url.includes('content06-private-local-query')),'No submission or search query request');
+      assert.deepEqual(external,[],'Viewing the site/policy must not call external services');
+    }finally{await context.close()}
+  });
+  for(const width of [320,375,430,768,1024,1440,1920])for(const via of ['X','Escape','outside'])await test(`content06:close-centered:${width}:${via}`,async()=>{
+    const probe=await browser.newPage({viewport:{width,height:1000},reducedMotion:'no-preference'});observeErrors(probe);
+    try{await content06Open(probe,'work-01');const result=await content06Close(probe,via,`close-${width}-${via}`);assert.equal(result.final.focus,'work-01');}
+    finally{await probe.close()}
+  });
+  for(const width of [375,1440])for(const scenario of ['portrait','video','long-text','scrolled'])await test(`content06:close-media:${width}:${scenario}`,async()=>{
+    const longest=contentManifest.projects.reduce((a,b)=>a.description.length>b.description.length?a:b).id;
+    const project=scenario==='portrait'?'work-02':scenario==='video'?'work-08':longest;
+    const probe=await browser.newPage({viewport:{width,height:scenario==='scrolled'?500:1000},reducedMotion:'no-preference'});observeErrors(probe);
+    try{
+      await content06Open(probe,project,{video:scenario==='video',scroll:scenario==='scrolled'});
+      if(scenario==='portrait')assert.ok(await probe.locator('#galleryContent img').evaluate(i=>i.naturalHeight>i.naturalWidth));
+      if(scenario==='long-text'){assert.equal((await probe.locator('#projectDescription').textContent()).trim(),contentManifest.projects.find(p=>p.id===project).description);await probe.screenshot({path:path.join(out,`description-viewer-${width}.png`)});}
+      const result=await content06Close(probe,scenario==='scrolled'?'Escape':scenario==='video'?'X':'outside',`close-${width}-${scenario}`);assert.equal(result.final.focus,project);
+    }finally{await probe.close()}
+  });
+  for(const width of [375,1440])await test(`content06:reopen-race-and-focus:${width}`,async()=>{
+    const probe=await browser.newPage({viewport:{width,height:1000},reducedMotion:'no-preference'});observeErrors(probe);
+    try{
+      await content06Open(probe,'work-01');
+      await probe.evaluate(()=>{window.__closedEvents=0;document.querySelector('#portfolioModal').addEventListener('site:modalclosed',()=>window.__closedEvents++);document.querySelector('#closePortfolioModal').click();setTimeout(()=>document.querySelector('#work-02 .project-open').click(),80)});
+      await probe.waitForTimeout(650);assert.equal(await probe.locator('#portfolioModal').getAttribute('aria-hidden'),'false');
+      assert.equal((await probe.locator('#portfolio-modal-title').textContent()).trim(),contentManifest.projects.find(p=>p.id==='work-02').title);
+      assert.ok(await probe.locator('#galleryContent img').count());assert.equal(await probe.evaluate(()=>window.__closedEvents),0,'Stale closing callback must not hide/clear reopened dialog');
+      assert.ok(await probe.evaluate(()=>document.body.style.overflow==='hidden'&&document.querySelector('main').inert));
+      await probe.keyboard.press('Tab');assert.ok(await probe.evaluate(()=>!!document.activeElement.closest('#portfolioModal')));
+      await content06Close(probe,'Escape',`close-${width}-reopened`);assert.ok(await probe.locator('#work-02 .project-open').first().evaluate(e=>e===document.activeElement));
+      assert.equal(await probe.evaluate(()=>window.__closedEvents),1);
+    }finally{await probe.close()}
+  });
+  for(const width of [375,1440])await test(`content06:reduced-motion-close:${width}`,async()=>{
+    const probe=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});observeErrors(probe);
+    try{for(const via of ['X','Escape','outside']){await content06Open(probe,'work-01');const result=await content06Close(probe,via,`reduced-${width}-${via}`,{reduced:true});assert.equal(result.final.focus,'work-01');}}
+    finally{await probe.close()}
+  });
+
   await test('runtime:no-console-errors',async()=>assert.deepEqual(errors.filter(e=>!e.includes('404 (Not Found)')),[]));
 })().catch(error=>{checks.push({name:'harness',status:'FAIL',reason:error.stack});}).finally(async()=>{
   if (checks.some(c=>c.status==='FAIL') && page && !page.isClosed()) await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});
   if(browser)await browser.close(); await new Promise(resolve=>instance.close(resolve));
   let revision='unavailable';try{revision=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();}catch{}
-  const hashes={};for(const name of ['index.html','portfolio.html','services.html','scripts.js','styles.css','tests/browser.cjs','pnpm-lock.yaml'])if(fs.existsSync(path.join(root,name)))hashes[name]=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,name))).digest('hex');
+  const hashes={};for(const name of ['index.html','portfolio.html','services.html','scripts.js','styles.css','docs/content-manifest.json','404.html','tests/browser.cjs','pnpm-lock.yaml'])if(fs.existsSync(path.join(root,name)))hashes[name]=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,name))).digest('hex');
   const result={status:checks.length&&checks.every(c=>c.status==='PASS')?'PASS':'FAIL',revision,environment:{node:process.version,os:process.platform,architecture:process.arch,playwright:require('playwright/package.json').version,axe:require('axe-core/package.json').version,reducedMotion:'reduce'},checks,metrics,console:errors,source_hashes:hashes};
   fs.writeFileSync(path.join(out,only?'browser-targeted.json':'browser.json'),JSON.stringify(result,null,2));
   console.log(JSON.stringify({status:result.status,passed:checks.filter(c=>c.status==='PASS').length,failed:checks.filter(c=>c.status==='FAIL'),metrics}));

@@ -1,5 +1,6 @@
 """No third-party dependencies: verify static site/SEO/media contracts."""
 import hashlib
+from html import unescape
 import json
 import os
 import re
@@ -53,12 +54,12 @@ def local_exists(raw):
 
 scope = 'full'
 if sys.argv[1:]:
-    if sys.argv[1:] != ['--scope', 'privacy-dark']:
-        raise SystemExit('Expected --scope privacy-dark or no arguments')
-    scope = 'privacy-dark'
+    if len(sys.argv) != 3 or sys.argv[1] != '--scope' or sys.argv[2] not in ['privacy-dark', 'content']:
+        raise SystemExit('Expected --scope privacy-dark, --scope content, or no arguments')
+    scope = sys.argv[2]
 
 def write_report():
-    report={'status':'PASS' if all(c['status']=='PASS' for c in checks) else 'FAIL','passed':sum(c['status']=='PASS' for c in checks),'failed':[c['name'] for c in checks if c['status']=='FAIL'],'source_hashes':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in [*pages,'scripts.js','styles.css','tests/check_site.py','sitemap.xml','robots.txt']},'checks':checks,'scope':scope}
+    report={'status':'PASS' if all(c['status']=='PASS' for c in checks) else 'FAIL','passed':sum(c['status']=='PASS' for c in checks),'failed':[c['name'] for c in checks if c['status']=='FAIL'],'source_hashes':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in [*pages,'scripts.js','styles.css','tests/check_site.py','docs/content-manifest.json','sitemap.xml','robots.txt']},'checks':checks,'scope':scope}
     (RESULTS/'static.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps({k:report[k] for k in ['status','passed','failed']},ensure_ascii=True))
     sys.exit(report['status']!='PASS')
@@ -67,24 +68,82 @@ def write_report():
 # Local narrow changes can check their explicit contract without replaying them.
 css = (ROOT/'styles.css').read_text(encoding='utf-8')
 script = (ROOT/'scripts.js').read_text(encoding='utf-8')
-for name, doc in pages.items():
-    text = texts[name]
-    check(f'{name}:privacy link title', bool(re.search(r'<button\b[^>]*id="openPrivacy"[^>]*>Политика конфиденциальности</button>', text)))
-    check(f'{name}:privacy dialog title', bool(re.search(r'<h2\b[^>]*id="privacy-title"[^>]*>Политика конфиденциальности</h2>', text)))
-    check(f'{name}:privacy link targets dialog', any(d.get('id')=='openPrivacy' and d.get('aria-controls')=='privacyModal' for _,d in doc.nodes))
-    check(f'{name}:obsolete privacy copy absent', 'О данных на сайте' not in text and 'Только выбранная тема' not in text)
-    check(f'{name}:theme bootstrap absent', not any(t=='script' and 'theme.js' in d.get('src','') for t,d in doc.nodes))
-    check(f'{name}:theme controls and classes absent', not re.search(r'theme-toggle|theme-sun|theme-moon|data-theme|Светлая тема',text))
-check('theme runtime file removed', not (ROOT/'theme.js').exists())
-check('light selectors and scheme detection removed', not re.search(r'data-theme|theme-toggle|theme-sun|theme-moon|prefers-color-scheme|color-scheme\s*:\s*light', css))
-check('dark-only color scheme', bool(re.search(r'color-scheme\s*:\s*dark',css)))
-check('theme storage and runtime removed', not re.search(r'localStorage|sessionStorage|dedtimon-theme|prefers-color-scheme|data-theme|theme-toggle',script))
-check('reduced motion retained', 'prefers-reduced-motion' in css and 'prefers-reduced-motion' in script)
-check('theme unused tokens removed', '--surface-raised' not in css and '--hero-shadow' not in css)
-check('preview no obsolete theme route', 'theme.js' not in (ROOT/'tools/serve.cjs').read_text(encoding='utf-8'))
-check('package no obsolete theme check', 'theme.js' not in (ROOT/'package.json').read_text(encoding='utf-8'))
-if scope == 'privacy-dark':
-    write_report()
+if scope != 'content':
+    for name, doc in pages.items():
+        text = texts[name]
+        check(f'{name}:privacy link title', bool(re.search(r'<button\b[^>]*id="openPrivacy"[^>]*>Политика конфиденциальности</button>', text)))
+        check(f'{name}:privacy dialog title', bool(re.search(r'<h2\b[^>]*id="privacy-title"[^>]*>Политика конфиденциальности</h2>', text)))
+        check(f'{name}:privacy link targets dialog', any(d.get('id')=='openPrivacy' and d.get('aria-controls')=='privacyModal' for _,d in doc.nodes))
+        check(f'{name}:obsolete privacy copy absent', 'О данных на сайте' not in text and 'Только выбранная тема' not in text)
+        check(f'{name}:theme bootstrap absent', not any(t=='script' and 'theme.js' in d.get('src','') for t,d in doc.nodes))
+        check(f'{name}:theme controls and classes absent', not re.search(r'theme-toggle|theme-sun|theme-moon|data-theme|Светлая тема',text))
+    check('theme runtime file removed', not (ROOT/'theme.js').exists())
+    check('light selectors and scheme detection removed', not re.search(r'data-theme|theme-toggle|theme-sun|theme-moon|prefers-color-scheme|color-scheme\s*:\s*light', css))
+    check('dark-only color scheme', bool(re.search(r'color-scheme\s*:\s*dark',css)))
+    check('theme storage and runtime removed', not re.search(r'localStorage|sessionStorage|dedtimon-theme|prefers-color-scheme|data-theme|theme-toggle',script))
+    check('reduced motion retained', 'prefers-reduced-motion' in css and 'prefers-reduced-motion' in script)
+    check('theme unused tokens removed', '--surface-raised' not in css and '--hero-shadow' not in css)
+    check('preview no obsolete theme route', 'theme.js' not in (ROOT/'tools/serve.cjs').read_text(encoding='utf-8'))
+    check('package no obsolete theme check', 'theme.js' not in (ROOT/'package.json').read_text(encoding='utf-8'))
+    if scope == 'privacy-dark':
+        write_report()
+
+# Content-only contract; the default CI path also includes these assertions.
+class ContentDocument(HTMLParser):
+    def __init__(self, text):
+        super().__init__(convert_charrefs=True)
+        self.stack=[]; self.cards={}; self.policy_parts=[]; self.policy_headings=[]
+        self.feed(text)
+    def handle_starttag(self, tag, attrs):
+        d=dict(attrs)
+        if tag in ['img','input','meta','link','br','hr','source','wbr','area','base','embed','param','track']: return
+        parent=self.stack[-1] if self.stack else {}
+        card=d.get('id') if 'portfolio-card' in d.get('class','').split() else parent.get('card')
+        if card: self.cards.setdefault(card,[])
+        policy='privacy-policy' in d.get('class','').split() or parent.get('policy',False)
+        self.stack.append({'tag':tag,'card':card,'summary':'project-summary' in d.get('class','').split() or parent.get('summary',False),'policy':policy,'heading':tag=='h3' and policy})
+        if tag=='h3' and policy:self.policy_headings.append('')
+    def handle_endtag(self,tag):
+        for i in range(len(self.stack)-1,-1,-1):
+            if self.stack[i]['tag']==tag:
+                self.stack=self.stack[:i];break
+    def handle_data(self,data):
+        if not self.stack:return
+        node=self.stack[-1]
+        if node['card'] and node['summary']:self.cards[node['card']].append(data)
+        if node['policy']:self.policy_parts.append(data)
+        if node['heading']:self.policy_headings[-1]+=data
+
+if scope != 'privacy-dark':
+    manifest=json.loads((ROOT/'docs/content-manifest.json').read_text(encoding='utf-8'))
+    projects=manifest['projects']
+    cards=[d for _,d in pages['portfolio.html'].nodes if 'portfolio-card' in d.get('class','').split()]
+    summaries=ContentDocument(texts['portfolio.html']).cards
+    check('content:76 individual projects', len(projects)==len(cards)==76 and len({p['id'] for p in projects})==76)
+    descriptions=[p['description'].strip() for p in projects]
+    check('content:76 unique substantive descriptions',len(set(descriptions))==76 and all(descriptions))
+    by_id={c['id']:c for c in cards}
+    for project in projects:
+        card=by_id.get(project['id'],{})
+        check(f'content:{project["id"]}:manifest attribute and native description',card.get('data-description')==project['description']==''.join(summaries.get(project['id'],[])).strip())
+        check(f'content:{project["id"]}:title and media unchanged',card.get('data-title')==project['title'] and json.loads(card.get('data-media','[]'))==project['media'])
+    check('content:211 media preserved',sum(len(p['media']) for p in projects)==manifest['media_count']==211)
+    media_digest=hashlib.sha256(json.dumps([(p['id'],p['media']) for p in projects],ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    check('content:baseline media exact fingerprint',media_digest=='6ae26a7e12dedd3c052f165ffc25b8a1b1f90aabae878c6f793942f818aca837')
+    policy_texts=[]
+    expected_headings=['Просмотр сайта и поиск','Cookies, хранилище и аналитика','Изображения, видео и шрифты','Хостинг GitHub Pages','Внешние ссылки','Вопросы о конфиденциальности']
+    for name,doc in pages.items():
+        content=ContentDocument(texts[name]);policy=' '.join(' '.join(content.policy_parts).split());policy_texts.append(policy)
+        check(f'content:{name}:six factual privacy sections',content.policy_headings==expected_headings and len(policy)>1000)
+        check(f'content:{name}:existing contact and hosting sources',all(any(t=='a' and d.get('href','').startswith(url) for t,d in doc.nodes) for url in ['https://t.me/Ded_Timon','https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement']))
+        check(f'content:{name}:no submission forms or embeds',not any(t in ['form','iframe'] for t,_ in doc.nodes))
+        check(f'content:{name}:privacy opener and heading retained','Политика конфиденциальности' in texts[name] and any(d.get('id')=='openPrivacy' and d.get('aria-controls')=='privacyModal' for _,d in doc.nodes))
+        check(f'content:{name}:policy distinguishes local viewing and external services',all(word in policy for word in ['GitHub Pages','IP','Telegram','WhatsApp','YouTube','cookies','localStorage','sessionStorage']))
+    check('content:same privacy policy on every page',len(set(policy_texts))==1)
+    check('content:runtime no storage or submission',not re.search(r'localStorage|sessionStorage|document\.cookie|fetch\s*\(|XMLHttpRequest|sendBeacon|WebSocket',script))
+    check('content:description uses safe textContent','description.textContent = current.description' in script)
+    check('content:automatic reduced-motion still supported','prefers-reduced-motion' in script and 'prefers-reduced-motion' in css)
+    if scope == 'content':write_report()
 
 media_refs=set()
 for name,doc in pages.items():

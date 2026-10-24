@@ -227,3 +227,61 @@ static/media assertion. The existing PR workflow will run once for the new head;
 its exact-head result and artifact digest are recorded in PR #1/service evidence.
 No merge or publication. Limit: emulated Chromium viewports; physical devices,
 Safari and Firefox are not newly tested.
+
+
+## Privacy, individual project copy and centered close — iteration 6
+
+Scope is limited to the owner's three corrections. The privacy policy now has
+six readable sections on every page: own data/form behavior, local search,
+cookies/storage/analytics, local media/fonts, hosting, external services and the
+existing Telegram contact. Source audit found no forms, submissions, telemetry,
+storage use, embeds or third-party runtime resources. GitHub Pages IP logging
+is documented by the host; the policy links its official documentation and
+privacy statement. No legal identity, retention period or compliance claim was
+invented. Verified source:
+https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection
+
+All 76 project descriptions were rewritten individually from existing copy and
+visible assets. Reviewed all 165 images and three samples of each of 46 videos;
+sampling is not claimed as watching every video frame. Draft provenance contains
+original/new text, factual basis, media references and invariant hashes. Titles,
+categories, dates, technologies and all 211 media records/files are unchanged.
+Descriptions appear immediately below the viewer title and in native no-JS
+project details; runtime rendering still uses textContent.
+
+Baseline 9c4317c: six real animation timelines reproduced a 16.29–17.91px center
+shift on close. The exit CSS added translateY(20px), and the modal unlocked the
+page/restored focus while the panel was visibly fading. Closing now preserves
+centered scale(.9), original 400ms easing, synchronized backdrop fade and the
+scroll/focus lock until final hide. Media pauses at close intent and is released
+after fade. Repeated close is idempotent; reopen cancels pending cleanup without
+recapturing the lock. Reduced motion/pagehide finish safely and immediately.
+
+**180 targeted static checks and 43 unique affected Chromium cases PASS**;
+zero console errors or horizontal overflow. Covers all 76 descriptions (modal,
+manifest, native view), 211-media identity, privacy on all four pages at seven
+widths, actual request/storage behavior, heading/close separation, contact focus,
+X/Escape/backdrop closing, portrait/landscape/video/long/scrolled content,
+reopen/close races and reduced motion. Widths:
+320 / 375 / 430 / 768 / 1024 / 1440 / 1920.
+37 final frame traces show maximum center drift 0.0000611px and zero premature
+unlock frames. Representative privacy/project/close images at 375/1440 were
+visually inspected. QA source-bound report: test-results/content-06/qa-review.json
+(ignored local evidence), SHA256
+ff8dfd0707e12c97d8c7826ac2973adae16fbe35c0f1a8a757a590e2a49872c6.
+
+First browser run stopped the affected viewer cases on a harness-only strict
+selector: every card legitimately has a cover link and a title link. Explicitly
+selecting the first opener fixed the harness; only the 34 blocked cases ran
+again. Earlier privacy/no-JS PASS evidence was preserved. Five missing privacy
+widths were added in a separate targeted run; no product source changed between
+these runs. Historical failure records remain intact, not relabeled as PASS.
+
+Scoped reuse against 9c4317c preserves unchanged media, head/SEO metadata,
+original motion, homepage/category navigation, media URL validation, dependencies,
+preview permissions and CI. No unchanged full local suite or additional model
+review was run. The existing required workflow runs once after push; exact-head
+CI and artifact hashes are recorded in PR #1/service completion evidence.
+
+Limitations: Chromium with emulated viewports; no new physical-device,
+Safari/Firefox or deployed-site checks. No merge or publication.

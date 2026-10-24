@@ -429,8 +429,10 @@ ul, ol { padding-left: 1.25rem; }
 .gallery-ready .portfolio-card .project-files { display: none; }
 .portfolio-category-section .section-heading { margin-bottom: 42px; }
 .page-intro:has(.portfolio-page-title.visually-hidden) { margin: 0; padding: 0; }
-.portfolio-modal-content { transition-duration: .4s; }
+.portfolio-modal { transition-duration: .4s; }
+.portfolio-modal-content { transition-duration: .4s; transform-origin: 50% 50%; }
 .modal:not(.active) .portfolio-modal-content { transform: scale(.9) translateY(20px); }
+.portfolio-modal.is-closing .portfolio-modal-content { transform: scale(.9); }
 .gallery-nav { background: var(--gallery-control-bg); color:var(--gallery-control-text); text-shadow: var(--gallery-control-shadow); transition: color .3s ease,transform .3s ease; }
 .gallery-nav:hover { background: var(--gallery-control-bg); color:var(--gallery-control-text); transform: translateY(-50%) scale(1.2); }
 .gallery-thumbnail { transition: border-color .3s ease,transform .3s ease; }
@@ -523,3 +525,13 @@ body:has(.services-page) .page-intro h1 { font-size:40px;line-height:1.6; }
 .top-nav { margin-left:auto; }
 .footer-inner { justify-content:center; }
 @media(max-width:768px) { .header-inner { gap:10px; } .top-nav { margin-left:0; } }
+
+/* Scoped copy layout: retain the existing dark modal surfaces and typography. */
+.privacy-policy { font-size:16px;line-height:1.7; }
+.privacy-policy .privacy-intro { color:var(--text); }
+.privacy-policy section + section { margin-top:24px; }
+.privacy-policy h3 { margin:0 0 10px;color:var(--text);font-size:18px;line-height:1.4; }
+.privacy-policy p { margin:0 0 14px; }
+.privacy-policy a { overflow-wrap:anywhere; }
+.portfolio-full-description { color:var(--muted); }
+#projectDescription { margin:0; }
