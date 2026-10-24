@@ -245,15 +245,15 @@ ul, ol { padding-left: 1.25rem; }
 .modal-body li + li { margin-top: 12px; }
 .close-modal { position: absolute; top: 14px; right: 14px; z-index: 5; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid transparent; border-radius: 50%; background: transparent; color: #d1d4da; font-size: 32px; line-height: 1; transition: color 250ms var(--ease), transform 250ms var(--ease); }
 .close-modal:hover { color: var(--accent); transform: rotate(90deg); }
-.modal-content.portfolio-modal-content { width: 100%; max-width: 1180px; }
+.modal-content.portfolio-modal-content { width: 90%; max-width: 600px; padding: 30px; }
 .portfolio-modal-body { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 .portfolio-modal-title { text-align: center; }
 .portfolio-gallery { min-width: 0; }
-.gallery-main { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: min(60vh, 620px); height: min(60dvh, 620px); min-height: 160px; border-radius: 16px; overflow: hidden; background: rgba(0, 0, 0, 0.12); }
-.gallery-content, .gallery-media-frame { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; }
+.gallery-main { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: auto; min-height: 0; border-radius: 16px; overflow: hidden; background: rgba(0, 0, 0, 0.12); }
+.gallery-content, .gallery-media-frame { display: flex; width: 100%; height: auto; align-items: center; justify-content: center; }
 .gallery-content { transition: opacity 180ms ease; }
 .gallery-content.is-fading { opacity: 0.25; }
-.gallery-content img, .gallery-content video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; }
+.gallery-content img, .gallery-content video { width: auto; height: auto; max-width: 100%; max-height: min(60vh, 620px); max-height: min(60dvh, 620px); object-fit: contain; border-radius: 12px; }
 .gallery-content video { background: #000; }
 .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid transparent; border-radius: 10px; background: rgba(0, 0, 0, 0.28); color: var(--accent); font-size: 40px; font-weight: 700; line-height: 1; text-shadow: 0 0 8px #000; }
 .gallery-prev { left: 10px; }
@@ -339,8 +339,7 @@ ul, ol { padding-left: 1.25rem; }
   .portfolio-category-section { padding-top: 42px; }
   .portfolio-category-section h2 { scroll-margin-top: 100px; }
   .portfolio-grid, .portfolio-grid1 { gap: 24px 18px; }
-  .portfolio-info { align-items: center; padding: 18px; text-align: center; }
-  .portfolio-title a { justify-content: center; }
+  .portfolio-info { padding: 18px; }
   .portfolio-card > .project-files { margin-inline: 18px; }
   .portfolio-title { font-size: 19px; }
   .categories-toggle { right: 20px; bottom: 20px; width: 52px; height: 52px; font-size: 28px; }
@@ -348,7 +347,7 @@ ul, ol { padding-left: 1.25rem; }
   .modal { padding: 12px; }
   .modal-content { max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); padding: 20px; }
   .close-modal { top: 12px; right: 12px; }
-  .gallery-main { height: min(50vh, 440px); height: min(50dvh, 440px); }
+  .modal-content.portfolio-modal-content { padding: 20px; }
   .gallery-prev { left: 6px; }
   .gallery-next { right: 6px; }
 }
@@ -366,7 +365,9 @@ ul, ol { padding-left: 1.25rem; }
   .modal-content { padding: 16px; max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); border-radius: 14px; }
   .modal-content h2 { padding-left: 0; padding-right: 44px; font-size: 23px; }
   .close-modal { top: 10px; right: 10px; }
-  .gallery-main { height: min(48vh, 320px); height: min(48dvh, 320px); }
+  #portfolioModal { padding: 12px; }
+  .portfolio-modal-content h2 { padding-inline: 22px; }
+  .gallery-content img, .gallery-content video { max-height: 50vh; max-height: 50dvh; }
   .gallery-thumbnail { flex-basis: 74px; width: 74px; height: 54px; }
   .portfolio-modal-body { gap: 20px; }
   .gallery-nav { width: 44px; height: 44px; font-size: 32px; }
@@ -401,3 +402,5 @@ ul, ol { padding-left: 1.25rem; }
   .button, .section-button, .contact-item, .categories-toggle, .gallery-thumbnail.active, .carousel-item, .svc-card, .portfolio-card { border: 2px solid ButtonText; }
   .gallery-thumbnail img { opacity: 1; }
 }
+
+.project-files .project-summary, .project-files .project-tech { margin-top: 12px; }

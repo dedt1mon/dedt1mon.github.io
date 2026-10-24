@@ -24,7 +24,7 @@ is retained with its original revision and scope.
 
 76 projects / 211 media entries and exact media metadata remain unchanged.
 Keep current repaired media URLs, optimized srcset/lazy images, no autoplay
-video, keyboard/focus/inert dialogs, visible no-JS descriptions and original
+video, keyboard/focus/inert dialogs, native no-JS description disclosures and original
 media links, semantic headings, all SEO metadata, robots/sitemap and HTTPS URLs.
 Removed obsolete contacts stay removed. Modern privacy wording remains truthful.
 No runtime dependencies, new permissions, deployment job or paid service.
@@ -51,3 +51,16 @@ scrolling as the visual reference, not the blank capture region.
 
 Final exact-head CI and independent report hashes are recorded in PR #1.
 Merge/publication and post-deployment verification still need owner approval.
+
+
+QA refinement: preserve original right-aligned portfolio titles/dates on mobile.
+Descriptions, tools and all original links share the existing native details
+element, keeping the original compact card rhythm. They remain accessible with
+keyboard and without JavaScript; no text or media is removed. The no-JS test
+opens every disclosure and verifies all 76 descriptions/tools and 211 links.
+This supersedes v1's presentational assumption of always-expanded descriptions,
+while retaining the owner's functional requirement of no-JS access.
+
+Gallery refinement: restore the original 600px desktop / compact mobile dialog
+and natural media height. Keep 44px controls, bounded portrait/video height,
+internal scrolling, focus trapping, Escape and video cleanup unchanged.

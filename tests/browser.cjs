@@ -144,9 +144,12 @@ async function a11y() {
     const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:375,height:900}});
     const fallback=await context.newPage(); await fallback.goto(base+'/portfolio.html');
     assert.equal(await fallback.locator('.portfolio-card').count(),76);
+    assert.equal(await fallback.locator('.project-files summary:visible').count(),76);
+    for (const summary of await fallback.locator('.project-files summary').all()) await summary.click();
     assert.equal(await fallback.locator('.project-summary:visible').count(),76);
+    assert.equal(await fallback.locator('.project-tech:visible').count(),76);
+    assert.equal(await fallback.locator('.project-files a:visible').count(),211);
     assert.ok(await fallback.getByRole('navigation',{name:'Основная навигация'}).isVisible());
-    await fallback.locator('.project-files summary').first().click();
     assert.ok(await fallback.locator('.project-files a').first().isVisible());
     await context.close();
   });
@@ -217,6 +220,37 @@ async function a11y() {
     await fallback.getByRole('heading',{name:'TG-Бот',exact:true}).waitFor();
     await fallback.getByRole('heading',{name:'ChatGPT',exact:true}).waitFor();
     await context.close();
+  });
+  await test('identity:original-mobile-card-alignment+disclosure', async () => {
+    for (const width of [320,375,430,768]) {
+      await page.setViewportSize({width,height:1000}); await load('/portfolio.html');
+      const card=page.locator('.portfolio-card').first();
+      for (const selector of ['.portfolio-title','.portfolio-date']) assert.equal(await card.locator(selector).evaluate(e=>getComputedStyle(e).textAlign),'right');
+      assert.equal(await card.locator('.project-summary').isVisible(),false);
+      const summary=card.locator('.project-files summary'); await summary.focus();await page.keyboard.press('Enter');
+      assert.ok(await card.locator('.project-summary').isVisible());assert.ok(await card.locator('.project-files a').first().isVisible());
+      await layout(); await summary.press('Enter'); assert.equal(await card.locator('.project-summary').isVisible(),false);
+    }
+  });
+  await test('identity:compact-gallery-natural-aspect+mobile-controls', async () => {
+    for (const width of [320,375,430,768,1440]) {
+      await page.setViewportSize({width,height:1000}); await load('/portfolio.html');
+      await page.locator('.project-open').first().click(); await page.locator('#portfolioModal').waitFor({state:'visible'});
+      const img=page.locator('#galleryContent img'); await img.evaluate(i=>i.decode());
+      const media=await img.boundingBox(); const main=await page.locator('.gallery-main').boundingBox();
+      const box=await page.locator('.portfolio-modal-content').boundingBox();
+      assert.ok(box.width<=601&&box.x>=0&&box.x+box.width<=width);
+      assert.ok(Math.abs(main.height-media.height)<2,'Gallery must follow media height, not an empty fixed-height stage');
+      const ratio=await img.evaluate(i=>i.naturalWidth/i.naturalHeight);
+      assert.ok(Math.abs(media.width/media.height-ratio)<0.02,'Image aspect ratio changed');
+      for (const selector of ['.gallery-prev','.gallery-next','#closePortfolioModal']) {
+        const control=await page.locator(selector).boundingBox(); assert.ok(control.width>=44&&control.height>=44&&control.x>=box.x&&control.x+control.width<=box.x+box.width);
+      }
+      const date=page.locator('.portfolio-completion-date'); await date.scrollIntoViewIfNeeded();assert.ok(await date.isVisible());
+      assert.ok(await page.locator('.portfolio-modal-content').evaluate(e=>e.scrollWidth<=e.clientWidth+1));
+      if ([375,1440].includes(width)) { await page.locator('.portfolio-modal-content').evaluate(e=>e.scrollTop=0); await page.screenshot({path:path.join(out,`gallery-${width}.png`)}); }
+      await page.keyboard.press('Escape');
+    }
   });
   await test('identity:reduced-motion-and-normal-motion', async () => {
     await page.setViewportSize({width:1440,height:1000}); await page.emulateMedia({reducedMotion:'no-preference'}); await load('/');

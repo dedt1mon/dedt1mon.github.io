@@ -41,7 +41,7 @@ media, safe gallery implementation, dependencies, preview server and workflow.
 Original-main and corrected screenshots at 1440 and 375 are retained in the
 local site-identity-02 comparison evidence. Original nested-scroll sections were
 captured through native scrollIntoView, not by treating blank clipped full-page
-capture regions as design. Current no-JS descriptions stay visible and all 76
+capture regions as design. Current descriptions stay accessible without JS and all 76
 projects / 211 media entries remain. No data from the earlier reports is
 relabeled as a new execution or a new SHA.
 
@@ -49,3 +49,12 @@ Final exact-head CI and independent visual QA/Security/Verifier report hashes
 are recorded in the same PR #1. New public deployment is still deferred until
 owner approval. Performance samples are lab resource transfers, not total page
 weight or field Core Web Vitals.
+
+
+Independent visual QA found two composition mismatches: mobile title/date
+alignment and an oversized gallery dialog. Both were corrected, together with
+compact native description disclosures. The original findings are preserved.
+Eleven affected portfolio/accessibility/no-JS cases passed, followed by four
+gallery/video/geometry/runtime cases after the gallery correction. No unchanged
+full local suite was repeated. Final suite contains 41 distinct browser cases;
+the exact-head CI and final review bindings are recorded in PR #1.

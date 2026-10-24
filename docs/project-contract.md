@@ -11,7 +11,7 @@ before implementation. The remote one-line portfolio correction was merged.
 | R01 Existing project | Existing repo/history; development branch and PR, no direct main push |
 | R02 Content fidelity | 76 substantive projects, 211 real media entries, original assets retained; 3 empty placeholders removed |
 | R03 Identity | Original logo, dark/cyan palette, readable typography; no stock imagery or invented personal facts |
-| R04 Copy | Clear Russian text, visible descriptions and tools, meaningful service descriptions |
+| R04 Copy | Clear Russian text, descriptions and tools accessible in native disclosures without JavaScript, meaningful service descriptions |
 | R05 Contacts | Removed obsolete social/marketplace contacts and icons; retained original YouTube, Telegram and WhatsApp destinations |
 | R06 Responsive | 320/375/430/768/1024/1440/1920px, three pages, no horizontal overflow or clipped controls |
 | R07 Accessibility | Semantic headings, visible keyboard focus, skip link, menu, dialog trap/return, Escape, 44px primary controls, reduced motion |
