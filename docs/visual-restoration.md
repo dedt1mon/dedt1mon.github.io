@@ -98,3 +98,8 @@ Full original audit and immutable failed/successful check history are retained
 in site-identity-03. Final normal-motion recordings, matched screenshots, affected
 browser results, exact-head CI and independent review are linked from PR #1.
 No merge/publication is authorized.
+
+Iteration 4 owner clarification supersedes the earlier functional footer pause:
+there is no manual motion UI/state. Browser reduced-motion controls simplification
+automatically. The original normal-motion effects remain. Dark and Light use the
+same composition and artwork; theme-specific presentation is described in theme.md.

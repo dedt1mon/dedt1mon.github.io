@@ -68,3 +68,30 @@ requires reduced-motion support and an accessible pause; these supersede the
 previous bounded-animation and manual-only carousel assumptions. No-JS content
 availability is mandatory; extra visible disclosures are not mandatory when the
 working enhanced gallery already provides those paths.
+
+## Owner amendment — Dark/Light and project isolation (iteration 4)
+
+This latest owner instruction supersedes the preceding footer pause requirement.
+Remove copyright text and the entire manual motion button/state. Preserve original
+motion and automatic browser prefers-reduced-motion handling, hover/focus and
+visibility behavior. Do not replace the removed elements with decorative UI.
+
+Add a compact accessible Dark/Light control; dedicated light colors/surfaces and
+contrast retain the same composition. Persist only the enum preference locally;
+use the system theme when no valid explicit choice exists. Storage denial must
+not break navigation or theme switching. No new runtime dependency.
+
+PROJECT_SOURCE_PATH: C:\Users\Ded_Timon\Desktop\5 VS Code\Мой сайт
+PROJECT_REPOSITORY: https://github.com/dedt1mon/dedt1mon.github.io
+PROJECT_WORKTREE_ROOT: C:\Users\Ded_Timon\Desktop\5 VS Code\_Astra Worktrees\dedt1mon.github.io
+
+All source, helpers, website configuration, docs and build/test source stay in this
+project. Astra stores only administrative records and validation evidence; Astra
+Core and its Git history are not changed. No new worktree is needed for this task.
+For future projects, resolve the source/repository/worktree paths before work;
+Astra Platform is never the implicit project source directory.
+
+Acceptance: both themes at all seven R06 widths; local persistence, system changes,
+no-JS fallback, blocked storage, keyboard/focus, gallery/video, reduced-motion,
+console/overflow and original content/SEO preservation. See theme.md. Same PR #1;
+no merge or publication without owner approval.

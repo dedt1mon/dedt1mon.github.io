@@ -565,31 +565,16 @@
 
     function initOriginalMotion() {
       const root = document.documentElement;
-      const toggle = document.createElement('button');
-      toggle.type = 'button'; toggle.className = 'motion-toggle privacy-link';
-      toggle.textContent = 'Приостановить анимации';
-      toggle.setAttribute('aria-pressed', 'false');
-      $('.footer-inner')?.append(toggle);
-      let paused = false;
-      function update() {
-        root.classList.toggle('motion-paused', paused);
-        toggle.setAttribute('aria-pressed', String(paused));
-        toggle.textContent = paused ? 'Возобновить анимации' : 'Приостановить анимации';
-        toggle.hidden = reducedMotion.matches;
-        document.dispatchEvent(new Event('site:motionchange'));
-      }
       const header=$('#siteHeader');let scrollFrame=0;
       function headerScroll(){scrollFrame=0;if(header)header.classList.toggle('scrolled',window.scrollY>(header.classList.contains('scrolled')?80:100));}
       window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(headerScroll);},{passive:true});headerScroll();
-      toggle.addEventListener('click', () => { paused = !paused; update(); });
-      onMediaChange(reducedMotion, update); update();
 
       // Only original combined animate-card elements moved; .fade-up alone did not.
       const targets = $$('.services-page .svc, .portfolio-card');
       const delays = [50,120,180,240,300,360,420,480];
       const reveal = element => {
         element.classList.remove('reveal-pending');
-        if (reducedMotion.matches || paused) return;
+        if (reducedMotion.matches) return;
         const service = element.classList.contains('svc');
         if (service) {
           const delay=delays[$$('.svc',element.parentElement).indexOf(element)]||0;
@@ -607,12 +592,11 @@
         targets.forEach(element => { element.classList.add('reveal-pending'); observer.observe(element); });
         const expose = () => { observer.disconnect(); targets.forEach(e=>e.classList.remove('reveal-pending')); };
         onMediaChange(reducedMotion, () => { if(reducedMotion.matches) expose(); });
-        document.addEventListener('site:motionchange', () => { if(paused) expose(); });
         document.addEventListener('focusin', event => { const card=event.target.closest?.('.reveal-pending'); if(card){observer.unobserve(card);card.classList.remove('reveal-pending');} });
       }
-      document.addEventListener('site:motionchange', () => {
+      onMediaChange(reducedMotion, () => {
         for (const animation of document.getAnimations()) if (animation.effect instanceof KeyframeEffect && animation.effect.target) {
-          if ((paused || reducedMotion.matches) && Number.isFinite(animation.effect.getComputedTiming().endTime)) animation.finish();
+          if (reducedMotion.matches && Number.isFinite(animation.effect.getComputedTiming().endTime)) animation.finish();
         }
       });
 
@@ -622,7 +606,7 @@
       const particles = new Set(); let last = 0;
       const clear = () => { particles.forEach(e=>e.remove());particles.clear(); };
       document.addEventListener('pointermove', event => {
-        if (event.pointerType !== 'mouse' || !fine.matches || reducedMotion.matches || paused || document.hidden || Modal.isOpen()) return;
+        if (event.pointerType !== 'mouse' || !fine.matches || reducedMotion.matches || document.hidden || Modal.isOpen()) return;
         const now=performance.now(); if(now-last<90 || particles.size>=12)return; last=now;
         const dot=document.createElement('i');dot.className='blue-particle';dot.setAttribute('aria-hidden','true');
         const size=Math.random()*3+2;dot.style.width=dot.style.height=`${size}px`;
@@ -632,7 +616,7 @@
         animation.onfinish=()=>{dot.remove();particles.delete(dot);};
       },{passive:true});
       document.addEventListener('visibilitychange',()=>{root.classList.toggle('page-inactive',document.hidden);if(document.hidden)clear();});
-      document.addEventListener('site:motionchange',clear);document.addEventListener('site:modalchange',clear);
+      document.addEventListener('site:modalchange',clear);
       onMediaChange(reducedMotion,clear);onMediaChange(fine,clear);window.addEventListener('pagehide',clear);
     }
 
@@ -650,7 +634,7 @@
       }
       function schedule() {
         clearTimeout(timer);timer=0;
-        if(!visible || hovered || document.hidden || reducedMotion.matches || document.documentElement.classList.contains('motion-paused') || wrap.contains(document.activeElement) || Modal.isOpen())return;
+        if(!visible || hovered || document.hidden || reducedMotion.matches || wrap.contains(document.activeElement) || Modal.isOpen())return;
         timer=setTimeout(()=>{current=(current+1)%items.length;render();schedule();},4000);
       }
       function move(step){current=(current+step+items.length)%items.length;render();schedule();}
@@ -668,7 +652,7 @@
       carousel.addEventListener('click',event=>{if(swiped&&performance.now()<swiped)event.preventDefault();swiped=false;},true);
       wrap.addEventListener('mouseenter',()=>{hovered=true;schedule();});wrap.addEventListener('mouseleave',()=>{hovered=false;schedule();});
       wrap.addEventListener('focusin',schedule);wrap.addEventListener('focusout',()=>queueMicrotask(schedule));
-      document.addEventListener('visibilitychange',schedule);document.addEventListener('site:motionchange',schedule);document.addEventListener('site:modalchange',schedule);onMediaChange(reducedMotion,schedule);
+      document.addEventListener('visibilitychange',schedule);document.addEventListener('site:modalchange',schedule);onMediaChange(reducedMotion,schedule);
       if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule();},{threshold:.1}).observe(carousel);
       window.addEventListener('pagehide',()=>clearTimeout(timer));
       carousel.classList.add('is-enhanced');controls.hidden=false;render();
@@ -693,7 +677,7 @@
         setOpen(false);
         if (target) {
           target.tabIndex = -1; focusElement(target);
-          if(!reducedMotion.matches&&!document.documentElement.classList.contains('motion-paused'))target.animate([{boxShadow:'0 0 0 4px rgba(0,229,255,.3)'},{boxShadow:'0 0 0 4px rgba(0,229,255,.3)',offset:.8},{boxShadow:'0 0 0 0 transparent'}],{duration:1500,easing:'ease'});
+          if(!reducedMotion.matches)target.animate([{boxShadow:'0 0 0 4px rgba(0,229,255,.3)'},{boxShadow:'0 0 0 4px rgba(0,229,255,.3)',offset:.8},{boxShadow:'0 0 0 0 transparent'}],{duration:1500,easing:'ease'});
         }
       });
       document.addEventListener('keydown', event => {

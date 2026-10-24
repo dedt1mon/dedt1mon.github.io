@@ -7,7 +7,7 @@ const { execFileSync } = require('node:child_process');
 const { chromium } = require('playwright');
 const { server } = require('../tools/serve.cjs');
 const root = path.resolve(__dirname, '..');
-const out = path.join(root, 'test-results');
+const out = path.join(root, 'test-results', process.env.TEST_OUTPUT || '');
 fs.mkdirSync(out, { recursive: true });
 const checks = []; const errors = []; const metrics = [];
 const only = process.env.TEST_ONLY || '';
@@ -24,8 +24,8 @@ async function load(route) {
   await page.evaluate(() => document.fonts.ready);
   await page.locator('img').first().waitFor({ state: 'visible' });
 }
-async function layout() {
-  const result = await page.evaluate(() => {
+async function layout(target = page) {
+  const result = await target.evaluate(() => {
     const width = document.documentElement.clientWidth;
     const bad = [...document.querySelectorAll('main h1, main h2, main h3, main p, main img, header, nav, main a, main input, footer')]
       .filter(el => el.getClientRects().length && !el.closest('[hidden], [aria-hidden="true"], details:not([open])'))
@@ -37,29 +37,55 @@ async function layout() {
   assert.ok(result.scrollWidth <= result.width + 1, JSON.stringify(result));
   assert.deepEqual(result.bad, [], 'overflow: ' + result.bad.join(', '));
 }
-async function a11y() {
-  await page.addScriptTag({ path: axeSource });
-  const result = await page.evaluate(async () => {
+async function a11y(target = page) {
+  await target.addScriptTag({ path: axeSource });
+  const result = await target.evaluate(async () => {
     const result = await axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } });
     return { violations: result.violations.map(v => ({ id: v.id, impact: v.impact, nodes: v.nodes.map(n => ({ target: n.target, reason: n.failureSummary })) })), incomplete: result.incomplete.map(v => v.id) };
   });
   assert.deepEqual(result.violations, [], JSON.stringify(result.violations));
   return result;
 }
+const themes = ['dark', 'light'];
+const themeKey = 'dedtimon-theme';
+function observeErrors(target) {
+  target.on('pageerror', error => errors.push(error.message));
+  target.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
+  target.on('response', response => { if (response.status() >= 400 && response.url().startsWith(base) && !response.url().includes('intentional-404')) errors.push(`${response.status()} ${response.url().replace(base, '')}`); });
+}
+async function assertTheme(theme, target = page) {
+  await target.waitForFunction(expected => document.documentElement.dataset.theme === expected, theme);
+  const button = target.locator('.theme-toggle');
+  assert.equal(await button.count(), 1, 'Exactly one compact theme control');
+  assert.ok(await button.isVisible());
+  assert.equal(await button.getAttribute('aria-label'), 'Светлая тема');
+  assert.equal(await button.getAttribute('aria-pressed'), String(theme === 'light'));
+}
+async function chooseTheme(theme, target = page) {
+  if (await target.locator('html').getAttribute('data-theme') !== theme) await target.locator('.theme-toggle').click();
+  await assertTheme(theme, target);
+}
+async function themeTest(name, run) {
+  for (const theme of themes) await test(`${name}:${theme}`, async () => {
+    await load('/'); await chooseTheme(theme); await run(theme); await assertTheme(theme);
+  });
+}
 (async () => {
   await new Promise(resolve => instance.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${instance.address().port}`;
   browser = await chromium.launch({ headless: true });
   page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
-  page.on('pageerror', error => errors.push(error.message));
-  page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
-  page.on('response', response => { if (response.status() >= 400 && response.url().startsWith(base) && !response.url().includes('intentional-404')) errors.push(`${response.status()} ${response.url().replace(base, '')}`); });
-  for (const width of [320, 375, 430, 768, 1024, 1440, 1920]) {
+  observeErrors(page);
+  for (const theme of themes) for (const width of [320, 375, 430, 768, 1024, 1440, 1920]) {
     for (const route of ['/', '/portfolio.html', '/services.html']) {
-      await test(`responsive:${width}:${route}`, async () => {
-        await page.setViewportSize({ width, height: 1000 }); await load(route); await layout();
+      await test(`responsive:${theme}:${width}:${route}`, async () => {
+        await page.setViewportSize({ width, height: 1000 }); await load(route); await chooseTheme(theme); await layout();
 
-        await page.screenshot({ path: path.join(out, `view-${width}-${route === '/' ? 'home' : route.slice(1,-5)}.png`), fullPage: route !== '/portfolio.html' });
+        await page.screenshot({ path: path.join(out, `view-${theme}-${width}-${route === '/' ? 'home' : route.slice(1,-5)}.png`), fullPage: route !== '/portfolio.html' });
+        assert.equal(await page.locator('.motion-toggle').count(), 0);
+        assert.ok(!/©|Возобновить анимации|Приостановить анимации/.test(await page.locator('footer').innerText()));
+        const themeBox=await page.locator('.theme-toggle').boundingBox(); assert.ok(themeBox.width>=44&&themeBox.height>=44&&themeBox.x>=0&&themeBox.x+themeBox.width<=width);
+        if ([375,1440].includes(width)) await page.screenshot({path:path.join(out,`viewport-${theme}-${width}-${route==='/'?'home':route.slice(1,-5)}.png`)});
         const broken = await page.locator('img').evaluateAll(images => images.filter(i => i.loading !== 'lazy' && (!i.complete || !i.naturalWidth)).map(i => i.src));
         assert.deepEqual(broken, []);
         if (width <= 768) {
@@ -76,18 +102,18 @@ async function a11y() {
       });
     }
   }
-  for (const route of ['/', '/portfolio.html', '/services.html']) {
-    await test(`accessibility:${route}`, async () => {
-      await page.setViewportSize({ width: 1440, height: 1000 }); await load(route); await a11y();
+  for (const width of [375, 1440]) for (const route of ['/', '/portfolio.html', '/services.html']) {
+    await themeTest(`accessibility:${width}:${route}`, async () => {
+      await page.setViewportSize({ width, height: 1000 }); await load(route); await a11y();
     });
   }
-  await test('keyboard:skip-link+visible-focus', async () => {
+  await themeTest('keyboard:skip-link+visible-focus', async () => {
     await load('/'); await page.keyboard.press('Tab');
     assert.equal(await page.evaluate(() => document.activeElement.className), 'skip-link');
     const box=await page.locator('.skip-link').boundingBox(); assert.ok(box.y >= 0, 'Focused skip-link offscreen: '+JSON.stringify(box));
     await page.keyboard.press('Enter'); assert.equal(await page.evaluate(() => document.activeElement.id), 'main-content');
   });
-  await test('gallery:keyboard+focus+native-files', async () => {
+  await themeTest('gallery:keyboard+focus+native-files', async () => {
     await load('/portfolio.html'); const opener=page.locator('.project-open').first();
     await opener.focus(); await page.keyboard.press('Enter');
     const modal=page.locator('#portfolioModal'); await modal.waitFor({state:'visible'});
@@ -105,7 +131,7 @@ async function a11y() {
     assert.equal(await page.locator('.portfolio-card .project-files:visible').count(),0);
     assert.equal(await page.locator('.project-files a').count(),211);
   });
-  await test('gallery:real-video-playback+cleanup', async () => {
+  await themeTest('gallery:real-video-playback+cleanup', async () => {
     await load('/portfolio.html');
     const card=page.locator('.portfolio-card').filter({hasText:'Анимированная монета'}).first();
     await card.locator('.project-open').first().click();
@@ -118,14 +144,14 @@ async function a11y() {
     await page.locator('#closePortfolioModal').click(); await page.locator('#portfolioModal').waitFor({state:'hidden'});
     assert.equal(await page.locator('#galleryContent video').count(),0);
   });
-  await test('portfolio:search+zero-results+reset', async () => {
+  await themeTest('portfolio:search+zero-results+reset', async () => {
     await load('/portfolio.html'); await page.locator('#projectToolsToggle').click(); const input=page.locator('#projectSearch'); await input.fill('сакурой');
     await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].filter(c=>!c.hidden).length===1);
     await input.fill('zzzzzz-nothing'); await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].every(c=>c.hidden));
     assert.ok((await page.locator('#searchStatus').textContent()).length>0);
     await input.fill(''); await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].filter(c=>!c.hidden).length===76);
   });
-  await test('privacy:dialog+return-focus', async () => {
+  await themeTest('privacy:dialog+return-focus', async () => {
     await load('/'); await page.locator('#openPrivacy').click(); await page.locator('#privacyModal').waitFor({state:'visible'});
     await a11y(); await page.keyboard.press('Escape'); await page.locator('#privacyModal').waitFor({state:'hidden'});
     assert.equal(await page.evaluate(()=>document.activeElement.id),'openPrivacy');
@@ -155,7 +181,7 @@ async function a11y() {
     assert.ok(await fallback.locator('.project-files a').first().isVisible());
     await context.close();
   });
-  await test('text-zoom:200-percent-mobile', async () => {
+  await themeTest('text-zoom:200-percent-mobile', async () => {
     await page.setViewportSize({width:375,height:1000}); await load('/');
     await page.addStyleTag({content:'html { font-size: 200% !important; }'}); await layout();
   });
@@ -174,7 +200,7 @@ async function a11y() {
     await page.getByRole('heading',{name:'Здесь пока пусто.'}).waitFor();
     assert.equal(await page.getByRole('link',{name:'На главную',exact:true}).getAttribute('href'),'/');
   });
-  await test('identity:home-composition+carousel-keyboard', async () => {
+  await themeTest('identity:home-composition+carousel-keyboard', async () => {
     await page.setViewportSize({width:1440,height:1000}); await load('/');
     assert.deepEqual(await page.locator('main > section').evaluateAll(es=>es.map(e=>e.className)),['hero','carousel-section','popular-services','contacts-section']);
     assert.equal(await page.locator('.hero-art').count(),0);
@@ -193,7 +219,7 @@ async function a11y() {
     assert.equal(await page.locator('.carousel-item[tabindex="0"]').count(),1);
     await a11y();
   });
-  await test('identity:mobile-carousel+tools-focus', async () => {
+  await themeTest('identity:mobile-carousel+tools-focus', async () => {
     for(const width of [320,375,430]) {
       await page.setViewportSize({width,height:900}); await load('/');
       for(const selector of ['.carousel-controls .previous','.carousel-controls .next']) {
@@ -223,7 +249,7 @@ async function a11y() {
     await fallback.getByRole('heading',{name:'ChatGPT',exact:true}).waitFor();
     await context.close();
   });
-  await test('identity:original-mobile-card-alignment+disclosure', async () => {
+  await themeTest('identity:original-mobile-card-alignment+disclosure', async () => {
     for (const width of [320,375,430,768]) {
       await page.setViewportSize({width,height:1000}); await load('/portfolio.html');
       const card=page.locator('.portfolio-card').first();
@@ -233,7 +259,7 @@ async function a11y() {
       assert.ok(await page.locator('#projectDescription').isVisible());await page.keyboard.press('Escape');await layout();
     }
   });
-  await test('identity:compact-gallery-natural-aspect+mobile-controls', async () => {
+  await themeTest('identity:compact-gallery-natural-aspect+mobile-controls', async (theme) => {
     for (const width of [320,375,430,768,1440]) {
       await page.setViewportSize({width,height:1000}); await load('/portfolio.html');
       await page.locator('.project-open').first().click(); await page.locator('#portfolioModal').waitFor({state:'visible'});
@@ -249,11 +275,11 @@ async function a11y() {
       }
       const date=page.locator('.portfolio-completion-date'); await date.scrollIntoViewIfNeeded();assert.ok(await date.isVisible());
       assert.ok(await page.locator('.portfolio-modal-content').evaluate(e=>e.scrollWidth<=e.clientWidth+1));
-      if ([375,1440].includes(width)) { await page.locator('.portfolio-modal-content').evaluate(e=>e.scrollTop=0); await page.screenshot({path:path.join(out,`gallery-${width}.png`)}); }
+      if ([375,1440].includes(width)) { await page.locator('.portfolio-modal-content').evaluate(e=>e.scrollTop=0); await page.screenshot({path:path.join(out,`gallery-${theme}-${width}.png`)}); }
       await page.keyboard.press('Escape');
     }
   });
-  await test('identity:reduced-motion-and-normal-motion', async () => {
+  await themeTest('identity:reduced-motion-and-normal-motion', async () => {
     await page.setViewportSize({width:1440,height:1000}); await page.emulateMedia({reducedMotion:'no-preference'}); await load('/');
     const animations=await page.locator('.logo-img,.hero-title,.accent').evaluateAll(es=>es.map(e=>({name:getComputedStyle(e).animationName,count:getComputedStyle(e).animationIterationCount})));
     assert.ok(animations.some(x=>x.name!=='none'));assert.ok(animations.every(x=>x.count==='infinite'));
@@ -262,7 +288,7 @@ async function a11y() {
     await page.locator('.carousel-controls .next').click();
     assert.equal(await page.locator('.carousel-item[data-position="current"]').getAttribute('data-index'),'1');
   });
-  await test('motion:original-timing-autoplay-pause-and-swipe', async () => {
+  await themeTest('motion:original-timing-autoplay-reduced-motion-and-swipe', async () => {
     await page.emulateMedia({reducedMotion:'no-preference'});await page.setViewportSize({width:1440,height:1000});await load('/');
     const timing=await page.locator('.hero-title,.logo-img,.hero-title .accent').evaluateAll(es=>es.map(e=>({cls:e.className,duration:getComputedStyle(e).animationDuration,iterations:getComputedStyle(e).animationIterationCount,easing:getComputedStyle(e).animationTimingFunction})));
     assert.deepEqual(timing.map(x=>x.duration),['4s','6s','4s']);assert.ok(timing.every(x=>x.iterations==='infinite'&&x.easing==='ease-in-out'));
@@ -274,11 +300,11 @@ async function a11y() {
     const transition=await current().evaluate(e=>getComputedStyle(e).transitionDuration);assert.ok(transition.split(',').every(v=>v.trim()==='0.6s'));
     await current().focus();const focused=await current().getAttribute('data-index');await page.waitForTimeout(4200);assert.equal(await current().getAttribute('data-index'),focused,'Autoplay must pause during keyboard interaction');
     await page.keyboard.press('ArrowRight');assert.notEqual(await current().getAttribute('data-index'),focused);
-    await page.locator('.motion-toggle').click();assert.equal(await page.locator('.motion-toggle').getAttribute('aria-pressed'),'true');
+    assert.equal(await page.locator('.motion-toggle').count(),0,'Manual animation controls were removed');
+    await page.emulateMedia({reducedMotion:'reduce'});
+    await page.waitForFunction(()=>getComputedStyle(document.querySelector('.hero-title')).animationName==='none');
     assert.equal(await page.locator('.hero-title').evaluate(e=>getComputedStyle(e).animationName),'none');
-    await page.locator('#carousel').scrollIntoViewIfNeeded();await page.mouse.move(0,0);const paused=await current().getAttribute('data-index');await page.waitForTimeout(4200);assert.equal(await current().getAttribute('data-index'),paused);
-    await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.motion-toggle').waitFor({state:'hidden'});
-    assert.equal(await page.locator('.hero-title').evaluate(e=>getComputedStyle(e).animationName),'none');
+    await page.locator('#carousel').scrollIntoViewIfNeeded();await page.mouse.move(0,0);await current().evaluate(e=>e.blur());const paused=await current().getAttribute('data-index');await page.waitForTimeout(4200);assert.equal(await current().getAttribute('data-index'),paused,'Reduced motion must disable auto-rotation without a manual control');
     const beforeSwipe=await current().getAttribute('data-index');
     const box=await page.locator('#carousel').boundingBox();const cdp=await page.context().newCDPSession(page);const x=Math.round(box.x+box.width/2),y=Math.round(box.y+box.height/2);
     await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:x+80,y}]});
@@ -286,7 +312,7 @@ async function a11y() {
     await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
     assert.notEqual(await current().getAttribute('data-index'),beforeSwipe);
   });
-  await test('motion:original-carousel-hidden-trajectory', async () => {
+  await themeTest('motion:original-carousel-hidden-trajectory', async () => {
     await page.emulateMedia({reducedMotion:'no-preference'});
     for(const width of [375,1440]) {
       await page.setViewportSize({width,height:1000});await load('/');
@@ -312,7 +338,7 @@ async function a11y() {
       assert.equal(await incoming.evaluate(e=>getComputedStyle(e).filter),'blur(6px)');
     }
   });
-  await test('motion:original-hover-reveal-and-pointer-cleanup', async () => {
+  await themeTest('motion:original-hover-reveal-and-pointer-cleanup', async () => {
     await page.emulateMedia({reducedMotion:'no-preference'});await page.setViewportSize({width:1440,height:1000});await load('/portfolio.html');
     await page.waitForTimeout(650);const card=page.locator('.portfolio-card').first();await card.hover();await page.waitForTimeout(550);
     const matrix=await card.locator('.portfolio-media > a img').evaluate(e=>getComputedStyle(e).transform);assert.ok(matrix.startsWith('matrix(1.1,'),matrix);
@@ -347,10 +373,10 @@ async function a11y() {
       await layout();
     }
   });
-  await test('motion:paused-panels-navigation-and-gallery-remain-visible', async () => {
-    await page.emulateMedia({reducedMotion:'no-preference'});
+  await themeTest('motion:reduced-panels-navigation-and-gallery-remain-visible', async () => {
+    await page.emulateMedia({reducedMotion:'reduce'});
     for(const width of [375,1440]) {
-      await page.setViewportSize({width,height:1000});await load('/portfolio.html');await page.locator('.motion-toggle').click();
+      await page.setViewportSize({width,height:1000});await load('/portfolio.html');assert.equal(await page.locator('.motion-toggle').count(),0);
       await page.locator('#projectToolsToggle').click();
       assert.equal(await page.locator('#projectTools').evaluate(e=>getComputedStyle(e).opacity),'1');
       assert.equal(await page.evaluate(()=>document.activeElement.id),'projectSearch');
@@ -363,12 +389,110 @@ async function a11y() {
       if(width===375){await page.locator('#burgerBtn').click();assert.equal(await page.locator('#top-nav').evaluate(e=>getComputedStyle(e).opacity),'1');await page.keyboard.press('Escape');}
     }
   });
+  await test('theme:persistence-reload-navigation-and-new-tab', async () => {
+    const context=await browser.newContext({viewport:{width:375,height:1000},colorScheme:'dark',reducedMotion:'reduce'});
+    try {
+      const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/');await assertTheme('dark',probe);
+      await probe.locator('.theme-toggle').click();await assertTheme('light',probe);
+      assert.equal(await probe.evaluate(key=>localStorage.getItem(key),themeKey),'light');
+      await probe.reload();await assertTheme('light',probe);
+      for(const route of ['/portfolio.html','/services.html']){await probe.goto(base+route);await assertTheme('light',probe);}
+      const second=await context.newPage();observeErrors(second);await second.goto(base+'/');await assertTheme('light',second);
+      await probe.emulateMedia({colorScheme:'dark'});await assertTheme('light',probe);
+      await probe.locator('.theme-toggle').click();await assertTheme('dark',probe);
+      assert.equal(await probe.evaluate(key=>localStorage.getItem(key),themeKey),'dark');
+      await probe.emulateMedia({colorScheme:'light'});await probe.reload();await assertTheme('dark',probe);
+    } finally {await context.close();}
+  });
+  await test('theme:system-preference-without-saved-choice', async () => {
+    const context=await browser.newContext({colorScheme:'light',reducedMotion:'reduce'});
+    try {
+      const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/portfolio.html',{waitUntil:'domcontentloaded'});await assertTheme('light',probe);
+      assert.equal(await probe.evaluate(key=>localStorage.getItem(key),themeKey),null,'System fallback must not become an explicit stored choice');
+      await probe.emulateMedia({colorScheme:'dark'});await assertTheme('dark',probe);
+      await probe.emulateMedia({colorScheme:'light'});await assertTheme('light',probe);
+      await probe.reload();await assertTheme('light',probe);
+    } finally {await context.close();}
+  });
+  await test('theme:invalid-stored-values-use-system', async () => {
+    for(const value of ['sepia','LIGHT','<svg onload=alert(1)>']) {
+      const context=await browser.newContext({colorScheme:'light',reducedMotion:'reduce'});
+      try {
+        await context.addInitScript(({key,value})=>localStorage.setItem(key,value),{key:themeKey,value});
+        const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/services.html');await assertTheme('light',probe);
+        await probe.emulateMedia({colorScheme:'dark'});await assertTheme('dark',probe);
+        assert.ok(['dark','light'].includes(await probe.locator('html').getAttribute('data-theme')));
+      } finally {await context.close();}
+    }
+  });
+  await test('theme:storage-denied-keeps-local-toggle-usable', async () => {
+    const context=await browser.newContext({colorScheme:'light',reducedMotion:'reduce'});
+    try {
+      await context.addInitScript(()=>{for(const name of ['getItem','setItem'])Storage.prototype[name]=function(){throw new DOMException('Test storage access denied','SecurityError');};});
+      const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/');await assertTheme('light',probe);
+      await probe.locator('.theme-toggle').click();await assertTheme('dark',probe);await layout(probe);
+      await probe.reload();await assertTheme('light',probe);
+      await probe.locator('.theme-toggle').click();await assertTheme('dark',probe);
+      await probe.getByRole('navigation',{name:'Основная навигация'}).getByRole('link',{name:'Проекты',exact:true}).click();
+      await assertTheme('light',probe);assert.equal(await probe.locator('.portfolio-card').count(),76);
+    } finally {await context.close();}
+  });
+  await themeTest('theme:keyboard-control-focus-and-no-extra-footer', async (theme) => {
+    for(const width of [375,1440]) {
+      await page.setViewportSize({width,height:1000});await load('/');await assertTheme(theme);
+      const button=page.locator('.theme-toggle');await button.focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
+      assert.ok(await button.evaluate(e=>e===document.activeElement));
+      const focus=await button.evaluate(e=>{const s=getComputedStyle(e);return {outline:s.outlineStyle,width:parseFloat(s.outlineWidth),shadow:s.boxShadow};});
+      assert.ok((focus.outline!=='none'&&focus.width>=1)||focus.shadow!=='none','Keyboard focus must have a visible indicator');
+      await page.keyboard.press('Space');await assertTheme(theme==='dark'?'light':'dark');
+      assert.ok(await button.evaluate(e=>e===document.activeElement),'Theme change must preserve focus');
+      await page.keyboard.press('Enter');await assertTheme(theme);
+      assert.equal(await page.locator('.motion-toggle').count(),0);
+      assert.ok(!/©|Возобновить анимации|Приостановить анимации/.test(await page.locator('footer').innerText()));
+      await layout();
+    }
+  });
+  await test('theme:distinct-surfaces-with-unfiltered-original-images', async () => {
+    for(const route of ['/','/portfolio.html','/services.html']) {
+      await load(route);const surfaces={};
+      for(const theme of themes) {
+        await chooseTheme(theme);
+        surfaces[theme]=await page.evaluate(()=>{
+          const color=e=>getComputedStyle(e).backgroundColor;
+          return {body:color(document.body),header:color(document.querySelector('header')),card:color(document.querySelector('.portfolio-card,.svc-card')),filtered:[...document.querySelectorAll('html,body,main,main img,.portfolio-card,.svc-card')].filter(e=>getComputedStyle(e).filter.includes('invert(')).length};
+        });
+        assert.equal(surfaces[theme].filtered,0,'Light theme must not invert original media');
+      }
+      for(const key of ['body','header','card'])assert.notEqual(surfaces.dark[key],surfaces.light[key],`${route}: ${key} needs a real light surface`);
+      metrics.push({route,themeSurfaces:surfaces});
+    }
+  });
+  for(const scheme of themes) await test(`theme:no-JS:${scheme}:content-navigation-and-system-fallback`, async () => {
+    const context=await browser.newContext({javaScriptEnabled:false,colorScheme:scheme,viewport:{width:320,height:1000}});
+    try {
+      const probe=await context.newPage();observeErrors(probe);
+      for(const width of [320,1440]) for(const route of ['/','/portfolio.html','/services.html']) {
+        await probe.setViewportSize({width,height:1000});await probe.goto(base+route);
+        assert.equal(await probe.locator('.theme-toggle').count(),1);assert.equal(await probe.locator('.theme-toggle:visible').count(),0);
+        assert.equal(await probe.locator('.motion-toggle').count(),0);assert.ok(!/©|Возобновить анимации|Приостановить анимации/.test(await probe.locator('footer').innerText()));
+        assert.ok(await probe.getByRole('navigation',{name:'Основная навигация'}).isVisible());
+        assert.equal(await probe.locator('h1').count(),1);await layout(probe);
+        const background=await probe.evaluate(()=>{
+          const raw=[getComputedStyle(document.body).backgroundColor,getComputedStyle(document.documentElement).backgroundColor].find(c=>!c.endsWith(', 0)')&&c!=='transparent');
+          return raw?.match(/[\d.]+/g)?.slice(0,3).map(Number).reduce((sum,x)=>sum+x,0)/3;
+        });
+        assert.ok(Number.isFinite(background)&&(scheme==='light'?background>180:background<90),`${scheme} no-JS canvas: ${background}`);
+        if(route==='/portfolio.html'){assert.equal(await probe.locator('.portfolio-card').count(),76);assert.equal(await probe.locator('.project-files summary:visible').count(),76);assert.equal(await probe.locator('.project-files a').count(),211);}
+        if(route==='/services.html')assert.equal(await probe.locator('.svc').count(),8);
+      }
+    } finally {await context.close();}
+  });
   await test('runtime:no-console-errors',async()=>assert.deepEqual(errors.filter(e=>!e.includes('404 (Not Found)')),[]));
 })().catch(error=>{checks.push({name:'harness',status:'FAIL',reason:error.stack});}).finally(async()=>{
   if (checks.some(c=>c.status==='FAIL') && page && !page.isClosed()) await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});
   if(browser)await browser.close(); await new Promise(resolve=>instance.close(resolve));
   let revision='unavailable';try{revision=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();}catch{}
-  const hashes={};for(const name of ['index.html','portfolio.html','services.html','scripts.js','styles.css','tests/browser.cjs','pnpm-lock.yaml'])if(fs.existsSync(path.join(root,name)))hashes[name]=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,name))).digest('hex');
+  const hashes={};for(const name of ['index.html','portfolio.html','services.html','theme.js','scripts.js','styles.css','tests/browser.cjs','pnpm-lock.yaml'])if(fs.existsSync(path.join(root,name)))hashes[name]=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,name))).digest('hex');
   const result={status:checks.length&&checks.every(c=>c.status==='PASS')?'PASS':'FAIL',revision,environment:{node:process.version,os:process.platform,architecture:process.arch,playwright:require('playwright/package.json').version,axe:require('axe-core/package.json').version,reducedMotion:'reduce'},checks,metrics,console:errors,source_hashes:hashes};
   fs.writeFileSync(path.join(out,only?'browser-targeted.json':'browser.json'),JSON.stringify(result,null,2));
   console.log(JSON.stringify({status:result.status,passed:checks.filter(c=>c.status==='PASS').length,failed:checks.filter(c=>c.status==='FAIL'),metrics}));

@@ -6,7 +6,7 @@
   "packageManager": "pnpm@11.25.0",
   "scripts": {
     "serve": "node tools/serve.cjs",
-    "check": "node --check scripts.js && python tests/check_site.py",
+    "check": "node --check theme.js && node --check scripts.js && python tests/check_site.py",
     "test:browser": "node tests/browser.cjs"
   },
   "devDependencies": {

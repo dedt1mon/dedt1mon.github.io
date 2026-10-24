@@ -140,3 +140,36 @@ but observed hidden opacity/blur too early; the second waits for all three hidde
 properties and passed the trajectory case. Both attempts are preserved. Unchanged
 particle evidence is reused; only the failed trajectory case was rerun locally.
 The final successor CI and source-scope review binding are recorded in PR #1.
+
+## Owner Dark/Light correction — iteration 4
+
+Scope: removed the visible copyright line and all manual animation pause/resume
+UI/state; original motion remains with automatic prefers-reduced-motion. Added
+an accessible compact header theme control and dedicated light palette. The only
+stored value is the allowlisted local theme preference; privacy copy explains it.
+
+Project source boundary is explicitly recorded in project-contract.md/theme.md.
+All website sources, helper scripts, configuration, documentation and captures
+remain in this website workspace. Astra receives only service records/reports
+and evidence hashes/references. No Astra Core changes or new worktrees were used.
+
+Affected validation PASS:3951 static assertions and90 Chromium browser cases,
+zero failures/console errors. Includes42 responsive combinations (both themes ×
+seven widths × three pages), both-theme accessibility/keyboard/focus, gallery,
+actual video playback/cleanup, menus, hover/motion, automatic reduced-motion,
+system preference changes, explicit selection/reload/new-tab persistence,
+invalid values, storage denial and CSS-only no-JS light/dark. Sixteen representative
+375/1440 screenshots of home/services/portfolio/gallery were visually inspected.
+No artwork is inverted/filtered by the light palette. No new dependencies.
+
+Independent Security source delta PASS with no findings: enum-only storage,
+no new network/tracking/credential use, no HTML/URL construction from preferences;
+preview allowlist adds only theme.js, keeping method/path/realpath restrictions.
+Prior media parsing and modal safety evidence stays source-bound and reusable.
+Final exact-head CI and independent review bindings are recorded in existing
+PR #1; earlier reports are not relabeled as new executions. No unchanged full
+local suite was repeated. No merge/publication authorized.
+
+Limits: Chromium/emulated viewports, not Safari/Firefox or physical devices.
+When browser storage is denied, switching works for the current page but the
+browser cannot retain the choice across reload; the system preference is used.

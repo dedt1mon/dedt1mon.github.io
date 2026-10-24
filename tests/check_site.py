@@ -1,6 +1,7 @@
 """No third-party dependencies: verify static site/SEO/media contracts."""
 import hashlib
 import json
+import os
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -9,8 +10,8 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / 'test-results'
-RESULTS.mkdir(exist_ok=True)
+RESULTS = ROOT / 'test-results' / os.environ.get('TEST_OUTPUT', '')
+RESULTS.mkdir(parents=True, exist_ok=True)
 checks = []
 def check(name, condition):
     checks.append({'name': name, 'status': 'PASS' if condition else 'FAIL'})
@@ -65,6 +66,13 @@ for name,doc in pages.items():
     check(f'{name}:structured identity', any(any(x.get('@type')=='Person' and x.get('name')=='DedTimon' and 'Дед Тимон' in x.get('alternateName',[]) for x in data.get('@graph',[])) for data in doc.jsonld))
     check(f'{name}:brand text', 'DedTimon' in texts[name] and 'Дед Тимон' in texts[name])
     check(f'{name}:removed contacts', not re.search(r'vk\.com|kwork|вконтакте|\bVK\b',texts[name],re.I))
+    theme_scripts=[d for t,d in nodes if t=='script' and d.get('src')=='/theme.js']
+    head=texts[name].split('</head>',1)[0]
+    check(f'{name}:early local theme bootstrap',len(theme_scripts)==1 and '/theme.js' in head and head.index('/theme.js') < head.index('/styles.css') and 'async' not in theme_scripts[0] and 'defer' not in theme_scripts[0])
+    theme_buttons=[d for t,d in nodes if t=='button' and 'theme-toggle' in d.get('class','').split()]
+    check(f'{name}:accessible hidden theme toggle',len(theme_buttons)==1 and theme_buttons[0].get('type')=='button' and theme_buttons[0].get('aria-label')=='Светлая тема' and theme_buttons[0].get('aria-pressed') in ['true','false'] and 'hidden' in theme_buttons[0])
+    check(f'{name}:copyright and manual motion UI removed','©' not in texts[name] and not re.search(r'motion-toggle|Возобновить анимации|Приостановить анимации',texts[name]))
+
     for i,(tag,d) in enumerate(nodes):
         if tag=='img':
             check(f'{name}:img[{i}] alt+size', 'alt' in d and int(d.get('width','0'))>0 and int(d.get('height','0'))>0)
@@ -92,12 +100,17 @@ check('visible original descriptions',all(c['data-description'] in texts['portfo
 check('all original media represented', {m['src'] for p in manifest['projects'] for m in p['media']}==media_refs)
 check('no deleted contact icons',not any((ROOT/'img/index'/name).exists() for name in ['VK.png','Kwork.png']))
 css=(ROOT/'styles.css').read_text(encoding='utf-8')
+theme=(ROOT/'theme.js').read_text(encoding='utf-8')
+script=(ROOT/'scripts.js').read_text(encoding='utf-8')
+check('theme bootstrap remains local and dependency-free',all(not d.get('src','').startswith(('http:','https:','//')) for doc in pages.values() for t,d in doc.nodes if t=='script'))
+check('automatic reduced-motion support retained','prefers-reduced-motion' in css and 'prefers-reduced-motion' in script)
+check('manual animation control fully removed',not re.search(r'motion-toggle|Возобновить анимации|Приостановить анимации',script+theme))
 for raw in re.findall(r'url\([\'\"]?([^\)\'\"]+)',css): check('CSS resource:'+raw,local_exists(raw))
 urls=[n.text for n in ET.parse(ROOT/'sitemap.xml').getroot().iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
 check('sitemap exactly published content',urls==['https://dedt1mon.github.io/','https://dedt1mon.github.io/portfolio.html','https://dedt1mon.github.io/services.html'])
 robots=(ROOT/'robots.txt').read_text()
 check('robots allow+sitemap','Allow: /' in robots and 'Disallow: /' not in robots and 'Sitemap: https://dedt1mon.github.io/sitemap.xml' in robots)
-report={'status':'PASS' if all(c['status']=='PASS' for c in checks) else 'FAIL','passed':sum(c['status']=='PASS' for c in checks),'failed':[c['name'] for c in checks if c['status']=='FAIL'],'source_hashes':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in [*pages,'scripts.js','styles.css','sitemap.xml','robots.txt']},'checks':checks}
+report={'status':'PASS' if all(c['status']=='PASS' for c in checks) else 'FAIL','passed':sum(c['status']=='PASS' for c in checks),'failed':[c['name'] for c in checks if c['status']=='FAIL'],'source_hashes':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in [*pages,'theme.js','scripts.js','styles.css','tests/check_site.py','sitemap.xml','robots.txt']},'checks':checks}
 (RESULTS/'static.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps({k:report[k] for k in ['status','passed','failed']},ensure_ascii=True))
 sys.exit(report['status']!='PASS')
