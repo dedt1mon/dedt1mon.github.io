@@ -119,3 +119,13 @@ The new case checks 375/1440 widths; the suite contains 45 browser cases.
 The original Security finding stays immutable; its focused independent retest
 and final source/CI binding are recorded in PR #1 and the evidence index.
 Normal-motion visual captures are reused only for their unchanged behavior.
+
+Final Verifier found the remaining original-motion mismatch in hidden carousel
+cards: inherited far-position transforms changed their entry trajectory. The
+original centered/unscaled hidden state, 6px blur and shadow are now restored;
+visible current/side geometry and safe controls are unchanged. Three affected
+cases PASS, including real intermediate trajectory at 375/1440, keyboard and
+mobile controls. The suite contains 46 browser cases. CI4d5f8ea (3912 static +45
+browser PASS) remains historical; the successor exact-head CI is recorded in
+PR #1. Earlier motion recordings do not prove this final trajectory correction;
+its own source-bound test does. No unchanged full local suite was repeated.

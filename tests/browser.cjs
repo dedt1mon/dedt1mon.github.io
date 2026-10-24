@@ -286,6 +286,29 @@ async function a11y() {
     await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
     assert.notEqual(await current().getAttribute('data-index'),beforeSwipe);
   });
+  await test('motion:original-carousel-hidden-trajectory', async () => {
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    for(const width of [375,1440]) {
+      await page.setViewportSize({width,height:1000});await load('/');
+      const current=page.locator('.carousel-item[data-position="current"]');
+      await current.focus();await page.waitForTimeout(650);
+      const incoming=page.locator('.carousel-item[data-index="2"]');
+      const hidden=await incoming.evaluate(e=>{const s=getComputedStyle(e);return {transform:s.transform,filter:s.filter,opacity:s.opacity};});
+      assert.deepEqual(hidden,{transform:'none',filter:'blur(6px)',opacity:'0'},'Original hidden cards stay centered, unscaled and blurred');
+      await page.keyboard.press('ArrowRight');assert.equal(await incoming.getAttribute('data-position'),'next');
+      await page.waitForTimeout(150);
+      const middle=await incoming.evaluate(e=>{const s=getComputedStyle(e);return {x:new DOMMatrix(s.transform).m41,easing:s.transitionTimingFunction};});
+      const side=width===375?280:360;
+      assert.ok(middle.x>0&&middle.x<side,`Incoming original trajectory must move outwards from center: ${middle.x}`);
+      assert.ok(middle.easing.includes('cubic-bezier(0.25, 0.46, 0.45, 0.94)'));
+      await page.waitForTimeout(550);
+      const settled=await incoming.evaluate(e=>({x:new DOMMatrix(getComputedStyle(e).transform).m41,filter:getComputedStyle(e).filter}));
+      assert.equal(settled.x,side);assert.equal(settled.filter,'blur(2px)');
+      await page.keyboard.press('ArrowLeft');await page.waitForTimeout(650);
+      assert.equal(await incoming.evaluate(e=>getComputedStyle(e).transform),'none');
+      assert.equal(await incoming.evaluate(e=>getComputedStyle(e).filter),'blur(6px)');
+    }
+  });
   await test('motion:original-hover-reveal-and-pointer-cleanup', async () => {
     await page.emulateMedia({reducedMotion:'no-preference'});await page.setViewportSize({width:1440,height:1000});await load('/portfolio.html');
     await page.waitForTimeout(650);const card=page.locator('.portfolio-card').first();await card.hover();await page.waitForTimeout(550);
