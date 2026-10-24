@@ -29,8 +29,8 @@ media links, semantic headings, all SEO metadata, robots/sitemap and HTTPS URLs.
 Removed obsolete contacts stay removed. Modern privacy wording remains truthful.
 No runtime dependencies, new permissions, deployment job or paid service.
 
-The carousel is user-controlled with arrows/keyboard instead of advancing
-while reading. Decorative entrance/glow animation is bounded to four seconds;
+Previous iteration policy (superseded by the owner correction below): the
+carousel was manual-only and decorative entrance/glow was bounded to four seconds;
 reduced-motion disables it. Cards remain visible without animation or JS.
 Decorative portfolio backdrops reuse lazy responsive previews rather than
 loading every full-resolution original through CSS.
@@ -64,3 +64,37 @@ while retaining the owner's functional requirement of no-JS access.
 Gallery refinement: restore the original 600px desktop / compact mobile dialog
 and natural media height. Keep 44px controls, bounded portrait/video height,
 internal scrolling, focus trapping, Escape and video cleanup unchanged.
+
+
+## Owner motion/identity correction — iteration 3
+
+The owner rejected the previous visual result. Original main 54bda295 is the
+source of actual motion and composition; earlier visual PASS is not owner
+approval. The finite 4-second/manual-only policy above is superseded.
+
+Remove the added hero alias, visible portfolio intro, category-number badges,
+standalone carousel-control row, extra gallery counter, duplicate contact sections
+on portfolio/services, repeated service CTA rows and fourth home contact chip.
+The original whole service card remains a semantic link. SEO/accessible headings,
+search and native no-JS descriptions/media remain; native details are hidden only
+after successful gallery enhancement, with all 76/211 entries still in HTML.
+
+Restore original 6s/10px desktop title motion, 4s accent gradient and alternating
+logo glow, 4s carousel rotation with 600ms original easing, original service
+entrance geometry/delays, portfolio entrance and 1.1 image hover, navbar/panel/
+modal/gallery timings and bounded original cyan cursor trail. Do not activate
+unused gentleGlow or fictitious stagger/hover effects defeated by the old cascade.
+No generic animation is added to original fade-up-only headings.
+
+Accessibility adaptations: motion can be paused using one functional footer
+control; autoplay also stops on hover/focus, when offscreen/hidden or a dialog is
+open. Reduced-motion disables loops, auto-rotation and particles. Native scrolling,
+keyboard focus/inert dialogs, same-origin media and video cleanup are retained.
+Particles are limited to 12, clipped to the viewport, mouse-only, and expire
+without a permanent frame loop. Header threshold uses a small hysteresis to
+avoid repeated size toggles while crossing the original 100px scroll point.
+
+Full original audit and immutable failed/successful check history are retained
+in site-identity-03. Final normal-motion recordings, matched screenshots, affected
+browser results, exact-head CI and independent review are linked from PR #1.
+No merge/publication is authorized.

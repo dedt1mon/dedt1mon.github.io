@@ -1,4 +1,4 @@
-# Website refresh — contract v2
+# Website refresh — contract v3
 
 Owner goal: substantially improve the existing personal site, preserve its
 purpose/content/history and free GitHub Pages hosting at `dedt1mon.github.io`.
@@ -17,7 +17,7 @@ before implementation. The remote one-line portfolio correction was merged.
 | R07 Accessibility | Semantic headings, visible keyboard focus, skip link, menu, dialog trap/return, Escape, 44px primary controls, reduced motion |
 | R08 Progressive enhancement | Content/nav/direct original media readable without JS; search/gallery enhance static HTML |
 | R09 SEO | Unique titles/descriptions, canonical, Person+WebSite JSON-LD, OG/cards, favicon, robots and sitemap; content pages indexable |
-| R10 Performance | Responsive WebP previews, explicit image sizes, lazy below-fold images, deferred JS, no video autoplay or cursor animation |
+| R10 Performance | Responsive WebP previews, explicit image sizes, lazy below-fold images, deferred JS, no video autoplay; original cursor effect bounded, mouse-only and reduced-motion aware |
 | R11 Real verification | Chromium responsive/interaction/media/accessibility evidence, actual video playback, no runtime errors, exact-head CI |
 | R12 Independent acceptance | QA then Security then Verifier, current revision + shared compact evidence; findings fixed before acceptance |
 | R13 Deployment boundary | Existing HTTPS Pages checked; new version deployment deferred until owner merge approval |
@@ -59,3 +59,12 @@ bright cyan glow, centered greeting, five-image depth carousel, tilted homepage
 service cards, glass portfolio cards, floating category control and icon contacts.
 All other technical/content requirements remain. No revert, history rewrite,
 new PR, merge or publication. See visual-restoration.md for evidence scope.
+
+
+Owner amendment (original motion): use the effective pre-PR main design as the
+visual contract, including its timings, easing and composition. Remove invented
+presentation identified in visual-restoration.md. Continuous original motion
+requires reduced-motion support and an accessible pause; these supersede the
+previous bounded-animation and manual-only carousel assumptions. No-JS content
+availability is mandatory; extra visible disclosures are not mandatory when the
+working enhanced gallery already provides those paths.

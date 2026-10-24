@@ -100,8 +100,9 @@ async function a11y() {
     await page.keyboard.press('Escape'); await modal.waitFor({state:'hidden'});
     assert.ok(await opener.evaluate(el=>el===document.activeElement));
     assert.equal(await page.locator('main').evaluate(el=>el.inert),false);
-    const summary=page.locator('.project-files summary').first(); await summary.click();
-    assert.ok(await page.locator('.project-files').first().evaluate(el=>el.open));
+    assert.equal(await page.locator('.portfolio-card .project-files').count(),76);
+    assert.equal(await page.locator('.portfolio-card .project-files:visible').count(),0);
+    assert.equal(await page.locator('.project-files a').count(),211);
   });
   await test('gallery:real-video-playback+cleanup', async () => {
     await load('/portfolio.html');
@@ -227,9 +228,8 @@ async function a11y() {
       const card=page.locator('.portfolio-card').first();
       for (const selector of ['.portfolio-title','.portfolio-date']) assert.equal(await card.locator(selector).evaluate(e=>getComputedStyle(e).textAlign),'right');
       assert.equal(await card.locator('.project-summary').isVisible(),false);
-      const summary=card.locator('.project-files summary'); await summary.focus();await page.keyboard.press('Enter');
-      assert.ok(await card.locator('.project-summary').isVisible());assert.ok(await card.locator('.project-files a').first().isVisible());
-      await layout(); await summary.press('Enter'); assert.equal(await card.locator('.project-summary').isVisible(),false);
+      await card.locator('.project-open').first().focus();await page.keyboard.press('Enter');await page.locator('#portfolioModal').waitFor({state:'visible'});
+      assert.ok(await page.locator('#projectDescription').isVisible());await page.keyboard.press('Escape');await layout();
     }
   });
   await test('identity:compact-gallery-natural-aspect+mobile-controls', async () => {
@@ -255,11 +255,54 @@ async function a11y() {
   await test('identity:reduced-motion-and-normal-motion', async () => {
     await page.setViewportSize({width:1440,height:1000}); await page.emulateMedia({reducedMotion:'no-preference'}); await load('/');
     const animations=await page.locator('.logo-img,.hero-title,.accent').evaluateAll(es=>es.map(e=>({name:getComputedStyle(e).animationName,count:getComputedStyle(e).animationIterationCount})));
-    assert.ok(animations.some(x=>x.name!=='none'));assert.ok(animations.every(x=>x.count!=='infinite'));
+    assert.ok(animations.some(x=>x.name!=='none'));assert.ok(animations.every(x=>x.count==='infinite'));
     await page.emulateMedia({reducedMotion:'reduce'});
     assert.ok(await page.locator('.logo-img,.hero-title,.accent').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationName==='none')));
     await page.locator('.carousel-controls .next').click();
     assert.equal(await page.locator('.carousel-item[data-position="current"]').getAttribute('data-index'),'1');
+  });
+  await test('motion:original-timing-autoplay-pause-and-swipe', async () => {
+    await page.emulateMedia({reducedMotion:'no-preference'});await page.setViewportSize({width:1440,height:1000});await load('/');
+    const timing=await page.locator('.hero-title,.logo-img,.hero-title .accent').evaluateAll(es=>es.map(e=>({cls:e.className,duration:getComputedStyle(e).animationDuration,iterations:getComputedStyle(e).animationIterationCount,easing:getComputedStyle(e).animationTimingFunction})));
+    assert.deepEqual(timing.map(x=>x.duration),['4s','6s','4s']);assert.ok(timing.every(x=>x.iterations==='infinite'&&x.easing==='ease-in-out'));
+    assert.equal(await page.locator('.hero-brand').count(),0);
+    await page.locator('#carousel').scrollIntoViewIfNeeded();await page.mouse.move(0,0);
+    const current=()=>page.locator('.carousel-item[data-position="current"]');
+    const first=await current().getAttribute('data-index');await page.waitForTimeout(4200);
+    assert.notEqual(await current().getAttribute('data-index'),first,'Original 4-second rotation is missing');
+    const transition=await current().evaluate(e=>getComputedStyle(e).transitionDuration);assert.ok(transition.split(',').every(v=>v.trim()==='0.6s'));
+    await current().focus();const focused=await current().getAttribute('data-index');await page.waitForTimeout(4200);assert.equal(await current().getAttribute('data-index'),focused,'Autoplay must pause during keyboard interaction');
+    await page.keyboard.press('ArrowRight');assert.notEqual(await current().getAttribute('data-index'),focused);
+    await page.locator('.motion-toggle').click();assert.equal(await page.locator('.motion-toggle').getAttribute('aria-pressed'),'true');
+    assert.equal(await page.locator('.hero-title').evaluate(e=>getComputedStyle(e).animationPlayState),'paused');
+    await page.locator('#carousel').scrollIntoViewIfNeeded();await page.mouse.move(0,0);const paused=await current().getAttribute('data-index');await page.waitForTimeout(4200);assert.equal(await current().getAttribute('data-index'),paused);
+    await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.motion-toggle').waitFor({state:'hidden'});
+    assert.equal(await page.locator('.hero-title').evaluate(e=>getComputedStyle(e).animationName),'none');
+    const beforeSwipe=await current().getAttribute('data-index');
+    const box=await page.locator('#carousel').boundingBox();const cdp=await page.context().newCDPSession(page);const x=Math.round(box.x+box.width/2),y=Math.round(box.y+box.height/2);
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:x+80,y}]});
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x-80,y}]});
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
+    assert.notEqual(await current().getAttribute('data-index'),beforeSwipe);
+  });
+  await test('motion:original-hover-reveal-and-pointer-cleanup', async () => {
+    await page.emulateMedia({reducedMotion:'no-preference'});await page.setViewportSize({width:1440,height:1000});await load('/portfolio.html');
+    await page.waitForTimeout(650);const card=page.locator('.portfolio-card').first();await card.hover();await page.waitForTimeout(550);
+    const matrix=await card.locator('.portfolio-media > a img').evaluate(e=>getComputedStyle(e).transform);assert.ok(matrix.startsWith('matrix(1.1,'),matrix);
+    assert.equal(await page.locator('.portfolio-card .project-files').count(),76);
+    assert.equal(await page.locator('.portfolio-card .project-files:visible').count(),0);
+    assert.equal(await page.locator('.contacts-section,.category-count,.category-nav a span').count(),0);
+    await page.locator('#projectToolsToggle').click();await page.waitForTimeout(320);
+    assert.equal(await page.locator('#projectToolsToggle').getAttribute('aria-expanded'),'true');await page.keyboard.press('Escape');
+    await load('/services.html');assert.equal(await page.locator('.svc .text-link').count(),0);assert.equal(await page.locator('.svc > a.clickable-card').count(),8);
+    await page.waitForTimeout(1100);assert.equal(await page.locator('.svc').first().evaluate(e=>getComputedStyle(e).opacity),'1');
+    const last=page.locator('.svc').last();await last.scrollIntoViewIfNeeded();await page.waitForTimeout(70);
+    const reveal=await last.evaluate(e=>e.getAnimations().map(a=>a.effect.getTiming()));assert.ok(reveal.some(a=>a.duration===600&&a.delay===480&&a.easing==='ease'));
+    assert.ok(await last.locator('img').evaluate(e=>e.getAnimations().some(a=>a.effect.getTiming().duration===500)));
+    await page.waitForTimeout(1100);assert.equal(await last.evaluate(e=>getComputedStyle(e).opacity),'1');
+    await page.mouse.move(400,200);await page.waitForTimeout(100);await page.mouse.move(420,220);assert.ok(await page.locator('.blue-particle').count()>0);
+    await page.waitForTimeout(550);assert.equal(await page.locator('.blue-particle').count(),0,'Particles must not keep an idle loop alive');
+    await page.emulateMedia({reducedMotion:'reduce'});await page.mouse.move(450,230);assert.equal(await page.locator('.blue-particle').count(),0);
   });
   await test('runtime:no-console-errors',async()=>assert.deepEqual(errors.filter(e=>!e.includes('404 (Not Found)')),[]));
 })().catch(error=>{checks.push({name:'harness',status:'FAIL',reason:error.stack});}).finally(async()=>{

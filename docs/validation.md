@@ -58,3 +58,45 @@ Eleven affected portfolio/accessibility/no-JS cases passed, followed by four
 gallery/video/geometry/runtime cases after the gallery correction. No unchanged
 full local suite was repeated. Final suite contains 41 distinct browser cases;
 the exact-head CI and final review bindings are recorded in PR #1.
+
+
+## Owner original-motion correction — iteration 3
+
+The owner rejected the prior visual result; previous automated visual PASS did
+not mean owner approval. Reference remains original main 54bda295. An effective
+cascade audit distinguishes actual original motion from unused/overridden rules.
+
+Preserved evidence: the first motion group had five successful cases and one
+harness timing failure; the next run reached a malformed synthetic Touch fixture.
+A real Chromium touch dispatch replaced that fixture; both normal-motion cases
+passed. Neither failure is reported as a product PASS. The affected responsive
+run passed35/36; it found mispositioned carousel controls, fixed by placing them
+inside their real wrapper and retesting that case. Independent visual inspection
+also found a direct-child selector that matched zero nested fallback blocks.
+The corrected test first requires76 blocks, then zero visible blocks with JS.
+No-JS still opens76 descriptions/tool lists and211 media links.
+
+After the composition/selectors correction,29 affected cases passed; final exact
+service/grid easing received two focused motion/runtime PASS checks. Static
+contracts passed3912 assertions. Sixteen preservation comparisons proved all
+project metadata, SEO, source media, safe parsing/URL/modal/navigation functions,
+server, dependencies and CI policy unchanged. Removed duplicate visual elements
+reduce static assertion count; no checker assertion was deleted to hide a failure.
+
+No unchanged full local suite was replayed. Final CI must run all43 cases for the
+new exact SHA. Old source-bound reports stay immutable. Normal-motion desktop/
+mobile recordings and original/current screenshot pairs, independent findings,
+review hashes and CI are linked from PR #1 and site-identity-03 evidence.
+
+Known boundary: original continuous animation is intentionally restored with
+reduced-motion, hover/focus/visibility pauses and one functional footer pause.
+Cursor particles are mouse-only and idle-free. New public deployment remains
+unapproved; Chromium/emulated viewports do not establish Safari/Firefox or real
+device results, and lab measurements are not field Core Web Vitals.
+
+
+Final mobile identity delta: restored original content-width contact chips,
+180px menu,303px service cards at375px and matching768px menu/CSS boundary.
+Sixteen affected checks passed. Earlier16 preservation comparisons remain bound
+to their recorded sources; the last navigation delta is only767→768 and is covered
+by the mobile checks and final independent source review. Safety guards unchanged.
