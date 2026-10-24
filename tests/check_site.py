@@ -1,5 +1,6 @@
 """No third-party dependencies: verify static site/SEO/media contracts."""
 import hashlib
+from datetime import datetime
 from html import unescape
 import json
 import os
@@ -54,8 +55,8 @@ def local_exists(raw):
 
 scope = 'full'
 if sys.argv[1:]:
-    if len(sys.argv) != 3 or sys.argv[1] != '--scope' or sys.argv[2] not in ['privacy-dark', 'content']:
-        raise SystemExit('Expected --scope privacy-dark, --scope content, or no arguments')
+    if len(sys.argv) != 3 or sys.argv[1] != '--scope' or sys.argv[2] not in ['privacy-dark', 'content', 'catalog']:
+        raise SystemExit('Expected --scope privacy-dark, --scope content, --scope catalog, or no arguments')
     scope = sys.argv[2]
 
 def write_report():
@@ -68,7 +69,7 @@ def write_report():
 # Local narrow changes can check their explicit contract without replaying them.
 css = (ROOT/'styles.css').read_text(encoding='utf-8')
 script = (ROOT/'scripts.js').read_text(encoding='utf-8')
-if scope != 'content':
+if scope not in ['content', 'catalog']:
     for name, doc in pages.items():
         text = texts[name]
         check(f'{name}:privacy link title', bool(re.search(r'<button\b[^>]*id="openPrivacy"[^>]*>Политика конфиденциальности</button>', text)))
@@ -114,7 +115,7 @@ class ContentDocument(HTMLParser):
         if node['policy']:self.policy_parts.append(data)
         if node['heading']:self.policy_headings[-1]+=data
 
-if scope != 'privacy-dark':
+if scope in ['full', 'content']:
     manifest=json.loads((ROOT/'docs/content-manifest.json').read_text(encoding='utf-8'))
     projects=manifest['projects']
     cards=[d for _,d in pages['portfolio.html'].nodes if 'portfolio-card' in d.get('class','').split()]
@@ -128,8 +129,8 @@ if scope != 'privacy-dark':
         check(f'content:{project["id"]}:manifest attribute and native description',card.get('data-description')==project['description']==''.join(summaries.get(project['id'],[])).strip())
         check(f'content:{project["id"]}:title and media unchanged',card.get('data-title')==project['title'] and json.loads(card.get('data-media','[]'))==project['media'])
     check('content:211 media preserved',sum(len(p['media']) for p in projects)==manifest['media_count']==211)
-    media_digest=hashlib.sha256(json.dumps([(p['id'],p['media']) for p in projects],ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-    check('content:baseline media exact fingerprint',media_digest=='6ae26a7e12dedd3c052f165ffc25b8a1b1f90aabae878c6f793942f818aca837')
+    media_digest=hashlib.sha256(json.dumps([(p['id'],p['media']) for p in sorted(projects,key=lambda p:p['id'])],ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    check('content:media fingerprint with approved catalog alt renames',media_digest=='b55298828954e85f24018d670ea2dcd491f69aa24bd66807a5a2a0a8daf048a1')
     policy_texts=[]
     expected_headings=['Просмотр сайта и поиск','Cookies, хранилище и аналитика','Изображения, видео и шрифты','Хостинг GitHub Pages','Внешние ссылки','Вопросы о конфиденциальности']
     for name,doc in pages.items():
@@ -144,6 +145,47 @@ if scope != 'privacy-dark':
     check('content:description uses safe textContent','description.textContent = current.description' in script)
     check('content:automatic reduced-motion still supported','prefers-reduced-motion' in script and 'prefers-reduced-motion' in css)
     if scope == 'content':write_report()
+
+# Catalog-only checks retain all default CI gates and do not replay content/privacy locally.
+if scope in ['full', 'catalog']:
+    catalog_expected = {'baseline': '604d1f7f1c2ef600f17a4f972491ab2f7ea41a5b', 'ids': ['logos-title', 'motion-title', 'characters-title', 'presentations-title', 'websites-title', 'scenes-title'], 'labels': ['Логотипы', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы'], 'order': {'logos-title': ['work-01', 'work-02', 'work-03', 'work-04', 'work-75', 'work-05', 'work-76', 'work-06', 'work-07', 'work-08', 'work-09', 'work-10', 'work-11', 'work-12', 'work-13', 'work-14', 'work-15', 'work-16'], 'motion-title': ['work-17', 'work-74', 'work-18', 'work-27', 'work-19', 'work-20', 'work-21', 'work-22', 'work-23', 'work-24', 'work-25', 'work-26'], 'characters-title': ['work-28', 'work-29', 'work-30', 'work-31', 'work-32', 'work-33', 'work-34', 'work-35'], 'presentations-title': ['work-36', 'work-37', 'work-38'], 'websites-title': ['work-39', 'work-40', 'work-41'], 'scenes-title': ['work-42', 'work-43', 'work-44', 'work-45', 'work-46', 'work-47', 'work-48', 'work-51', 'work-49', 'work-50', 'work-52', 'work-53', 'work-54', 'work-55', 'work-56', 'work-57', 'work-58', 'work-59', 'work-60', 'work-61', 'work-62', 'work-63', 'work-64', 'work-65', 'work-66', 'work-67', 'work-68', 'work-69', 'work-70', 'work-71', 'work-72', 'work-73']}, 'manifest_digest': '7df08695a9092965a21682ecb0a9b1f635afac20abdbbae2a8c79ae1e579600e', 'media_digest': 'b55298828954e85f24018d670ea2dcd491f69aa24bd66807a5a2a0a8daf048a1', 'immutable_media_digest': '6046ec032b2bf4ca5ab8077d701a0ada5d13ebaadb43b0766f819b22d7ad0f68', 'nav_labels': ['Логотипы и графика', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы']}
+    catalog_manifest=json.loads((ROOT/'docs/content-manifest.json').read_text(encoding='utf-8'))
+    projects=catalog_manifest['projects']
+    ordered=sorted(projects,key=lambda p:p['id'])
+    canonical=lambda value:hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    check('catalog:76 projects and211 media',len(projects)==catalog_manifest['published_project_count']==76 and sum(len(p['media']) for p in projects)==catalog_manifest['media_count']==211)
+    check('catalog:only approved metadata and prose edits',canonical(ordered)==catalog_expected['manifest_digest'])
+    check('catalog:all media paths type preview and covers immutable',canonical([(p['id'],p['cover'],[{k:x[k] for k in ['src','type','preview']} for x in p['media']])for p in ordered])==catalog_expected['immutable_media_digest'])
+    check('catalog:software metadata removed',all('tech' not in p for p in projects))
+    section_cards={};category=None
+    for tag,d in pages['portfolio.html'].nodes:
+        if 'portfolio-category-section' in d.get('class','').split():category=d.get('aria-labelledby');section_cards[category]=[]
+        if 'portfolio-card' in d.get('class','').split():section_cards.setdefault(category,[]).append(d['id'])
+    check('catalog:exact six nonempty original sections',list(section_cards)==catalog_expected['ids'] and all(section_cards.values()))
+    check('catalog:date-descending stable original tie order',section_cards==catalog_expected['order'])
+    check('catalog:manifest same section/date order',[p['id'] for p in projects]==[i for ids in catalog_expected['order'].values() for i in ids])
+    check('catalog:valid real calendar dates',all(re.fullmatch(r'\d{2}\.\d{2}\.\d{4}',p['date']) and datetime.strptime(p['date'],'%d.%m.%Y') for p in projects))
+    headings=[unescape(re.search(r'<h2\b[^>]*id="'+i+r'"[^>]*>(.*?)</h2>',texts['portfolio.html']).group(1)) for i in catalog_expected['ids']]
+    check('catalog:original category names retained',headings==catalog_expected['labels'])
+    nav=re.search(r'<nav\b[^>]*class="category-nav"[^>]*>(.*?)</nav>',texts['portfolio.html'],re.S).group(1)
+    navlinks=re.findall(r'<a\b[^>]*href="#([^"]+)"[^>]*>(.*?)</a>',nav,re.S)
+    check('catalog:anchor navigation retained',[(target,text.strip()) for target,text in navlinks]==list(zip(catalog_expected['ids'],catalog_expected['nav_labels'])))
+    check('catalog:no AI section or link',not re.search(r'ai-title|AI-работы',texts['portfolio.html']))
+    hooks=r'data-tech|project-tech\b|project-technologies|techList|tech-tags?\b|Задействованные программы'
+    check('catalog:no software HTML UI or data hooks',not re.search(hooks,texts['portfolio.html']))
+    check('catalog:no software runtime or search plumbing',not re.search(r'techList|tech-tag|dataset\.tech|current\.technologies',script))
+    check('catalog:no unused software CSS',not re.search(r'\.project-tech\b|\.project-technologies|\.tech-tags?\b',css))
+    summaries=ContentDocument(texts['portfolio.html']).cards
+    cardmap={d['id']:d for _,d in pages['portfolio.html'].nodes if 'portfolio-card' in d.get('class','').split()}
+    for project in projects:
+        card=cardmap.get(project['id'],{})
+        check(f'catalog:{project["id"]}:card/native/manifest content',card.get('data-title')==project['title'] and card.get('data-description')==project['description']==''.join(summaries.get(project['id'],[])).strip() and card.get('data-date')==project['date'])
+        check(f'catalog:{project["id"]}:all media retained',json.loads(card.get('data-media','[]'))==project['media'])
+    for project_id,title in [('work-49','Процедурный город'),('work-76','СкрруджМакДак AI иллюстрация')]:
+        project=next(p for p in projects if p['id']==project_id)
+        check(f'catalog:{project_id}:exact title and media alt',project['title']==project['original_title']==title and all(title in x['alt'] for x in project['media']))
+    check('catalog:search prompts visible content','Название или описание' in texts['portfolio.html'])
+    if scope=='catalog':write_report()
 
 media_refs=set()
 for name,doc in pages.items():

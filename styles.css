@@ -235,7 +235,6 @@ ul, ol { padding-left: 1.25rem; }
 .portfolio-title a:hover { color: var(--accent); text-decoration: underline; }
 .portfolio-date { display: block; width: 100%; margin-top: 6px; color: var(--accent); font-size: 14px; font-variant-numeric: tabular-nums; }
 .project-summary { width: 100%; color: var(--muted); margin-top: 14px; font-size: 14px; line-height: 1.65; }
-.project-tech { width: 100%; color: var(--muted); margin-top: 10px; font-size: 12px; line-height: 1.6; }
 .project-files { width: 100%; margin-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
 .portfolio-card > .project-files { width: auto; margin: 0 20px 16px; }
 .project-files summary { min-height: 44px; padding-block: 11px; cursor: pointer; color: var(--summary-color); }
@@ -277,11 +276,6 @@ ul, ol { padding-left: 1.25rem; }
 .gallery-thumbnail.active img, .gallery-thumbnail:hover img { opacity: 1; }
 .gallery-thumbnail.video::after { content: '▶'; position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0, 0, 0, 0.12); color: white; font-size: 20px; text-shadow: 0 1px 4px #000; pointer-events: none; }
 .portfolio-details { padding-top: 8px; }
-.project-technologies { margin-bottom: 24px; }
-.project-technologies h3 { color: var(--text); font-size: 17px; font-weight: 600; margin-bottom: 10px; }
-.tech-tags { display: flex; flex-wrap: wrap; gap: 4px 8px; }
-.tech-tag { color: var(--text); font-size: 15px; }
-.tech-tag:not(:last-child)::after { content: ','; color: var(--muted); }
 .portfolio-full-description { max-width: 80ch; font-size: 16px; line-height: 1.75; }
 .completion-date-wrapper { padding-top: 20px; border-top: 1px solid var(--line); }
 .portfolio-completion-date { color: var(--muted); font-size: 14px; text-align: right; }
@@ -414,7 +408,7 @@ ul, ol { padding-left: 1.25rem; }
   .gallery-thumbnail img { opacity: 1; }
 }
 
-.project-files .project-summary, .project-files .project-tech { margin-top: 12px; }
+.project-files .project-summary { margin-top: 12px; }
 
 /* Exact original motion vocabulary; no generic heading/section reveal. */
 .portfolio-media > a img { transition: transform 500ms ease; }

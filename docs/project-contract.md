@@ -145,3 +145,32 @@ viewer close frame sampling at all seven R06 widths, image/video/long/scrolled
 content, real keyboard/focus, rapid reopen, reduced motion, console and overflow.
 Reuse unchanged original motion/navigation/SEO/assets and delivery policy.
 Existing PR #1 only; no merge or publication.
+
+
+## Owner amendment — portfolio catalog cleanup (iteration 7)
+
+Owner clarified the chronology requirement: keep the existing category sections
+and anchor navigation; sort only within each section, newest to oldest. Do not
+introduce a global mixed feed or convert anchors into filters. Search must keep
+the relative date order of matching projects. Equal dates retain prior order;
+missing dates would follow dated entries without invention. All 76 current dates
+exist, parse as real DD.MM.YYYY dates and agree with their ISO time metadata.
+
+Remove software lists, tags, labels and the corresponding display/search logic,
+including display-only tech data. Preserve original versions in Git history.
+The two Geometry Nodes title/prose references are part of the tool disclosure:
+work-49 becomes «Процедурный город» and retains the rest of its description.
+No replacement badges or other copy/design changes.
+
+Remove the dedicated AI section and its anchor. Move work-74 into motion-title;
+work-75 and work-76 into logos-title. Rename work-76 exactly to
+«СкрруджМакДак AI иллюстрация», including title, description opening, alt/aria,
+native view and manifest metadata. Keep all media paths and IDs intact.
+
+Acceptance: six sections, all 76 works and 211 media; 18 logos, 12 motion,
+8 characters, 3 presentations, 3 websites, 32 scenes. Software absent from
+published UI/native view/viewer/search. Correct transfer, exact naming and stable
+descending per-section chronology through search, category navigation and modal
+open/close on mobile/desktop. Privacy, centered close, other motion, styles and
+SEO reuse their unchanged source-bound evidence. Existing PR #1 only; no merge
+or publication.

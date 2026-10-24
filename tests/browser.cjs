@@ -11,6 +11,7 @@ const out = path.join(root, 'test-results', process.env.TEST_OUTPUT || '');
 fs.mkdirSync(out, { recursive: true });
 const checks = []; const errors = []; const metrics = [];
 const only = process.env.TEST_ONLY || '';
+const catalogExpected = {"ids": ["logos-title", "motion-title", "characters-title", "presentations-title", "websites-title", "scenes-title"], "labels": ["Логотипы", "Моушн-дизайн", "3D-персонажи", "Презентации", "Сайты", "3D-сцены и предметы"], "nav_labels": ["Логотипы и графика", "Моушн-дизайн", "3D-персонажи", "Презентации", "Сайты", "3D-сцены и предметы"], "order": {"logos-title": ["work-01", "work-02", "work-03", "work-04", "work-75", "work-05", "work-76", "work-06", "work-07", "work-08", "work-09", "work-10", "work-11", "work-12", "work-13", "work-14", "work-15", "work-16"], "motion-title": ["work-17", "work-74", "work-18", "work-27", "work-19", "work-20", "work-21", "work-22", "work-23", "work-24", "work-25", "work-26"], "characters-title": ["work-28", "work-29", "work-30", "work-31", "work-32", "work-33", "work-34", "work-35"], "presentations-title": ["work-36", "work-37", "work-38"], "websites-title": ["work-39", "work-40", "work-41"], "scenes-title": ["work-42", "work-43", "work-44", "work-45", "work-46", "work-47", "work-48", "work-51", "work-49", "work-50", "work-52", "work-53", "work-54", "work-55", "work-56", "work-57", "work-58", "work-59", "work-60", "work-61", "work-62", "work-63", "work-64", "work-65", "work-66", "work-67", "work-68", "work-69", "work-70", "work-71", "work-72", "work-73"]}};
 async function test(name, run) {
   if (only && !only.split(',').some(part => name.includes(part))) return;
   try { await run(); checks.push({ name, status: 'PASS' }); }
@@ -110,6 +111,14 @@ async function content06Close(target, via, label, { reduced = false } = {}) {
   const final=await target.evaluate(()=>({hidden:getComputedStyle(document.querySelector('#portfolioModal')).display==='none',aria:document.querySelector('#portfolioModal').getAttribute('aria-hidden'),inert:document.querySelector('main').inert,body:document.body.style.overflow,root:document.documentElement.style.overflow,media:document.querySelector('#galleryContent').childElementCount,focus:document.activeElement.closest('.portfolio-card')?.id,scrollY}));
   assert.ok(final.hidden&&!final.inert);assert.equal(final.aria,'true');assert.equal(final.body,'');assert.equal(final.root,'');assert.equal(final.media,0);assert.equal(final.scrollY,before.scrollY);
   return {trace,final};
+}
+
+async function catalog07Order(target=page) {
+  return target.locator('.portfolio-category-section').evaluateAll(sections=>Object.fromEntries(sections.map(s=>[s.getAttribute('aria-labelledby'),[...s.querySelectorAll('.portfolio-card')].map(c=>c.id)])));
+}
+async function catalog07NoSoftware(target=page) {
+  assert.equal(await target.locator('[data-tech],.project-tech,.project-technologies,#techList,.tech-tags,.tech-tag').count(),0,'No software display or hidden data hooks');
+  assert.ok(!/Задействованные программы|Geometry Nodes|After Effects|Blender|Figma|OpenAI|PowerPoint|Visual Studio Code/i.test(await target.locator('body').innerText()));
 }
 
 (async () => {
@@ -218,13 +227,13 @@ async function content06Close(target, via, label, { reduced = false } = {}) {
     await layout();
   });
   await test('no-JS:content+navigation+media-fallback', async () => {
-    const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:375,height:900}});
-    const fallback=await context.newPage(); await fallback.goto(base+'/portfolio.html');
+    const context=await browser.newContext({javaScriptEnabled:false,reducedMotion:'reduce',viewport:{width:375,height:900}});
+    const fallback=await context.newPage(); await fallback.goto(base+'/portfolio.html',{waitUntil:'networkidle'});await fallback.evaluate(()=>document.fonts.ready);
     assert.equal(await fallback.locator('.portfolio-card').count(),76);
     assert.equal(await fallback.locator('.project-files summary:visible').count(),76);
     for (const summary of await fallback.locator('.project-files summary').all()) await summary.click();
     assert.equal(await fallback.locator('.project-summary:visible').count(),76);
-    assert.equal(await fallback.locator('.project-tech:visible').count(),76);
+    assert.equal(await fallback.locator('.project-tech,[data-tech]').count(),0);
     assert.equal(await fallback.locator('.project-files a:visible').count(),211);
     assert.ok(await fallback.getByRole('navigation',{name:'Основная навигация'}).isVisible());
     assert.ok(await fallback.locator('.project-files a').first().isVisible());
@@ -498,7 +507,7 @@ async function content06Close(target, via, label, { reduced = false } = {}) {
     await page.setViewportSize({width,height:1000});await geometry(width,true);
     if([375,1440].includes(width))await page.screenshot({path:path.join(out,`category-${width}-open.png`)});
     await page.keyboard.press('Escape');assert.equal(await button.getAttribute('aria-expanded'),'false');assert.ok(await button.evaluate(el=>el===document.activeElement));
-    const anchors=await page.locator('.category-nav a').evaluateAll(es=>es.map(e=>e.hash));assert.equal(anchors.length,7);
+    const anchors=await page.locator('.category-nav a').evaluateAll(es=>es.map(e=>e.hash));assert.deepEqual(anchors,catalogExpected.ids.map(id=>'#'+id));assert.deepEqual((await page.locator('.category-nav a').allTextContents()).map(x=>x.trim()),catalogExpected.nav_labels);
     for(const hash of anchors)assert.equal(await page.locator(hash).count(),1,'Every category target exists');
     for(const hash of [anchors[0],anchors[anchors.length-1]]){
       await button.focus();await page.keyboard.press('Enter');await page.locator(`.category-nav a[href="${hash}"]`).click();
@@ -525,8 +534,8 @@ async function content06Close(target, via, label, { reduced = false } = {}) {
     assert.equal(await page.locator('.project-files a').count(),211);
   });
   await test('content06:no-JS-76-descriptions-211-media',async()=>{
-    const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:375,height:1000}});
-    try{const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/portfolio.html');
+    const context=await browser.newContext({javaScriptEnabled:false,reducedMotion:'reduce',viewport:{width:375,height:1000}});
+    try{const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/portfolio.html',{waitUntil:'networkidle'});await probe.evaluate(()=>document.fonts.ready);
       for(const project of contentManifest.projects){const card=probe.locator(`#${project.id}`);await card.locator('summary').click();assert.ok(await card.locator('.project-summary').isVisible());assert.equal((await card.locator('.project-summary').textContent()).trim(),project.description);}
       assert.equal(await probe.locator('.project-files a:visible').count(),211);await layout(probe);
     }finally{await context.close()}
@@ -598,6 +607,61 @@ async function content06Close(target, via, label, { reduced = false } = {}) {
     const probe=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});observeErrors(probe);
     try{for(const via of ['X','Escape','outside']){await content06Open(probe,'work-01');const result=await content06Close(probe,via,`reduced-${width}-${via}`,{reduced:true});assert.equal(result.final.focus,'work-01');}}
     finally{await probe.close()}
+  });
+
+  const catalogManifest=JSON.parse(fs.readFileSync(path.join(root,'docs/content-manifest.json'),'utf8'));
+  await test('catalog07:all76-modal-content-without-software',async()=>{
+    await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:1440,height:1000});await load('/portfolio.html');
+    const order=await catalog07Order();assert.deepEqual(order,catalogExpected.order);assert.equal(catalogManifest.projects.length,76);
+    for(const project of catalogManifest.projects){
+      const card=page.locator(`#${project.id}`),opener=card.locator('.project-open').first();
+      assert.equal(await card.getAttribute('data-description'),project.description);assert.deepEqual(JSON.parse(await card.getAttribute('data-media')),project.media);
+      await opener.click();await page.locator('#portfolioModal').waitFor({state:'visible'});
+      await catalog07NoSoftware();assert.equal((await page.locator('#portfolio-modal-title').textContent()).trim(),project.title);assert.equal((await page.locator('#projectDescription').textContent()).trim(),project.description);
+      if(['work-49','work-76'].includes(project.id)){
+        const expected=project.id==='work-49'?'Процедурный город':'СкрруджМакДак AI иллюстрация';
+        assert.equal(project.title,expected);assert.ok((await card.locator('img:not([aria-hidden="true"])').first().getAttribute('alt')).includes(expected));
+        assert.ok((await page.locator('#galleryContent img').getAttribute('alt')).includes(expected));
+        await page.locator('#galleryContent img').evaluate(i=>i.decode());await page.screenshot({path:path.join(out,`catalog-${project.id}-modal-1440.png`)});
+      }
+      await page.keyboard.press('Escape');await page.locator('#portfolioModal').waitFor({state:'hidden'});assert.ok(await opener.evaluate(e=>e===document.activeElement));
+      assert.deepEqual(await catalog07Order(),order,'Opening/closing must not reorder section cards');
+    }
+    assert.equal(await page.locator('.project-files a').count(),211);
+  });
+  await test('catalog07:no-JS-native-descriptions-media-order',async()=>{
+    const context=await browser.newContext({javaScriptEnabled:false,reducedMotion:'reduce',viewport:{width:375,height:1000}});
+    try{const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/portfolio.html',{waitUntil:'networkidle'});await probe.evaluate(()=>document.fonts.ready);await catalog07NoSoftware(probe);assert.deepEqual(await catalog07Order(probe),catalogExpected.order);
+      for(const project of catalogManifest.projects){const card=probe.locator(`#${project.id}`);await card.locator('summary').click();assert.ok(await card.locator('.project-summary').isVisible());assert.equal((await card.locator('.project-summary').textContent()).trim(),project.description);assert.equal((await card.locator('.portfolio-title').textContent()).trim(),project.title);}
+      await catalog07NoSoftware(probe);assert.equal(await probe.locator('.project-files a:visible').count(),211);assert.equal(await probe.locator('#ai-title,.category-nav a[href="#ai-title"]').count(),0);await layout(probe);
+    }finally{await context.close()}
+  });
+  for(const width of [320,375,430,768,1024,1440,1920])await test(`catalog07:sections-anchors-order-layout:${width}`,async()=>{
+    await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width,height:1000});await load('/portfolio.html');await catalog07NoSoftware();await layout();
+    assert.deepEqual(await catalog07Order(),catalogExpected.order);
+    assert.deepEqual((await page.locator('.portfolio-category-section h2').allTextContents()).map(x=>x.trim()),catalogExpected.labels);
+    assert.equal(await page.locator('#ai-title,.category-nav a[href="#ai-title"]').count(),0);
+    assert.equal(await page.locator('#work-74').evaluate(e=>e.closest('section').getAttribute('aria-labelledby')),'motion-title');
+    for(const id of ['work-75','work-76'])assert.equal(await page.locator(`#${id}`).evaluate(e=>e.closest('section').getAttribute('aria-labelledby')),'logos-title');
+    const toggle=page.locator('#projectToolsToggle');await toggle.click();
+    assert.deepEqual(await page.locator('.category-nav a').evaluateAll(es=>es.map(e=>({id:e.hash.slice(1),label:e.textContent.trim()}))),catalogExpected.ids.map((id,i)=>({id,label:catalogExpected.nav_labels[i]})));
+    await page.locator('.category-nav a[href="#scenes-title"]').click();assert.equal(await page.evaluate(()=>document.activeElement.id),'scenes-title');
+    const section=await page.locator('#scenes-title').boundingBox();assert.ok(section.y>=0&&section.y<1000);assert.deepEqual(await catalog07Order(),catalogExpected.order);
+    await toggle.click();await page.locator('.category-nav a[href="#logos-title"]').click();assert.equal(await page.evaluate(()=>document.activeElement.id),'logos-title');
+    if([375,1440].includes(width)){await a11y();await page.screenshot({path:path.join(out,`catalog-${width}.png`)});}
+  });
+  for(const width of [375,1440])await test(`catalog07:search-clear-modal-preserves-section-order:${width}`,async()=>{
+    await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width,height:1000});await load('/portfolio.html');
+    const toggle=page.locator('#projectToolsToggle'),input=page.locator('#projectSearch');await toggle.click();assert.equal(await input.getAttribute('placeholder'),'Название или описание');
+    await input.fill('СкрруджМакДак AI иллюстрация');assert.deepEqual(await page.locator('.portfolio-card:not([hidden])').evaluateAll(es=>es.map(e=>e.id)),['work-76']);
+    await page.keyboard.press('Escape');const opener=page.locator('#work-76 .project-open').first();await opener.click();assert.equal((await page.locator('#portfolio-modal-title').textContent()).trim(),'СкрруджМакДак AI иллюстрация');
+    await page.locator('#galleryContent img').evaluate(i=>i.decode());await page.screenshot({path:path.join(out,`catalog-renamed-modal-${width}.png`)});await page.keyboard.press('Escape');await page.locator('#portfolioModal').waitFor({state:'hidden'});assert.ok(await opener.evaluate(e=>e===document.activeElement));assert.deepEqual(await catalog07Order(),catalogExpected.order);
+    await toggle.click();await input.fill('сцен');
+    const subsets=await page.locator('.portfolio-category-section').evaluateAll(es=>Object.fromEntries(es.map(e=>[e.getAttribute('aria-labelledby'),[...e.querySelectorAll('.portfolio-card:not([hidden])')].map(c=>c.id)])));
+    assert.ok(Object.values(subsets).flat().length>1);for(const [id,actual] of Object.entries(subsets))assert.deepEqual(actual,catalogExpected.order[id].filter(x=>actual.includes(x)),'Search subset retains date/tie order');
+    await input.fill('Geometry Nodes');assert.equal(await page.locator('.portfolio-card:not([hidden])').count(),0,'Removed software text must not remain in search index');
+    await input.fill('Процедурный город');assert.deepEqual(await page.locator('.portfolio-card:not([hidden])').evaluateAll(es=>es.map(e=>e.id)),['work-49']);
+    await input.fill('');assert.equal(await page.locator('.portfolio-card:not([hidden])').count(),76);assert.equal(await page.locator('.portfolio-category-section:not([hidden])').count(),6);assert.deepEqual(await catalog07Order(),catalogExpected.order);await page.keyboard.press('Escape');await layout();
   });
 
   await test('runtime:no-console-errors',async()=>assert.deepEqual(errors.filter(e=>!e.includes('404 (Not Found)')),[]));

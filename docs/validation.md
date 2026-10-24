@@ -285,3 +285,55 @@ CI and artifact hashes are recorded in PR #1/service completion evidence.
 
 Limitations: Chromium with emulated viewports; no new physical-device,
 Safari/Firefox or deployed-site checks. No merge or publication.
+
+## Catalog cleanup and chronology within sections — iteration 7
+
+Owner clarification preserves the existing category sections and scrolling anchor
+navigation; a mixed global feed was explicitly declined. Projects are ordered by
+real date, newest first, inside each section. All 76 dates are valid DD.MM.YYYY;
+no date was invented, and equal-date projects retain their former relative order.
+Search only hides cards, so filtering, clearing and opening/closing a viewer keep
+the same section order. Static markup gives the same order without JavaScript.
+
+Removed 82 software list entries across 76 projects, the native software paragraphs,
+modal heading/list, data-tech fields, search plumbing and unused software CSS.
+The count is unique source entries, not repeated DOM renderings. Two further
+Geometry Nodes mentions (title and prose of work-49) were removed by naming that
+work «Процедурный город». No decorative replacement badges were introduced.
+
+The AI category and its anchor are gone. work-74 «Анимация AI-персонажа» is in
+Моушн-дизайн; work-75 «AI-изображение для логотипа» and work-76 are in Логотипы.
+work-76 is consistently titled «СкрруджМакДак AI иллюстрация» in manifest,
+card, viewer, native text, accessible labels and media alt text.
+
+Inventory remains 76 projects / 211 media: 18 logos, 12 motion, 8 characters,
+3 presentations, 3 websites and 32 scenes. Media paths/types/previews/covers,
+files and dates are unchanged. Only descriptions 49/76 changed for the explicitly
+requested software removal/name correction. Historical source remains in Git.
+
+Validation: 169 targeted static assertions and 12 unique Chromium browser cases
+PASS. Seven viewports: 320 / 375 / 430 / 768 / 1024 / 1440 / 1920. Checked six
+section anchors, correct dates/order, removed category/software UI, search/clear,
+all 76 viewers, focus return, no-JS native access to all 211 media, responsive
+layout and zero console errors/overflow. Settled screenshots of works49/76 at
+375/1440 were visually inspected after real media decode.
+
+First browser attempt retained 10 PASS and two harness failures: an alt selector
+picked the intentionally decorative backdrop, and no-JS native-details clicking
+intersected the unchanged grid entrance animation. The selector now excludes
+aria-hidden images; semantic no-JS fixtures wait for fonts and use reduced motion.
+Only the two blocked cases were rerun, both PASS; source behavior was unchanged.
+Full initial records remain immutable. Existing semantic no-JS CI fixtures use
+the same readiness setup; animation assertions remain in their dedicated cases.
+
+Scope proof against 604d1f7f1c2ef600f17a4f972491ab2f7ea41a5b preserves home/services/
+404 pages, privacy, SEO heads, centered Modal close logic, original motion and
+category navigation, assets/fonts, dependency locks, preview permissions and CI.
+Their prior evidence is reused with the original revision, not relabeled as a
+new execution. No full local suite or unchanged animation/privacy review replay.
+The existing PR workflow runs once for the final pushed commit; exact-head result
+and artifact hash are recorded in PR #1 and the local completion index.
+
+Local evidence: test-results/catalog-07 (ignored). Limits: Chromium emulated
+viewports; no new physical-device/Safari/Firefox or deployed-site checks. No merge
+or publication is authorized or performed.

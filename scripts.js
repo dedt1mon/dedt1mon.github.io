@@ -305,7 +305,6 @@
       const title = $('#portfolio-modal-title');
       const date = $('#projectDate');
       const description = $('#projectDescription');
-      const technologies = $('#techList');
       const thumbnails = $('#galleryThumbnails');
       const prevButton = $('#galleryPrev');
       const nextButton = $('#galleryNext');
@@ -469,19 +468,12 @@
           title: card.dataset.title || $('.portfolio-title', card)?.textContent.trim() || 'Проект',
           date: card.dataset.date || '',
           description: card.dataset.description || '',
-          technologies: (card.dataset.tech || '').split('|').map(value => value.trim()).filter(Boolean),
           media
         };
         currentIndex = 0;
         if (title) title.textContent = current.title;
         if (date) date.textContent = current.date;
         if (description) description.textContent = current.description;
-        if (technologies) technologies.replaceChildren(...current.technologies.map(technology => {
-          const tag = document.createElement('span');
-          tag.className = 'tech-tag';
-          tag.textContent = technology;
-          return tag;
-        }));
         [prevButton, nextButton].filter(Boolean).forEach(button => {
           button.hidden = current.media.length <= 1;
         });
@@ -555,7 +547,6 @@
         text: normalize([
           card.dataset.title || '',
           card.dataset.description || '',
-          card.dataset.tech || '',
           $('h2', card.closest('.portfolio-category-section') || document)?.textContent || ''
         ].join(' '))
       }));
