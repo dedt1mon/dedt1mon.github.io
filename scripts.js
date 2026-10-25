@@ -304,7 +304,6 @@
       if (!modal || !content) return;
       const title = $('#portfolio-modal-title');
       const date = $('#projectDate');
-      const description = $('#projectDescription');
       const thumbnails = $('#galleryThumbnails');
       const prevButton = $('#galleryPrev');
       const nextButton = $('#galleryNext');
@@ -467,13 +466,11 @@
         current = {
           title: card.dataset.title || $('.portfolio-title', card)?.textContent.trim() || 'Проект',
           date: card.dataset.date || '',
-          description: card.dataset.description || '',
           media
         };
         currentIndex = 0;
         if (title) title.textContent = current.title;
         if (date) date.textContent = current.date;
-        if (description) description.textContent = current.description;
         [prevButton, nextButton].filter(Boolean).forEach(button => {
           button.hidden = current.media.length <= 1;
         });
@@ -546,7 +543,6 @@
         card,
         text: normalize([
           card.dataset.title || '',
-          card.dataset.description || '',
           $('h2', card.closest('.portfolio-category-section') || document)?.textContent || ''
         ].join(' '))
       }));

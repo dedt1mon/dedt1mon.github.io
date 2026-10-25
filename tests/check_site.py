@@ -120,17 +120,16 @@ if scope in ['full', 'content']:
     projects=manifest['projects']
     cards=[d for _,d in pages['portfolio.html'].nodes if 'portfolio-card' in d.get('class','').split()]
     summaries=ContentDocument(texts['portfolio.html']).cards
-    check('content:76 individual projects', len(projects)==len(cards)==76 and len({p['id'] for p in projects})==76)
-    descriptions=[p['description'].strip() for p in projects]
-    check('content:76 unique substantive descriptions',len(set(descriptions))==76 and all(descriptions))
+    check('content:109 individual projects', len(projects)==len(cards)==109 and len({p['id'] for p in projects})==109)
+    check('content:project descriptions removed',all('description' not in p for p in projects) and not re.search(r'data-description|project-summary|portfolio-full-description|projectDescription',texts['portfolio.html']+css))
     by_id={c['id']:c for c in cards}
     for project in projects:
         card=by_id.get(project['id'],{})
-        check(f'content:{project["id"]}:manifest attribute and native description',card.get('data-description')==project['description']==''.join(summaries.get(project['id'],[])).strip())
+        check(f'content:{project["id"]}:manifest/card/native descriptions absent','description' not in project and 'data-description' not in card and not ''.join(summaries.get(project['id'],[])).strip())
         check(f'content:{project["id"]}:title and media unchanged',card.get('data-title')==project['title'] and json.loads(card.get('data-media','[]'))==project['media'])
-    check('content:211 media preserved',sum(len(p['media']) for p in projects)==manifest['media_count']==211)
+    check('content:263 media preserved',sum(len(p['media']) for p in projects)==manifest['media_count']==263)
     media_digest=hashlib.sha256(json.dumps([(p['id'],p['media']) for p in sorted(projects,key=lambda p:p['id'])],ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-    check('content:media fingerprint with approved catalog alt renames',media_digest=='b55298828954e85f24018d670ea2dcd491f69aa24bd66807a5a2a0a8daf048a1')
+    check('content:media fingerprint at accepted content14',media_digest=='0971a0e64074ef9c03801cc3b12a56dc3e415fae1ad6a7074dcd6d8a89ca40fe')
     policy_texts=[]
     expected_headings=['Просмотр сайта и поиск','Cookies, хранилище и аналитика','Изображения, видео и шрифты','Хостинг GitHub Pages','Внешние ссылки','Вопросы о конфиденциальности']
     for name,doc in pages.items():
@@ -142,19 +141,19 @@ if scope in ['full', 'content']:
         check(f'content:{name}:policy distinguishes local viewing and external services',all(word in policy for word in ['GitHub Pages','IP','Telegram','WhatsApp','YouTube','cookies','localStorage','sessionStorage']))
     check('content:same privacy policy on every page',len(set(policy_texts))==1)
     check('content:runtime no storage or submission',not re.search(r'localStorage|sessionStorage|document\.cookie|fetch\s*\(|XMLHttpRequest|sendBeacon|WebSocket',script))
-    check('content:description uses safe textContent','description.textContent = current.description' in script)
+    check('content:removed description runtime and search plumbing absent',not re.search(r'projectDescription|dataset\.description|current\.description',script))
     check('content:automatic reduced-motion still supported','prefers-reduced-motion' in script and 'prefers-reduced-motion' in css)
     if scope == 'content':write_report()
 
 # Catalog-only checks retain all default CI gates and do not replay content/privacy locally.
 if scope in ['full', 'catalog']:
-    catalog_expected = {'baseline': '604d1f7f1c2ef600f17a4f972491ab2f7ea41a5b', 'ids': ['logos-title', 'motion-title', 'characters-title', 'presentations-title', 'websites-title', 'scenes-title'], 'labels': ['Логотипы', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы'], 'order': {'logos-title': ['work-01', 'work-02', 'work-03', 'work-04', 'work-75', 'work-05', 'work-76', 'work-06', 'work-07', 'work-08', 'work-09', 'work-10', 'work-11', 'work-12', 'work-13', 'work-14', 'work-15', 'work-16'], 'motion-title': ['work-17', 'work-74', 'work-18', 'work-27', 'work-19', 'work-20', 'work-21', 'work-22', 'work-23', 'work-24', 'work-25', 'work-26'], 'characters-title': ['work-28', 'work-29', 'work-30', 'work-31', 'work-32', 'work-33', 'work-34', 'work-35'], 'presentations-title': ['work-36', 'work-37', 'work-38'], 'websites-title': ['work-39', 'work-40', 'work-41'], 'scenes-title': ['work-42', 'work-43', 'work-44', 'work-45', 'work-46', 'work-47', 'work-48', 'work-51', 'work-49', 'work-50', 'work-52', 'work-53', 'work-54', 'work-55', 'work-56', 'work-57', 'work-58', 'work-59', 'work-60', 'work-61', 'work-62', 'work-63', 'work-64', 'work-65', 'work-66', 'work-67', 'work-68', 'work-69', 'work-70', 'work-71', 'work-72', 'work-73']}, 'manifest_digest': '7df08695a9092965a21682ecb0a9b1f635afac20abdbbae2a8c79ae1e579600e', 'media_digest': 'b55298828954e85f24018d670ea2dcd491f69aa24bd66807a5a2a0a8daf048a1', 'immutable_media_digest': '6046ec032b2bf4ca5ab8077d701a0ada5d13ebaadb43b0766f819b22d7ad0f68', 'nav_labels': ['Логотипы и графика', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы']}
+    catalog_expected = {'baseline': 'owner-accepted-content-14', 'ids': ['logos-title', 'motion-title', 'characters-title', 'presentations-title', 'websites-title', 'scenes-title'], 'labels': ['Логотипы', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы'], 'order': {'logos-title': ['work-100', 'work-99', 'work-98', 'work-97', 'work-96', 'work-95', 'work-94', 'work-01', 'work-93', 'work-02', 'work-03', 'work-04', 'work-75', 'work-05', 'work-76', 'work-06', 'work-07', 'work-08', 'work-09', 'work-10', 'work-11', 'work-12', 'work-13', 'work-14', 'work-15', 'work-16'], 'motion-title': ['work-78', 'work-77', 'work-17', 'work-74', 'work-18', 'work-27', 'work-19', 'work-20', 'work-21', 'work-22', 'work-23', 'work-24', 'work-25', 'work-26'], 'characters-title': ['work-82', 'work-81', 'work-80', 'work-79', 'work-28', 'work-29', 'work-30', 'work-31', 'work-32', 'work-33', 'work-34', 'work-35'], 'presentations-title': ['work-36', 'work-37', 'work-38'], 'websites-title': ['work-109', 'work-107', 'work-108', 'work-106', 'work-105', 'work-104', 'work-103', 'work-102', 'work-101', 'work-39', 'work-40', 'work-41'], 'scenes-title': ['work-90', 'work-89', 'work-88', 'work-91', 'work-87', 'work-86', 'work-92', 'work-85', 'work-84', 'work-83', 'work-42', 'work-43', 'work-44', 'work-45', 'work-46', 'work-47', 'work-48', 'work-51', 'work-49', 'work-50', 'work-52', 'work-53', 'work-54', 'work-55', 'work-56', 'work-57', 'work-58', 'work-59', 'work-60', 'work-61', 'work-62', 'work-63', 'work-64', 'work-65', 'work-66', 'work-67', 'work-68', 'work-69', 'work-70', 'work-71', 'work-72', 'work-73']}, 'manifest_digest': 'bbf638b1f6e7249e3b7716f25df5dd6fc0c359a335c1e6b293da650d5a2c2128', 'media_digest': '0971a0e64074ef9c03801cc3b12a56dc3e415fae1ad6a7074dcd6d8a89ca40fe', 'immutable_media_digest': 'dc57ee1674e3eb25cf160250e58e61960e45ab73461883ddba8673d8cd2d28f0', 'nav_labels': ['Логотипы и графика', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы']}
     catalog_manifest=json.loads((ROOT/'docs/content-manifest.json').read_text(encoding='utf-8'))
     projects=catalog_manifest['projects']
     ordered=sorted(projects,key=lambda p:p['id'])
     canonical=lambda value:hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-    check('catalog:76 projects and211 media',len(projects)==catalog_manifest['published_project_count']==76 and sum(len(p['media']) for p in projects)==catalog_manifest['media_count']==211)
-    check('catalog:only approved metadata and prose edits',canonical(ordered)==catalog_expected['manifest_digest'])
+    check('catalog:109 projects and263 media',len(projects)==catalog_manifest['published_project_count']==109 and sum(len(p['media']) for p in projects)==catalog_manifest['media_count']==263)
+    check('catalog:only accepted content14 metadata',canonical(ordered)==catalog_expected['manifest_digest'])
     check('catalog:all media paths type preview and covers immutable',canonical([(p['id'],p['cover'],[{k:x[k] for k in ['src','type','preview']} for x in p['media']])for p in ordered])==catalog_expected['immutable_media_digest'])
     check('catalog:software metadata removed',all('tech' not in p for p in projects))
     section_cards={};category=None
@@ -163,7 +162,7 @@ if scope in ['full', 'catalog']:
         if 'portfolio-card' in d.get('class','').split():section_cards.setdefault(category,[]).append(d['id'])
     check('catalog:exact six nonempty original sections',list(section_cards)==catalog_expected['ids'] and all(section_cards.values()))
     check('catalog:date-descending stable original tie order',section_cards==catalog_expected['order'])
-    check('catalog:manifest same section/date order',[p['id'] for p in projects]==[i for ids in catalog_expected['order'].values() for i in ids])
+    check('catalog:manifest normalizes to accepted section/date order',[p['id'] for category in catalog_expected['ids'] for p in sorted([p for p in projects if p['category']==category],key=lambda p:datetime.strptime(p['date'],'%d.%m.%Y'),reverse=True)]==[i for ids in catalog_expected['order'].values() for i in ids])
     check('catalog:valid real calendar dates',all(re.fullmatch(r'\d{2}\.\d{2}\.\d{4}',p['date']) and datetime.strptime(p['date'],'%d.%m.%Y') for p in projects))
     headings=[unescape(re.search(r'<h2\b[^>]*id="'+i+r'"[^>]*>(.*?)</h2>',texts['portfolio.html']).group(1)) for i in catalog_expected['ids']]
     check('catalog:original category names retained',headings==catalog_expected['labels'])
@@ -179,12 +178,12 @@ if scope in ['full', 'catalog']:
     cardmap={d['id']:d for _,d in pages['portfolio.html'].nodes if 'portfolio-card' in d.get('class','').split()}
     for project in projects:
         card=cardmap.get(project['id'],{})
-        check(f'catalog:{project["id"]}:card/native/manifest content',card.get('data-title')==project['title'] and card.get('data-description')==project['description']==''.join(summaries.get(project['id'],[])).strip() and card.get('data-date')==project['date'])
+        check(f'catalog:{project["id"]}:card/native/manifest content',card.get('data-title')==project['title'] and 'description' not in project and 'data-description' not in card and not ''.join(summaries.get(project['id'],[])).strip() and card.get('data-date')==project['date'])
         check(f'catalog:{project["id"]}:all media retained',json.loads(card.get('data-media','[]'))==project['media'])
     for project_id,title in [('work-49','Процедурный город'),('work-76','СкрруджМакДак AI иллюстрация')]:
         project=next(p for p in projects if p['id']==project_id)
         check(f'catalog:{project_id}:exact title and media alt',project['title']==project['original_title']==title and all(title in x['alt'] for x in project['media']))
-    check('catalog:search prompts visible content','Название или описание' in texts['portfolio.html'])
+    check('catalog:search prompts project titles','Название проекта' in texts['portfolio.html'] and 'Название или описание' not in texts['portfolio.html'])
     if scope=='catalog':write_report()
 
 if scope in ['full', 'close-title']:
@@ -263,9 +262,9 @@ for name,doc in pages.items():
 
 cards=[d for _,d in pages['portfolio.html'].nodes if 'portfolio-card' in d.get('class','').split()]
 manifest=json.loads((ROOT/'docs/content-manifest.json').read_text(encoding='utf-8'))
-check('76 substantive projects retained',len(cards)==76==manifest['published_project_count'])
-check('all manifest media retained',sum(len(json.loads(c['data-media'])) for c in cards)==manifest['media_count']==211)
-check('visible original descriptions',all(c['data-description'] in texts['portfolio.html'].replace('&amp;','&').replace('&quot;','"') for c in cards))
+check('109 substantive projects retained',len(cards)==109==manifest['published_project_count'])
+check('all manifest media retained',sum(len(json.loads(c['data-media'])) for c in cards)==manifest['media_count']==263)
+check('project descriptions absent',all('data-description' not in c for c in cards) and all('description' not in p for p in manifest['projects']))
 check('all original media represented', {m['src'] for p in manifest['projects'] for m in p['media']}==media_refs)
 check('no deleted contact icons',not any((ROOT/'img/index'/name).exists() for name in ['VK.png','Kwork.png']))
 css=(ROOT/'styles.css').read_text(encoding='utf-8')

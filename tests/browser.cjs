@@ -12,7 +12,7 @@ fs.mkdirSync(out, { recursive: true });
 const checks = []; const errors = []; const metrics = [];
 const only = process.env.TEST_ONLY || '';
 const carousel09Expected = {"baseline": "e89ab24306d62f3bd695b0a5603d1a20df1f1dd5", "media_fingerprint": "53b4617dd29a2a48755f892a0bb99aaa1ea5e4c447259a42f1e1b89705977195", "items": [{"href": "/portfolio.html#work-15", "src": "/img/optimized/identity-29b717944e246705-640.webp"}, {"href": "/portfolio.html", "src": "/img/optimized/identity-3667593b21f428d3-640.webp"}, {"href": "/portfolio.html#work-09", "src": "/img/optimized/identity-8cc0af604e7abbaf-640.webp"}, {"href": "/portfolio.html", "src": "/img/optimized/identity-5da3150676f7c4fd-640.webp"}, {"href": "/portfolio.html", "src": "/img/optimized/identity-cd403ae530331fe3-640.webp"}], "layout": {"320": {"section": {"x": 0, "y": 669, "width": 320, "height": 550.125}, "heading": {"x": 16, "y": 741, "width": 288, "height": 54.625}, "wrap": {"x": 16, "y": 795.625, "width": 288, "height": 240}, "carousel": {"x": 16, "y": 795.625, "width": 288, "height": 240}, "items": [{"href": "/portfolio.html#work-15", "src": "/img/optimized/identity-29b717944e246705-640.webp", "position": "current", "rect": {"x": 30, "y": 825.625, "width": 256, "height": 180}, "transform": "matrix(1, 0, 0, 1, 0, 0)", "opacity": "1", "tabIndex": 0}, {"href": "/portfolio.html", "src": "/img/optimized/identity-3667593b21f428d3-640.webp", "position": "next", "rect": {"x": 331.6556091308594, "y": 835.5136413574219, "width": 222.72927856445312, "height": 160.22271728515625}, "transform": "matrix3d(0.770362, 0, 0.422618, 0, 0, 0.85, 0, 0, -0.359226, 0, 0.906308, 0, 280, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}, {"href": "/portfolio.html#work-09", "src": "/img/optimized/identity-8cc0af604e7abbaf-640.webp", "position": "far-next", "rect": {"x": 30, "y": 825.625, "width": 256, "height": 180}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-5da3150676f7c4fd-640.webp", "position": "far-prev", "rect": {"x": 30, "y": 825.625, "width": 256, "height": 180}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-cd403ae530331fe3-640.webp", "position": "prev", "rect": {"x": -238.57369995117188, "y": 835.5136413574219, "width": 223.09063720703125, "height": 160.22271728515625}, "transform": "matrix3d(0.770362, 0, -0.422618, 0, 0, 0.85, 0, 0, 0.359226, 0, 0.906308, 0, -280, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}], "nextSection": {"x": 0, "y": 1219.125, "width": 320, "height": 1666.75}}, "375": {"section": {"x": 0, "y": 669, "width": 375, "height": 559.5}, "heading": {"x": 16, "y": 741, "width": 343, "height": 64}, "wrap": {"x": 16, "y": 805, "width": 343, "height": 240}, "carousel": {"x": 16, "y": 805, "width": 343, "height": 240}, "items": [{"href": "/portfolio.html#work-15", "src": "/img/optimized/identity-29b717944e246705-640.webp", "position": "current", "rect": {"x": 57.5, "y": 835, "width": 260, "height": 180}, "transform": "matrix(1, 0, 0, 1, 0, 0)", "opacity": "1", "tabIndex": 0}, {"href": "/portfolio.html", "src": "/img/optimized/identity-3667593b21f428d3-640.webp", "position": "next", "rect": {"x": 359.4791564941406, "y": 844.8294982910156, "width": 226.40744018554688, "height": 160.34100341796875}, "transform": "matrix3d(0.770362, 0, 0.422618, 0, 0, 0.85, 0, 0, -0.359226, 0, 0.906308, 0, 280, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}, {"href": "/portfolio.html#work-09", "src": "/img/optimized/identity-8cc0af604e7abbaf-640.webp", "position": "far-next", "rect": {"x": 57.5, "y": 835, "width": 260, "height": 180}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-5da3150676f7c4fd-640.webp", "position": "far-prev", "rect": {"x": 57.5, "y": 835, "width": 260, "height": 180}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-cd403ae530331fe3-640.webp", "position": "prev", "rect": {"x": -210.8865966796875, "y": 844.8294982910156, "width": 226.40744018554688, "height": 160.34100341796875}, "transform": "matrix3d(0.770362, 0, -0.422618, 0, 0, 0.85, 0, 0, 0.359226, 0, 0.906308, 0, -280, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}], "nextSection": {"x": 0, "y": 1228.5, "width": 375, "height": 1637.5}}, "430": {"section": {"x": 0, "y": 669, "width": 430, "height": 559.5}, "heading": {"x": 16, "y": 741, "width": 398, "height": 64}, "wrap": {"x": 16, "y": 805, "width": 398, "height": 240}, "carousel": {"x": 16, "y": 805, "width": 398, "height": 240}, "items": [{"href": "/portfolio.html#work-15", "src": "/img/optimized/identity-29b717944e246705-640.webp", "position": "current", "rect": {"x": 85, "y": 835, "width": 260, "height": 180}, "transform": "matrix(1, 0, 0, 1, 0, 0)", "opacity": "1", "tabIndex": 0}, {"href": "/portfolio.html", "src": "/img/optimized/identity-3667593b21f428d3-640.webp", "position": "next", "rect": {"x": 386.9791564941406, "y": 844.8294982910156, "width": 226.40744018554688, "height": 160.34100341796875}, "transform": "matrix3d(0.770362, 0, 0.422618, 0, 0, 0.85, 0, 0, -0.359226, 0, 0.906308, 0, 280, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}, {"href": "/portfolio.html#work-09", "src": "/img/optimized/identity-8cc0af604e7abbaf-640.webp", "position": "far-next", "rect": {"x": 85, "y": 835, "width": 260, "height": 180}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-5da3150676f7c4fd-640.webp", "position": "far-prev", "rect": {"x": 85, "y": 835, "width": 260, "height": 180}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-cd403ae530331fe3-640.webp", "position": "prev", "rect": {"x": -183.3865966796875, "y": 844.8294982910156, "width": 226.40744018554688, "height": 160.34100341796875}, "transform": "matrix3d(0.770362, 0, -0.422618, 0, 0, 0.85, 0, 0, 0.359226, 0, 0.906308, 0, -280, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}], "nextSection": {"x": 0, "y": 1228.5, "width": 430, "height": 1573.5}}, "768": {"section": {"x": 0, "y": 669, "width": 768, "height": 580.296875}, "heading": {"x": 23.046875, "y": 741, "width": 721.90625, "height": 44.796875}, "wrap": {"x": 23.046875, "y": 785.796875, "width": 721.90625, "height": 280}, "carousel": {"x": 23.046875, "y": 785.796875, "width": 721.90625, "height": 280}, "items": [{"href": "/portfolio.html#work-15", "src": "/img/optimized/identity-29b717944e246705-640.webp", "position": "current", "rect": {"x": 234, "y": 825.796875, "width": 300, "height": 200}, "transform": "matrix(1, 0, 0, 1, 0, 0)", "opacity": "1", "tabIndex": 0}, {"href": "/portfolio.html", "src": "/img/optimized/identity-3667593b21f428d3-640.webp", "position": "next", "rect": {"x": 578.1873779296875, "y": 836.0561218261719, "width": 265.6593017578125, "height": 179.48153686523438}, "transform": "matrix3d(0.770362, 0, 0.422618, 0, 0, 0.85, 0, 0, -0.359226, 0, 0.906308, 0, 320, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}, {"href": "/portfolio.html#work-09", "src": "/img/optimized/identity-8cc0af604e7abbaf-640.webp", "position": "far-next", "rect": {"x": 234, "y": 825.796875, "width": 300, "height": 200}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-5da3150676f7c4fd-640.webp", "position": "far-prev", "rect": {"x": 234, "y": 825.796875, "width": 300, "height": 200}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-cd403ae530331fe3-640.webp", "position": "prev", "rect": {"x": -75.84669494628906, "y": 836.0561218261719, "width": 265.6593322753906, "height": 179.48153686523438}, "transform": "matrix3d(0.770362, 0, -0.422618, 0, 0, 0.85, 0, 0, 0.359226, 0, 0.906308, 0, -320, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}], "nextSection": {"x": 0, "y": 1249.296875, "width": 768, "height": 1594.296875}}, "1024": {"section": {"x": 0, "y": 685, "width": 1024, "height": 653.5625}, "heading": {"x": 30.71875, "y": 769, "width": 962.546875, "height": 54.0625}, "wrap": {"x": 30.71875, "y": 823.0625, "width": 962.546875, "height": 320}, "carousel": {"x": 30.71875, "y": 823.0625, "width": 962.546875, "height": 320}, "items": [{"href": "/portfolio.html#work-15", "src": "/img/optimized/identity-29b717944e246705-640.webp", "position": "current", "rect": {"x": 341.984375, "y": 873.0625, "width": 340, "height": 220}, "transform": "matrix(1, 0, 0, 1, 0, 0)", "opacity": "1", "tabIndex": 0}, {"href": "/portfolio.html", "src": "/img/optimized/identity-3667593b21f428d3-640.webp", "position": "next", "rect": {"x": 728.085205078125, "y": 883.6080627441406, "width": 306.12646484375, "height": 198.90887451171875}, "transform": "matrix3d(0.770362, 0, 0.422618, 0, 0, 0.85, 0, 0, -0.359226, 0, 0.906308, 0, 360, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}, {"href": "/portfolio.html#work-09", "src": "/img/optimized/identity-8cc0af604e7abbaf-640.webp", "position": "far-next", "rect": {"x": 341.984375, "y": 873.0625, "width": 340, "height": 220}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-5da3150676f7c4fd-640.webp", "position": "far-prev", "rect": {"x": 341.984375, "y": 873.0625, "width": 340, "height": 220}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-cd403ae530331fe3-640.webp", "position": "prev", "rect": {"x": -10.243858337402344, "y": 883.6080627441406, "width": 306.1282958984375, "height": 198.90887451171875}, "transform": "matrix3d(0.770362, 0, -0.422618, 0, 0, 0.85, 0, 0, 0.359226, 0, 0.906308, 0, -360, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}], "nextSection": {"x": 0, "y": 1338.5625, "width": 1024, "height": 1203.5625}}, "1440": {"section": {"x": 0, "y": 685, "width": 1440, "height": 663.5}, "heading": {"x": 120, "y": 769, "width": 1200, "height": 64}, "wrap": {"x": 220, "y": 833, "width": 1000, "height": 320}, "carousel": {"x": 220, "y": 833, "width": 1000, "height": 320}, "items": [{"href": "/portfolio.html#work-15", "src": "/img/optimized/identity-29b717944e246705-640.webp", "position": "current", "rect": {"x": 550, "y": 883, "width": 340, "height": 220}, "transform": "matrix(1, 0, 0, 1, 0, 0)", "opacity": "1", "tabIndex": 0}, {"href": "/portfolio.html", "src": "/img/optimized/identity-3667593b21f428d3-640.webp", "position": "next", "rect": {"x": 936.1004028320312, "y": 893.5455627441406, "width": 306.12738037109375, "height": 198.90887451171875}, "transform": "matrix3d(0.770362, 0, 0.422618, 0, 0, 0.85, 0, 0, -0.359226, 0, 0.906308, 0, 360, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}, {"href": "/portfolio.html#work-09", "src": "/img/optimized/identity-8cc0af604e7abbaf-640.webp", "position": "far-next", "rect": {"x": 550, "y": 883, "width": 340, "height": 220}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-5da3150676f7c4fd-640.webp", "position": "far-prev", "rect": {"x": 550, "y": 883, "width": 340, "height": 220}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-cd403ae530331fe3-640.webp", "position": "prev", "rect": {"x": 197.7722625732422, "y": 893.5455627441406, "width": 306.1273193359375, "height": 198.90887451171875}, "transform": "matrix3d(0.770362, 0, -0.422618, 0, 0, 0.85, 0, 0, 0.359226, 0, 0.906308, 0, -360, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}], "nextSection": {"x": 0, "y": 1348.5, "width": 1440, "height": 813.5}}, "1920": {"section": {"x": 0, "y": 685, "width": 1920, "height": 663.5}, "heading": {"x": 360, "y": 769, "width": 1200, "height": 64}, "wrap": {"x": 460, "y": 833, "width": 1000, "height": 320}, "carousel": {"x": 460, "y": 833, "width": 1000, "height": 320}, "items": [{"href": "/portfolio.html#work-15", "src": "/img/optimized/identity-29b717944e246705-640.webp", "position": "current", "rect": {"x": 790, "y": 883, "width": 340, "height": 220}, "transform": "matrix(1, 0, 0, 1, 0, 0)", "opacity": "1", "tabIndex": 0}, {"href": "/portfolio.html", "src": "/img/optimized/identity-3667593b21f428d3-640.webp", "position": "next", "rect": {"x": 1176.100341796875, "y": 893.5455627441406, "width": 306.12744140625, "height": 198.90887451171875}, "transform": "matrix3d(0.770362, 0, 0.422618, 0, 0, 0.85, 0, 0, -0.359226, 0, 0.906308, 0, 360, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}, {"href": "/portfolio.html#work-09", "src": "/img/optimized/identity-8cc0af604e7abbaf-640.webp", "position": "far-next", "rect": {"x": 790, "y": 883, "width": 340, "height": 220}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-5da3150676f7c4fd-640.webp", "position": "far-prev", "rect": {"x": 790, "y": 883, "width": 340, "height": 220}, "transform": "none", "opacity": "0", "tabIndex": -1}, {"href": "/portfolio.html", "src": "/img/optimized/identity-cd403ae530331fe3-640.webp", "position": "prev", "rect": {"x": 437.77227783203125, "y": 893.5455627441406, "width": 306.1273193359375, "height": 198.90887451171875}, "transform": "matrix3d(0.770362, 0, -0.422618, 0, 0, 0.85, 0, 0, 0.359226, 0, 0.906308, 0, -360, 0, 0, 1)", "opacity": "0.85", "tabIndex": -1}], "nextSection": {"x": 0, "y": 1348.5, "width": 1920, "height": 813.5}}}};
-const catalogExpected = {"ids": ["logos-title", "motion-title", "characters-title", "presentations-title", "websites-title", "scenes-title"], "labels": ["Логотипы", "Моушн-дизайн", "3D-персонажи", "Презентации", "Сайты", "3D-сцены и предметы"], "nav_labels": ["Логотипы и графика", "Моушн-дизайн", "3D-персонажи", "Презентации", "Сайты", "3D-сцены и предметы"], "order": {"logos-title": ["work-01", "work-02", "work-03", "work-04", "work-75", "work-05", "work-76", "work-06", "work-07", "work-08", "work-09", "work-10", "work-11", "work-12", "work-13", "work-14", "work-15", "work-16"], "motion-title": ["work-17", "work-74", "work-18", "work-27", "work-19", "work-20", "work-21", "work-22", "work-23", "work-24", "work-25", "work-26"], "characters-title": ["work-28", "work-29", "work-30", "work-31", "work-32", "work-33", "work-34", "work-35"], "presentations-title": ["work-36", "work-37", "work-38"], "websites-title": ["work-39", "work-40", "work-41"], "scenes-title": ["work-42", "work-43", "work-44", "work-45", "work-46", "work-47", "work-48", "work-51", "work-49", "work-50", "work-52", "work-53", "work-54", "work-55", "work-56", "work-57", "work-58", "work-59", "work-60", "work-61", "work-62", "work-63", "work-64", "work-65", "work-66", "work-67", "work-68", "work-69", "work-70", "work-71", "work-72", "work-73"]}};
+const catalogExpected = {"ids": ["logos-title", "motion-title", "characters-title", "presentations-title", "websites-title", "scenes-title"], "labels": ["Логотипы", "Моушн-дизайн", "3D-персонажи", "Презентации", "Сайты", "3D-сцены и предметы"], "nav_labels": ["Логотипы и графика", "Моушн-дизайн", "3D-персонажи", "Презентации", "Сайты", "3D-сцены и предметы"], "order": {"logos-title": ["work-100", "work-99", "work-98", "work-97", "work-96", "work-95", "work-94", "work-01", "work-93", "work-02", "work-03", "work-04", "work-75", "work-05", "work-76", "work-06", "work-07", "work-08", "work-09", "work-10", "work-11", "work-12", "work-13", "work-14", "work-15", "work-16"], "motion-title": ["work-78", "work-77", "work-17", "work-74", "work-18", "work-27", "work-19", "work-20", "work-21", "work-22", "work-23", "work-24", "work-25", "work-26"], "characters-title": ["work-82", "work-81", "work-80", "work-79", "work-28", "work-29", "work-30", "work-31", "work-32", "work-33", "work-34", "work-35"], "presentations-title": ["work-36", "work-37", "work-38"], "websites-title": ["work-109", "work-107", "work-108", "work-106", "work-105", "work-104", "work-103", "work-102", "work-101", "work-39", "work-40", "work-41"], "scenes-title": ["work-90", "work-89", "work-88", "work-91", "work-87", "work-86", "work-92", "work-85", "work-84", "work-83", "work-42", "work-43", "work-44", "work-45", "work-46", "work-47", "work-48", "work-51", "work-49", "work-50", "work-52", "work-53", "work-54", "work-55", "work-56", "work-57", "work-58", "work-59", "work-60", "work-61", "work-62", "work-63", "work-64", "work-65", "work-66", "work-67", "work-68", "work-69", "work-70", "work-71", "work-72", "work-73"]}};
 async function test(name, run) {
   if (only && !only.split(',').some(part => name.includes(part))) return;
   try { await run(); checks.push({ name, status: 'PASS' }); }
@@ -193,7 +193,7 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     await page.keyboard.press('Enter'); assert.equal(await page.evaluate(() => document.activeElement.id), 'main-content');
   });
   await test('gallery:keyboard+focus+native-files', async () => {
-    await load('/portfolio.html'); const opener=page.locator('.project-open').first();
+    await load('/portfolio.html'); const opener=page.locator('#work-79 .project-open').first();
     await opener.focus(); await page.keyboard.press('Enter');
     const modal=page.locator('#portfolioModal'); await modal.waitFor({state:'visible'});
     assert.equal(await modal.getAttribute('aria-hidden'),'false');
@@ -206,9 +206,9 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     await page.keyboard.press('Escape'); await modal.waitFor({state:'hidden'});
     assert.ok(await opener.evaluate(el=>el===document.activeElement));
     assert.equal(await page.locator('main').evaluate(el=>el.inert),false);
-    assert.equal(await page.locator('.portfolio-card .project-files').count(),76);
+    assert.equal(await page.locator('.portfolio-card .project-files').count(),109);
     assert.equal(await page.locator('.portfolio-card .project-files:visible').count(),0);
-    assert.equal(await page.locator('.project-files a').count(),211);
+    assert.equal(await page.locator('.project-files a').count(),263);
   });
   await test('gallery:real-video-playback+cleanup', async () => {
     await load('/portfolio.html');
@@ -228,7 +228,7 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].filter(c=>!c.hidden).length===1);
     await input.fill('zzzzzz-nothing'); await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].every(c=>c.hidden));
     assert.ok((await page.locator('#searchStatus').textContent()).length>0);
-    await input.fill(''); await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].filter(c=>!c.hidden).length===76);
+    await input.fill(''); await page.waitForFunction(()=>[...document.querySelectorAll('.portfolio-card')].filter(c=>!c.hidden).length===109);
   });
   await test('privacy:dialog+return-focus', async () => {
     await page.emulateMedia({reducedMotion:'reduce'});
@@ -258,12 +258,12 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
   await test('no-JS:content+navigation+media-fallback', async () => {
     const context=await browser.newContext({javaScriptEnabled:false,reducedMotion:'reduce',viewport:{width:375,height:900}});
     const fallback=await context.newPage(); await fallback.goto(base+'/portfolio.html',{waitUntil:'networkidle'});await fallback.evaluate(()=>document.fonts.ready);
-    assert.equal(await fallback.locator('.portfolio-card').count(),76);
-    assert.equal(await fallback.locator('.project-files summary:visible').count(),76);
+    assert.equal(await fallback.locator('.portfolio-card').count(),109);
+    assert.equal(await fallback.locator('.project-files summary:visible').count(),109);
     for (const summary of await fallback.locator('.project-files summary').all()) await summary.click();
-    assert.equal(await fallback.locator('.project-summary:visible').count(),76);
+    assert.equal(await fallback.locator('.project-summary,[data-description],#projectDescription').count(),0);
     assert.equal(await fallback.locator('.project-tech,[data-tech]').count(),0);
-    assert.equal(await fallback.locator('.project-files a:visible').count(),211);
+    assert.equal(await fallback.locator('.project-files a:visible').count(),263);
     assert.ok(await fallback.getByRole('navigation',{name:'Основная навигация'}).isVisible());
     assert.ok(await fallback.locator('.project-files a').first().isVisible());
     await context.close();
@@ -333,15 +333,15 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
       await page.setViewportSize({width,height:1000}); await load('/portfolio.html');
       const card=page.locator('.portfolio-card').first();
       for (const selector of ['.portfolio-title','.portfolio-date']) assert.equal(await card.locator(selector).evaluate(e=>getComputedStyle(e).textAlign),'right');
-      assert.equal(await card.locator('.project-summary').isVisible(),false);
+      assert.equal(await card.locator('.project-summary').count(),0);
       await card.locator('.project-open').first().focus();await page.keyboard.press('Enter');await page.locator('#portfolioModal').waitFor({state:'visible'});
-      assert.ok(await page.locator('#projectDescription').isVisible());await page.keyboard.press('Escape');await layout();
+      assert.equal(await page.locator('#projectDescription,.portfolio-full-description').count(),0);await page.locator('#galleryContent').waitFor({state:'visible'});assert.ok(await page.locator('#galleryContent').isVisible());await page.keyboard.press('Escape');await layout();
     }
   });
   await test('identity:compact-gallery-natural-aspect+mobile-controls', async () => {
     for (const width of [320,375,430,768,1440]) {
       await page.setViewportSize({width,height:1000}); await load('/portfolio.html');
-      await page.locator('.project-open').first().click(); await page.locator('#portfolioModal').waitFor({state:'visible'});
+      await page.locator('#work-79 .project-open').first().click(); await page.locator('#portfolioModal').waitFor({state:'visible'});
       const img=page.locator('#galleryContent img'); await img.evaluate(i=>i.decode());
       const media=await img.boundingBox(); const main=await page.locator('.gallery-main').boundingBox();
       const box=await page.locator('.portfolio-modal-content').boundingBox();
@@ -433,7 +433,7 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     await page.emulateMedia({reducedMotion:'no-preference'});await page.setViewportSize({width:1440,height:1000});await load('/portfolio.html');
     await page.waitForTimeout(650);const card=page.locator('.portfolio-card').first();await card.hover();await page.waitForTimeout(550);
     const matrix=await card.locator('.portfolio-media > a img').evaluate(e=>getComputedStyle(e).transform);assert.ok(matrix.startsWith('matrix(1.1,'),matrix);
-    assert.equal(await page.locator('.portfolio-card .project-files').count(),76);
+    assert.equal(await page.locator('.portfolio-card .project-files').count(),109);
     assert.equal(await page.locator('.portfolio-card .project-files:visible').count(),0);
     assert.equal(await page.locator('.contacts-section,.category-count,.category-nav a span').count(),0);
     await page.locator('#projectToolsToggle').click();await page.waitForTimeout(320);
@@ -531,27 +531,27 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     await layout();
   });
   const contentManifest=JSON.parse(fs.readFileSync(path.join(root,'docs/content-manifest.json'),'utf8'));
-  await test('content06:all-76-descriptions-manifest-native-and-modal',async()=>{
+  await test('content06:all109-titles-materials-without-descriptions',async()=>{
     await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:1440,height:1000});await load('/portfolio.html');
-    assert.equal(contentManifest.projects.length,76);assert.equal(new Set(contentManifest.projects.map(p=>p.description.trim())).size,76);
+    assert.equal(contentManifest.projects.length,109);assert.ok(contentManifest.projects.every(p=>!Object.hasOwn(p,'description')));
     for(const project of contentManifest.projects){
-      const card=page.locator(`#${project.id}`);assert.equal(await card.getAttribute('data-description'),project.description);
-      assert.equal((await card.locator('.project-summary').textContent()).trim(),project.description);
-      assert.ok(project.description.trim().length>0,`${project.id}: nonempty individual description`);
+      const card=page.locator(`#${project.id}`);assert.equal(await card.getAttribute('data-description'),null);
+      assert.equal(await card.locator('.project-summary').count(),0);
+      assert.equal((await card.locator('summary').textContent()).trim(),`Материалы (${project.media.length})`);
       assert.deepEqual(JSON.parse(await card.getAttribute('data-media')),project.media);
       await card.locator('.project-open').first().click();await page.locator('#portfolioModal').waitFor({state:'visible'});
-      assert.equal((await page.locator('#projectDescription').textContent()).trim(),project.description);
+      assert.equal(await page.locator('#projectDescription,.portfolio-full-description').count(),0);assert.equal((await page.locator('#projectDate').textContent()).trim(),project.date);
       assert.equal((await page.locator('#portfolio-modal-title').textContent()).trim(),project.title);
-      assert.ok(await page.locator('#projectDescription').evaluate(e=>!!(e.compareDocumentPosition(document.querySelector('#galleryContent'))&Node.DOCUMENT_POSITION_FOLLOWING)),'Description must precede project media');
+      assert.ok(await page.locator('#portfolio-modal-title').evaluate(e=>e.nextElementSibling?.classList.contains('portfolio-gallery')),'Title must directly precede project media');
       await page.keyboard.press('Escape');await page.locator('#portfolioModal').waitFor({state:'hidden'});
     }
-    assert.equal(await page.locator('.project-files a').count(),211);
+    assert.equal(await page.locator('.project-files a').count(),263);
   });
-  await test('content06:no-JS-76-descriptions-211-media',async()=>{
+  await test('content06:no-JS109-materials263-without-descriptions',async()=>{
     const context=await browser.newContext({javaScriptEnabled:false,reducedMotion:'reduce',viewport:{width:375,height:1000}});
     try{const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/portfolio.html',{waitUntil:'networkidle'});await probe.evaluate(()=>document.fonts.ready);
-      for(const project of contentManifest.projects){const card=probe.locator(`#${project.id}`);await card.locator('summary').click();assert.ok(await card.locator('.project-summary').isVisible());assert.equal((await card.locator('.project-summary').textContent()).trim(),project.description);}
-      assert.equal(await probe.locator('.project-files a:visible').count(),211);await layout(probe);
+      for(const project of contentManifest.projects){const card=probe.locator(`#${project.id}`);await card.locator('summary').click();assert.equal(await card.locator('.project-summary').count(),0);assert.equal((await card.locator('summary').textContent()).trim(),`Материалы (${project.media.length})`);assert.deepEqual(await card.locator('.project-files a').evaluateAll(es=>es.map(e=>e.getAttribute('href'))),project.media.map(m=>m.src));}
+      assert.equal(await probe.locator('.project-files a:visible').count(),263);await layout(probe);
     }finally{await context.close()}
   });
   for(const width of [320,375,430,768,1024,1440,1920])await test(`content06:privacy-factual-local-only:${width}`,async()=>{
@@ -592,14 +592,14 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     try{await content06Open(probe,'work-01');const result=await content06Close(probe,via,`close-${width}-${via}`);assert.equal(result.final.focus,'work-01');}
     finally{await probe.close()}
   });
-  for(const width of [375,1440])for(const scenario of ['portrait','video','long-text','scrolled'])await test(`content06:close-media:${width}:${scenario}`,async()=>{
-    const longest=contentManifest.projects.reduce((a,b)=>a.description.length>b.description.length?a:b).id;
-    const project=scenario==='portrait'?'work-02':scenario==='video'?'work-08':longest;
+  for(const width of [375,1440])for(const scenario of ['portrait','video','long-title','scrolled'])await test(`content06:close-media:${width}:${scenario}`,async()=>{
+    const longest=contentManifest.projects.reduce((a,b)=>a.title.length>b.title.length?a:b).id;
+    const project=scenario==='portrait'?'work-02':scenario==='video'?'work-08':scenario==='scrolled'?'work-79':longest;
     const probe=await browser.newPage({viewport:{width,height:scenario==='scrolled'?500:1000},reducedMotion:'no-preference'});observeErrors(probe);
     try{
       await content06Open(probe,project,{video:scenario==='video',scroll:scenario==='scrolled'});
       if(scenario==='portrait')assert.ok(await probe.locator('#galleryContent img').evaluate(i=>i.naturalHeight>i.naturalWidth));
-      if(scenario==='long-text'){assert.equal((await probe.locator('#projectDescription').textContent()).trim(),contentManifest.projects.find(p=>p.id===project).description);await probe.screenshot({path:path.join(out,`description-viewer-${width}.png`)});}
+      if(scenario==='long-title'){assert.equal((await probe.locator('#portfolio-modal-title').textContent()).trim(),contentManifest.projects.find(p=>p.id===project).title);assert.equal(await probe.locator('#projectDescription,.portfolio-full-description').count(),0);await probe.screenshot({path:path.join(out,`long-title-viewer-${width}.png`)});}
       const result=await content06Close(probe,scenario==='scrolled'?'Escape':scenario==='video'?'X':'outside',`close-${width}-${scenario}`);assert.equal(result.final.focus,project);
     }finally{await probe.close()}
   });
@@ -624,14 +624,14 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
   });
 
   const catalogManifest=JSON.parse(fs.readFileSync(path.join(root,'docs/content-manifest.json'),'utf8'));
-  await test('catalog07:all76-modal-content-without-software',async()=>{
+  await test('catalog07:all109-modal-content-without-software-or-descriptions',async()=>{
     await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:1440,height:1000});await load('/portfolio.html');
-    const order=await catalog07Order();assert.deepEqual(order,catalogExpected.order);assert.equal(catalogManifest.projects.length,76);
+    const order=await catalog07Order();assert.deepEqual(order,catalogExpected.order);assert.equal(catalogManifest.projects.length,109);
     for(const project of catalogManifest.projects){
       const card=page.locator(`#${project.id}`),opener=card.locator('.project-open').first();
-      assert.equal(await card.getAttribute('data-description'),project.description);assert.deepEqual(JSON.parse(await card.getAttribute('data-media')),project.media);
+      assert.equal(await card.getAttribute('data-description'),null);assert.deepEqual(JSON.parse(await card.getAttribute('data-media')),project.media);
       await opener.click();await page.locator('#portfolioModal').waitFor({state:'visible'});
-      await catalog07NoSoftware();assert.equal((await page.locator('#portfolio-modal-title').textContent()).trim(),project.title);assert.equal((await page.locator('#projectDescription').textContent()).trim(),project.description);
+      await catalog07NoSoftware();assert.equal((await page.locator('#portfolio-modal-title').textContent()).trim(),project.title);assert.equal(await page.locator('#projectDescription,.portfolio-full-description').count(),0);assert.equal((await page.locator('#projectDate').textContent()).trim(),project.date);
       if(['work-49','work-76'].includes(project.id)){
         const expected=project.id==='work-49'?'Процедурный город':'СкрруджМакДак AI иллюстрация';
         assert.equal(project.title,expected);assert.ok((await card.locator('img:not([aria-hidden="true"])').first().getAttribute('alt')).includes(expected));
@@ -641,13 +641,13 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
       await page.keyboard.press('Escape');await page.locator('#portfolioModal').waitFor({state:'hidden'});assert.ok(await opener.evaluate(e=>e===document.activeElement));
       assert.deepEqual(await catalog07Order(),order,'Opening/closing must not reorder section cards');
     }
-    assert.equal(await page.locator('.project-files a').count(),211);
+    assert.equal(await page.locator('.project-files a').count(),263);
   });
-  await test('catalog07:no-JS-native-descriptions-media-order',async()=>{
+  await test('catalog07:no-JS-native-materials-media-order',async()=>{
     const context=await browser.newContext({javaScriptEnabled:false,reducedMotion:'reduce',viewport:{width:375,height:1000}});
     try{const probe=await context.newPage();observeErrors(probe);await probe.goto(base+'/portfolio.html',{waitUntil:'networkidle'});await probe.evaluate(()=>document.fonts.ready);await catalog07NoSoftware(probe);assert.deepEqual(await catalog07Order(probe),catalogExpected.order);
-      for(const project of catalogManifest.projects){const card=probe.locator(`#${project.id}`);await card.locator('summary').click();assert.ok(await card.locator('.project-summary').isVisible());assert.equal((await card.locator('.project-summary').textContent()).trim(),project.description);assert.equal((await card.locator('.portfolio-title').textContent()).trim(),project.title);}
-      await catalog07NoSoftware(probe);assert.equal(await probe.locator('.project-files a:visible').count(),211);assert.equal(await probe.locator('#ai-title,.category-nav a[href="#ai-title"]').count(),0);await layout(probe);
+      for(const project of catalogManifest.projects){const card=probe.locator(`#${project.id}`);await card.locator('summary').click();assert.equal(await card.locator('.project-summary').count(),0);assert.equal((await card.locator('summary').textContent()).trim(),`Материалы (${project.media.length})`);assert.deepEqual(await card.locator('.project-files a').evaluateAll(es=>es.map(e=>e.getAttribute('href'))),project.media.map(m=>m.src));assert.equal((await card.locator('.portfolio-title').textContent()).trim(),project.title);}
+      await catalog07NoSoftware(probe);assert.equal(await probe.locator('.project-files a:visible').count(),263);assert.equal(await probe.locator('#ai-title,.category-nav a[href="#ai-title"]').count(),0);await layout(probe);
     }finally{await context.close()}
   });
   for(const width of [320,375,430,768,1024,1440,1920])await test(`catalog07:sections-anchors-order-layout:${width}`,async()=>{
@@ -655,7 +655,7 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     assert.deepEqual(await catalog07Order(),catalogExpected.order);
     assert.deepEqual((await page.locator('.portfolio-category-section h2').allTextContents()).map(x=>x.trim()),catalogExpected.labels);
     assert.equal(await page.locator('#ai-title,.category-nav a[href="#ai-title"]').count(),0);
-    assert.equal(await page.locator('#work-74').evaluate(e=>e.closest('section').getAttribute('aria-labelledby')),'motion-title');
+    for(const id of ['work-74','work-77','work-78'])assert.equal(await page.locator(`#${id}`).evaluate(e=>e.closest('section').getAttribute('aria-labelledby')),'motion-title');
     for(const id of ['work-75','work-76'])assert.equal(await page.locator(`#${id}`).evaluate(e=>e.closest('section').getAttribute('aria-labelledby')),'logos-title');
     const toggle=page.locator('#projectToolsToggle');await toggle.click();
     assert.deepEqual(await page.locator('.category-nav a').evaluateAll(es=>es.map(e=>({id:e.hash.slice(1),label:e.textContent.trim()}))),catalogExpected.ids.map((id,i)=>({id,label:catalogExpected.nav_labels[i]})));
@@ -666,7 +666,7 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
   });
   for(const width of [375,1440])await test(`catalog07:search-clear-modal-preserves-section-order:${width}`,async()=>{
     await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width,height:1000});await load('/portfolio.html');
-    const toggle=page.locator('#projectToolsToggle'),input=page.locator('#projectSearch');await toggle.click();assert.equal(await input.getAttribute('placeholder'),'Название или описание');
+    const toggle=page.locator('#projectToolsToggle'),input=page.locator('#projectSearch');await toggle.click();assert.equal(await input.getAttribute('placeholder'),'Название проекта');
     await input.fill('СкрруджМакДак AI иллюстрация');assert.deepEqual(await page.locator('.portfolio-card:not([hidden])').evaluateAll(es=>es.map(e=>e.id)),['work-76']);
     await page.keyboard.press('Escape');const opener=page.locator('#work-76 .project-open').first();await opener.click();assert.equal((await page.locator('#portfolio-modal-title').textContent()).trim(),'СкрруджМакДак AI иллюстрация');
     await page.locator('#galleryContent img').evaluate(i=>i.decode());await page.screenshot({path:path.join(out,`catalog-renamed-modal-${width}.png`)});await page.keyboard.press('Escape');await page.locator('#portfolioModal').waitFor({state:'hidden'});assert.ok(await opener.evaluate(e=>e===document.activeElement));assert.deepEqual(await catalog07Order(),catalogExpected.order);
@@ -675,7 +675,7 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     assert.ok(Object.values(subsets).flat().length>1);for(const [id,actual] of Object.entries(subsets))assert.deepEqual(actual,catalogExpected.order[id].filter(x=>actual.includes(x)),'Search subset retains date/tie order');
     await input.fill('Geometry Nodes');assert.equal(await page.locator('.portfolio-card:not([hidden])').count(),0,'Removed software text must not remain in search index');
     await input.fill('Процедурный город');assert.deepEqual(await page.locator('.portfolio-card:not([hidden])').evaluateAll(es=>es.map(e=>e.id)),['work-49']);
-    await input.fill('');assert.equal(await page.locator('.portfolio-card:not([hidden])').count(),76);assert.equal(await page.locator('.portfolio-category-section:not([hidden])').count(),6);assert.deepEqual(await catalog07Order(),catalogExpected.order);await page.keyboard.press('Escape');await layout();
+    await input.fill('');assert.equal(await page.locator('.portfolio-card:not([hidden])').count(),109);assert.equal(await page.locator('.portfolio-category-section:not([hidden])').count(),6);assert.deepEqual(await catalog07Order(),catalogExpected.order);await page.keyboard.press('Escape');await layout();
   });
 
   for(const width of [320,375,430,768,1024,1440,1920])await test(`closeTitle08:hover-unhover-click-geometry:${width}`,async()=>{
@@ -683,8 +683,7 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     try{await content06Open(probe,'work-01');assert.equal(await probe.title(),'DedTimon');await closeTitle08Probe(probe,`button-${width}`,{screenshot:[375,1440].includes(width)});assert.ok(await probe.locator('#work-01 .project-open').first().evaluate(e=>e===document.activeElement));assert.equal(await probe.title(),'DedTimon');}finally{await probe.close()}
   });
   for(const width of [375,1440])for(const scenario of ['portrait','video','long-scroll'])await test(`closeTitle08:varied-media:${width}:${scenario}`,async()=>{
-    const longest=contentManifest.projects.reduce((a,b)=>a.description.length>b.description.length?a:b).id;
-    const project=scenario==='portrait'?'work-02':scenario==='video'?'work-08':longest;
+    const project=scenario==='portrait'?'work-02':scenario==='video'?'work-08':'work-79';
     const probe=await browser.newPage({viewport:{width,height:scenario==='long-scroll'?500:1000},reducedMotion:'no-preference'});observeErrors(probe);
     try{await content06Open(probe,project,{video:scenario==='video',scroll:scenario==='long-scroll'});await closeTitle08Probe(probe,`button-${width}-${scenario}`);assert.ok(await probe.locator(`#${project} .project-open`).first().evaluate(e=>e===document.activeElement));}finally{await probe.close()}
   });
