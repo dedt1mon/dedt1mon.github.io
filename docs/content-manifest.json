@@ -1,11 +1,10 @@
 {
-  "version": 1,
+  "version": 3,
   "projects": [
     {
       "id": "work-01",
       "title": "Игровой никнейм RobotAim",
       "original_title": "Логотип",
-      "description": "Две версии никнейма RobotAim для YouTube-канала по Counter-Strike 2. Объёмные буквы с металлическим блеском выполнены в красном и синем цветах.",
       "date": "18.02.2026",
       "media": [
         {
@@ -28,7 +27,6 @@
       "id": "work-02",
       "title": "Визитки Альфа Банка",
       "original_title": "Визитки Альфа Банка",
-      "description": "Парные визитки для партнёров Альфа Банка: портрет, имя и красно-чёрное оформление. Обе версии собраны в одном стиле.",
       "date": "12.12.2025",
       "media": [
         {
@@ -51,7 +49,6 @@
       "id": "work-03",
       "title": "Герб правового портала",
       "original_title": "Герб правового портала",
-      "description": "Герб для правового портала с двуглавым орлом, короной и щитом. Весь знак выдержан в золотистом цвете на белом фоне.",
       "date": "27.08.2025",
       "media": [
         {
@@ -68,7 +65,6 @@
       "id": "work-04",
       "title": "Логотип музыканта",
       "original_title": "Логотип музыканта",
-      "description": "Логотип музыканта в виде тонкого контура лица и длинных волос. Светлая линия на чёрном фоне складывается в силуэт без лишних деталей.",
       "date": "22.05.2025",
       "media": [
         {
@@ -85,24 +81,22 @@
       "id": "work-75",
       "title": "AI-изображение для логотипа",
       "original_title": "AI-пицца для лого",
-      "description": "AI-изображение пиццы для логотипа компании. Круглая композиция с золотистым орнаментом вокруг начинки показана на белом фоне.",
       "date": "20.05.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/ai/pizza.png",
+          "src": "/img/portfolio/logo/pizza.webp",
           "alt": "AI-изображение для логотипа — кадр 1",
           "preview": "/img/optimized/f8cf6352f0fcb1e3-320.webp"
         }
       ],
-      "cover": "/img/portfolio/ai/pizza.png",
+      "cover": "/img/portfolio/logo/pizza.webp",
       "category": "logos-title"
     },
     {
       "id": "work-05",
       "title": "Театральный постер",
       "original_title": "Театральный постер",
-      "description": "Чёрно-белая афиша постановки о любви и гневе. Контрастные силуэты продолжают тему противопоставления в самом спектакле.",
       "date": "25.03.2025",
       "media": [
         {
@@ -119,24 +113,22 @@
       "id": "work-76",
       "title": "СкрруджМакДак AI иллюстрация",
       "original_title": "СкрруджМакДак AI иллюстрация",
-      "description": "СкрруджМакДак AI иллюстрация: персонаж с монетой и мешком золота для Steam-профиля. Красный костюм и чёрный цилиндр выделяются на белом фоне.",
       "date": "11.02.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/ai/skrudz.png",
+          "src": "/img/portfolio/logo/skrudz.webp",
           "alt": "СкрруджМакДак AI иллюстрация — кадр 1",
           "preview": "/img/optimized/d941076649726812-320.webp"
         }
       ],
-      "cover": "/img/portfolio/ai/skrudz.png",
+      "cover": "/img/portfolio/logo/skrudz.webp",
       "category": "logos-title"
     },
     {
       "id": "work-06",
       "title": "Логотип YouTube-канала",
       "original_title": "Логотип YouTube-канала",
-      "description": "Два варианта оформления YouTube-канала о реставрации автомобилей. Чёрно-белые фотографии машин объединены с крупной надписью «Просто Саня».",
       "date": "18.11.2024",
       "media": [
         {
@@ -159,7 +151,6 @@
       "id": "work-07",
       "title": "Логотипы курса ААС",
       "original_title": "Логотипы курса ААС",
-      "description": "Логотипы курса «Архитектура аппаратных средств»: микросхема с замком внутри рисованного круга. В двух версиях меняются оранжевые и белые акценты.",
       "date": "15.11.2024",
       "media": [
         {
@@ -182,7 +173,6 @@
       "id": "work-08",
       "title": "Анимированная монета",
       "original_title": "Анимированная монета",
-      "description": "Короткая анимация золотистой монеты для личного бренда. При вращении на ней сменяются три рисованных персонажа.",
       "date": "28.10.2024",
       "media": [
         {
@@ -205,7 +195,6 @@
       "id": "work-09",
       "title": "Логотип EA",
       "original_title": "Логотип EA",
-      "description": "Объёмная монограмма EA с переходом от серебристого к бронзовому оттенку. Блики на буквах и отражение на тёмной поверхности подчёркивают металлическую фактуру.",
       "date": "13.09.2024",
       "media": [
         {
@@ -222,24 +211,22 @@
       "id": "work-10",
       "title": "Семейный герб",
       "original_title": "Семейный герб",
-      "description": "Семейный герб с монограммой, растительным орнаментом и лентами с надписями. Светлые рельефные элементы выделяются на тёмном фоне.",
       "date": "29.08.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/logo/gerb.jpg",
+          "src": "/img/portfolio/logo/gerb.webp",
           "alt": "Семейный герб — кадр 1",
           "preview": "/img/optimized/5325ad47355463da-320.webp"
         }
       ],
-      "cover": "/img/portfolio/logo/gerb.jpg",
+      "cover": "/img/portfolio/logo/gerb.webp",
       "category": "logos-title"
     },
     {
       "id": "work-11",
       "title": "Неоновый логотип PUBG",
       "original_title": "Неоновый логотип PUBG",
-      "description": "Неоновый знак магазина предметов PUBG: шлем, название игры и подпись магазина на кирпичной стене. Красное свечение сочетается с белыми деталями.",
       "date": "12.06.2024",
       "media": [
         {
@@ -256,7 +243,6 @@
       "id": "work-12",
       "title": "Медальница",
       "original_title": "Медальница",
-      "description": "Именная медальница со звёздами и силуэтами гимнасток. Внизу предусмотрен ряд мест для подвешивания наград.",
       "date": "17.05.2024",
       "media": [
         {
@@ -273,7 +259,6 @@
       "id": "work-13",
       "title": "Уличная табличка",
       "original_title": "Уличная табличка",
-      "description": "Адресная табличка для частного дома: название улицы и номер обрамлены завитками. Светлые буквы и узор выступают над тёмной основой.",
       "date": "29.04.2024",
       "media": [
         {
@@ -290,7 +275,6 @@
       "id": "work-14",
       "title": "Логотип Gargegenius",
       "original_title": "Логотип Gargegenius",
-      "description": "Знак автомастерской с шестерёнкой, гаечным ключом и названием между двумя ветвями. Оранжевые линии добавляют цвет к белой графике на чёрном фоне.",
       "date": "15.04.2024",
       "media": [
         {
@@ -307,7 +291,6 @@
       "id": "work-15",
       "title": "Логотип Modern Wedding",
       "original_title": "Золотая звезда",
-      "description": "Золотистая звезда с лентой и названием Modern Wedding. Объёмные грани и мягкие блики использованы в логотипе свадебного агентства.",
       "date": "12.03.2024",
       "media": [
         {
@@ -324,7 +307,6 @@
       "id": "work-16",
       "title": "Логотип-снежинка",
       "original_title": "Логотип-снежинка",
-      "description": "Логотип для игрока mopo3i в форме геометрической снежинки. Голубой светящийся контур выделяет её острые лучи на тёмном фоне.",
       "date": "08.03.2024",
       "media": [
         {
@@ -341,12 +323,11 @@
       "id": "work-17",
       "title": "Dying Light Анимация",
       "original_title": "Dying Light Анимация",
-      "description": "Короткая сцена в духе Dying Light: персонаж оказывается среди зомби на заброшенной парковке. Учебная анимация с курса Starikov Production.",
       "date": "22.10.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/Zombie.png",
+          "src": "/img/portfolio/moshion/Zombie.webp",
           "alt": "Dying Light Анимация — кадр 1",
           "preview": "/img/optimized/796146f7a78f8a88-320.webp"
         },
@@ -357,42 +338,40 @@
           "preview": "/img/optimized/796146f7a78f8a88-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/Zombie.png",
+      "cover": "/img/portfolio/moshion/Zombie.webp",
       "category": "motion-title"
     },
     {
       "id": "work-74",
       "title": "Анимация AI-персонажа",
       "original_title": "AI-девушка анимация",
-      "description": "Короткая анимация портрета девушки в тёплых оттенках на чёрном фоне. Исходный персонаж сгенерирован нейросетью, затем доработан для анимации.",
       "date": "30.08.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/ai/Girl.png",
+          "src": "/img/portfolio/moshion/Girl.webp",
           "alt": "Анимация AI-персонажа — кадр 1",
           "preview": "/img/optimized/ac95f3e30cc75b14-320.webp"
         },
         {
           "type": "video",
-          "src": "/img/portfolio/ai/Girl.mp4",
+          "src": "/img/portfolio/moshion/Girl.mp4",
           "alt": "Анимация AI-персонажа — видео 2",
           "preview": "/img/optimized/ac95f3e30cc75b14-320.webp"
         }
       ],
-      "cover": "/img/portfolio/ai/Girl.png",
+      "cover": "/img/portfolio/moshion/Girl.webp",
       "category": "motion-title"
     },
     {
       "id": "work-18",
       "title": "Реклама стеклопакетов",
       "original_title": "Реклама стеклопакетов",
-      "description": "Ролик о стеклопакетах с зимней сценой дома и показом отдельных слоёв стекла. Общий вид остекления сменяется крупными планами конструкции.",
       "date": "22.05.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/Steclopaket.png",
+          "src": "/img/portfolio/moshion/Steclopaket.webp",
           "alt": "Реклама стеклопакетов — кадр 1",
           "preview": "/img/optimized/e395a177b7d9baf5-320.webp"
         },
@@ -403,19 +382,18 @@
           "preview": "/img/optimized/e395a177b7d9baf5-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/Steclopaket.png",
+      "cover": "/img/portfolio/moshion/Steclopaket.webp",
       "category": "motion-title"
     },
     {
       "id": "work-27",
       "title": "Фоны для диджея",
       "original_title": "Фоны для диджея",
-      "description": "Шесть вариантов видеофонов с именем диджея. В них использованы световые линии, частицы, дым и помехи — от лаконичной надписи до яркой неоновой композиции.",
       "date": "11.05.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/ionov1.png",
+          "src": "/img/portfolio/moshion/ionov1.webp",
           "alt": "Фоны для диджея — кадр 1",
           "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
         },
@@ -456,19 +434,18 @@
           "preview": "/img/optimized/6908cd21d5dfc4b7-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/ionov1.png",
+      "cover": "/img/portfolio/moshion/ionov1.webp",
       "category": "motion-title"
     },
     {
       "id": "work-19",
       "title": "Реклама Каменное Дерево",
       "original_title": "Реклама Каменное Дерево",
-      "description": "Реклама «Каменного дерева» с фотографиями продукции и короткими текстовыми блоками. Слайды оформлены в жёлто-чёрной гамме с древесной фактурой.",
       "date": "21.01.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/Reklama.png",
+          "src": "/img/portfolio/moshion/Reklama.webp",
           "alt": "Реклама Каменное Дерево — кадр 1",
           "preview": "/img/optimized/48a4d01b35abd8ed-320.webp"
         },
@@ -479,14 +456,13 @@
           "preview": "/img/optimized/48a4d01b35abd8ed-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/Reklama.png",
+      "cover": "/img/portfolio/moshion/Reklama.webp",
       "category": "motion-title"
     },
     {
       "id": "work-20",
       "title": "Реклама холодильника",
       "original_title": "Реклама холодильника",
-      "description": "Конкурсный ролик о холодильнике: анимированные надписи сменяются показом модели с открытыми дверцами. Чёрный фон оставляет внимание на форме и внутреннем устройстве.",
       "date": "09.12.2024",
       "media": [
         {
@@ -509,12 +485,11 @@
       "id": "work-21",
       "title": "Видеофон СТАНЦИЯ",
       "original_title": "Видеофон СТАНЦИЯ",
-      "description": "Четыре видеофона с надписью «СТАНЦИЯ» для музыкального исполнителя. Среди вариантов — тёплое свечение, акварельный фон, объёмные буквы и эффект помех.",
       "date": "15.11.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/st2.png",
+          "src": "/img/portfolio/moshion/st2.webp",
           "alt": "Видеофон СТАНЦИЯ — кадр 1",
           "preview": "/img/optimized/eae603d2271a1c78-320.webp"
         },
@@ -543,19 +518,18 @@
           "preview": "/img/optimized/eae603d2271a1c78-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/st2.png",
+      "cover": "/img/portfolio/moshion/st2.webp",
       "category": "motion-title"
     },
     {
       "id": "work-22",
       "title": "Ролик салона красоты",
       "original_title": "Ролик салона красоты",
-      "description": "Вертикальный ролик для салона красоты с парящими розовыми сердцами. Объёмные элементы вписаны в кадр с интерьером салона.",
       "date": "15.11.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/vfx.png",
+          "src": "/img/portfolio/moshion/vfx.webp",
           "alt": "Ролик салона красоты — кадр 1",
           "preview": "/img/optimized/61e0d3bd4411dc5f-320.webp"
         },
@@ -566,19 +540,18 @@
           "preview": "/img/optimized/61e0d3bd4411dc5f-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/vfx.png",
+      "cover": "/img/portfolio/moshion/vfx.webp",
       "category": "motion-title"
     },
     {
       "id": "work-23",
       "title": "Гифка для Steam",
       "original_title": "Гифка для Steam",
-      "description": "Анимация для Steam-профиля на основе рисованного персонажа. На его лице сменяются цветные светящиеся узоры.",
       "date": "30.10.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/mopozi2.png",
+          "src": "/img/portfolio/moshion/mopozi2.webp",
           "alt": "Гифка для Steam — кадр 1",
           "preview": "/img/optimized/46f164ad4370a3da-320.webp"
         },
@@ -589,19 +562,18 @@
           "preview": "/img/optimized/46f164ad4370a3da-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/mopozi2.png",
+      "cover": "/img/portfolio/moshion/mopozi2.webp",
       "category": "motion-title"
     },
     {
       "id": "work-24",
       "title": "Видеофон Boston",
       "original_title": "Видеофон Boston",
-      "description": "Серия видеофонов для клуба BOSTON. Название появляется в нескольких вариантах: с красными световыми полосами, сменой цвета и точечным свечением букв.",
       "date": "20.10.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/boston.png",
+          "src": "/img/portfolio/moshion/boston.webp",
           "alt": "Видеофон Boston — кадр 1",
           "preview": "/img/optimized/9c9951eeb5115888-320.webp"
         },
@@ -630,19 +602,18 @@
           "preview": "/img/optimized/9c9951eeb5115888-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/boston.png",
+      "cover": "/img/portfolio/moshion/boston.webp",
       "category": "motion-title"
     },
     {
       "id": "work-25",
       "title": "Реклама ПК-клубов",
       "original_title": "Реклама ПК-клубов",
-      "description": "Ролик для сети компьютерных клубов с переключением между площадками. Для каждой показаны план зала и текстовое описание в чёрно-зелёном оформлении.",
       "date": "18.09.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/club.png",
+          "src": "/img/portfolio/moshion/club.webp",
           "alt": "Реклама ПК-клубов — кадр 1",
           "preview": "/img/optimized/051b4a4798f85fb2-320.webp"
         },
@@ -653,19 +624,18 @@
           "preview": "/img/optimized/051b4a4798f85fb2-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/club.png",
+      "cover": "/img/portfolio/moshion/club.webp",
       "category": "motion-title"
     },
     {
       "id": "work-26",
       "title": "Сборник учебных работ",
       "original_title": "Сборник учебных работ",
-      "description": "Подборка учебных работ по моушен-дизайну: оживление иллюстрации, музыкальная графика, эффекты огня и надписи в видеокадре. В сборнике шесть роликов с разными приёмами.",
       "date": "30.08.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/moshion/sbornikAF4.png",
+          "src": "/img/portfolio/moshion/sbornikAF4.webp",
           "alt": "Сборник учебных работ — кадр 1",
           "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
         },
@@ -706,14 +676,13 @@
           "preview": "/img/optimized/86b258d4d4290ad8-320.webp"
         }
       ],
-      "cover": "/img/portfolio/moshion/sbornikAF4.png",
+      "cover": "/img/portfolio/moshion/sbornikAF4.webp",
       "category": "motion-title"
     },
     {
       "id": "work-28",
       "title": "Соник для игры",
       "original_title": "Соник для игры",
-      "description": "Стилизованная модель Соника для игры в бело-оранжевой гамме. Персонаж показан с трёх сторон в одной композиции.",
       "date": "25.07.2025",
       "media": [
         {
@@ -730,7 +699,6 @@
       "id": "work-29",
       "title": "Эльфийка в гараже",
       "original_title": "Эльфийка в сцене",
-      "description": "Эльфийка с короткими светлыми волосами сидит на капоте автомобиля в гараже. Несколько ракурсов показывают и персонажа, и окружающую сцену.",
       "date": "08.06.2025",
       "media": [
         {
@@ -771,7 +739,6 @@
       "id": "work-30",
       "title": "Рыцарь в доспехах",
       "original_title": "Рыцарь в доспехах",
-      "description": "Фэнтезийный рыцарь с копьём и шлемом с гребнем. Металлические доспехи показаны спереди и со спины, с отдельным вниманием к пластинам и рельефу.",
       "date": "03.07.2024",
       "media": [
         {
@@ -800,7 +767,6 @@
       "id": "work-31",
       "title": "Кот-персонаж",
       "original_title": "Кот-персонаж",
-      "description": "Кот для игрового проекта в длинном бежевом пальто и высоких ботинках. Простые формы сочетаются с бирюзовыми глазами и чёрно-белым узором на брюках.",
       "date": "21.06.2024",
       "media": [
         {
@@ -835,7 +801,6 @@
       "id": "work-32",
       "title": "Фрирен",
       "original_title": "Фрирен",
-      "description": "Фрирен в белом плаще с золотистой отделкой и посохом. Общий вид модели дополнен крупным планом лица и ракурсом в три четверти.",
       "date": "19.05.2024",
       "media": [
         {
@@ -864,7 +829,6 @@
       "id": "work-33",
       "title": "Флаттершай",
       "original_title": "Флаттершай модель",
-      "description": "Две цветовые версии Флаттершай на круглой подставке. Контурная обводка и простые формы сохраняют рисованный вид персонажа в объёме.",
       "date": "09.03.2024",
       "media": [
         {
@@ -887,7 +851,6 @@
       "id": "work-34",
       "title": "Люси Киберпанк",
       "original_title": "Люси Киберпанк",
-      "description": "Люси из «Киберпанка: Бегущие по краю» на синем подиуме среди светящихся рамок. К ракурсам модели добавлена короткая анимация персонажа.",
       "date": "28.02.2024",
       "media": [
         {
@@ -922,7 +885,6 @@
       "id": "work-35",
       "title": "Паук",
       "original_title": "Паук",
-      "description": "Стилизованный паук с угловатыми лапами, фиолетовыми полосами и светящимися глазами. Три ракурса показывают форму тела и расположение деталей.",
       "date": "07.10.2023",
       "media": [
         {
@@ -951,12 +913,11 @@
       "id": "work-36",
       "title": "Суворов",
       "original_title": "Суворов",
-      "description": "Презентация об Александре Суворове с хронологией жизни, основными военными принципами и разделом о памяти полководца. Светлый фон объединяет портреты, даты и короткие блоки текста.",
       "date": "08.02.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/presentations/prezent1.png",
+          "src": "/img/portfolio/presentations/prezent1.webp",
           "alt": "Суворов — кадр 1",
           "preview": "/img/optimized/1e6be2fb9cb69822-320.webp"
         },
@@ -967,19 +928,18 @@
           "preview": "/img/optimized/1e6be2fb9cb69822-320.webp"
         }
       ],
-      "cover": "/img/portfolio/presentations/prezent1.png",
+      "cover": "/img/portfolio/presentations/prezent1.webp",
       "category": "presentations-title"
     },
     {
       "id": "work-37",
       "title": "Шифрование",
       "original_title": "Шифрование",
-      "description": "Учебная презентация о шифровании с открытым ключом. Иллюстрации, пояснения и диаграммы показывают принцип работы, области применения и сравнение подходов.",
       "date": "05.02.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/presentations/prezent2.png",
+          "src": "/img/portfolio/presentations/prezent2.webp",
           "alt": "Шифрование — кадр 1",
           "preview": "/img/optimized/49e91453bf561dab-320.webp"
         },
@@ -990,19 +950,18 @@
           "preview": "/img/optimized/49e91453bf561dab-320.webp"
         }
       ],
-      "cover": "/img/portfolio/presentations/prezent2.png",
+      "cover": "/img/portfolio/presentations/prezent2.webp",
       "category": "presentations-title"
     },
     {
       "id": "work-38",
       "title": "Электрические устройства",
       "original_title": "Электрические устройства",
-      "description": "Презентация об электрическом звонке, генераторе переменного тока и линиях электропередачи. Устройство и применение разобраны на тёмных слайдах с иллюстрациями и пояснениями.",
       "date": "02.02.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/presentations/prezent3.png",
+          "src": "/img/portfolio/presentations/prezent3.webp",
           "alt": "Электрические устройства — кадр 1",
           "preview": "/img/optimized/58e132b5e8f81be7-320.webp"
         },
@@ -1013,14 +972,13 @@
           "preview": "/img/optimized/58e132b5e8f81be7-320.webp"
         }
       ],
-      "cover": "/img/portfolio/presentations/prezent3.png",
+      "cover": "/img/portfolio/presentations/prezent3.webp",
       "category": "presentations-title"
     },
     {
       "id": "work-39",
       "title": "Сайт портфолио",
       "original_title": "Сайт портфолио",
-      "description": "Личный сайт-портфолио с коротким представлением и подборкой проектов. Тёмное оформление и голубые акценты объединяют навигацию, текст и превью работ.",
       "date": "12.01.2026",
       "media": [
         {
@@ -1037,7 +995,6 @@
       "id": "work-40",
       "title": "Сайт стеклопакетов",
       "original_title": "Сайт стеклопакетов",
-      "description": "Сайт о стеклопакетах с описанием продукции, таблицами характеристик и контактами. Бирюзовые акценты выделяют заголовки и кнопки на тёмном фоне.",
       "date": "25.09.2025",
       "media": [
         {
@@ -1060,12 +1017,11 @@
       "id": "work-41",
       "title": "Сайт игровых предметов",
       "original_title": "Сайт игровых предметов",
-      "description": "Каталог внутриигровых предметов с изображениями, описаниями и ценами. Товары собраны в карточки с красными кнопками покупки на тёмной странице.",
       "date": "22.07.2024",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/sait/Sait3.png",
+          "src": "/img/portfolio/sait/Sait3.webp",
           "alt": "Сайт игровых предметов — кадр 1",
           "preview": "/img/optimized/36496979a5fa3c41-320.webp"
         },
@@ -1076,19 +1032,18 @@
           "preview": "/img/optimized/36496979a5fa3c41-320.webp"
         }
       ],
-      "cover": "/img/portfolio/sait/Sait3.png",
+      "cover": "/img/portfolio/sait/Sait3.webp",
       "category": "websites-title"
     },
     {
       "id": "work-42",
       "title": "Игровая сцена",
       "original_title": "Игровая сцена",
-      "description": "Игровая сцена в стиле Warcraft с мощёными дорожками, деревьями и фиолетовыми порталами. Локация создана для кастомной мини-игры и показана с разных точек.",
       "date": "25.11.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/scenes/Game.png",
+          "src": "/img/portfolio/scenes/Game.webp",
           "alt": "Игровая сцена — кадр 1",
           "preview": "/img/optimized/619b7c658e99ce4a-320.webp"
         },
@@ -1099,19 +1054,18 @@
           "preview": "/img/optimized/619b7c658e99ce4a-320.webp"
         }
       ],
-      "cover": "/img/portfolio/scenes/Game.png",
+      "cover": "/img/portfolio/scenes/Game.webp",
       "category": "scenes-title"
     },
     {
       "id": "work-43",
       "title": "Кафе",
       "original_title": "Кафе",
-      "description": "Сцена кафе со стеклянным входом, геометрическим декором и сервированными столиками. В анимации камера приближается к мебели и посуде.",
       "date": "21.11.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/scenes/Cafe.png",
+          "src": "/img/portfolio/scenes/Cafe.webp",
           "alt": "Кафе — кадр 1",
           "preview": "/img/optimized/9afeb7d21b9fe169-320.webp"
         },
@@ -1122,19 +1076,18 @@
           "preview": "/img/optimized/9afeb7d21b9fe169-320.webp"
         }
       ],
-      "cover": "/img/portfolio/scenes/Cafe.png",
+      "cover": "/img/portfolio/scenes/Cafe.webp",
       "category": "scenes-title"
     },
     {
       "id": "work-44",
       "title": "Реклама майонеза",
       "original_title": "Реклама майонеза",
-      "description": "3D-реклама майонеза: упаковка на подиуме сменяется кадрами с парящими ингредиентами. Красные геометрические детали выделяются на тёмно-синем фоне.",
       "date": "30.10.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/scenes/Maonez.png",
+          "src": "/img/portfolio/scenes/Maonez.webp",
           "alt": "Реклама майонеза — кадр 1",
           "preview": "/img/optimized/254d9627f0b89a7c-320.webp"
         },
@@ -1145,19 +1098,18 @@
           "preview": "/img/optimized/254d9627f0b89a7c-320.webp"
         }
       ],
-      "cover": "/img/portfolio/scenes/Maonez.png",
+      "cover": "/img/portfolio/scenes/Maonez.webp",
       "category": "scenes-title"
     },
     {
       "id": "work-45",
       "title": "Кунг-фу панда",
       "original_title": "Кунг-фу панда",
-      "description": "Тренировка По из «Кунг-фу панды» у деревянного манекена. Каменный двор, зелень и летящие лепестки дополняют короткую анимационную сцену.",
       "date": "10.10.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/scenes/Kunfu.png",
+          "src": "/img/portfolio/scenes/Kunfu.webp",
           "alt": "Кунг-фу панда — кадр 1",
           "preview": "/img/optimized/f412683dc7fae694-320.webp"
         },
@@ -1168,19 +1120,18 @@
           "preview": "/img/optimized/f412683dc7fae694-320.webp"
         }
       ],
-      "cover": "/img/portfolio/scenes/Kunfu.png",
+      "cover": "/img/portfolio/scenes/Kunfu.webp",
       "category": "scenes-title"
     },
     {
       "id": "work-46",
       "title": "Анимация скейтбордиста",
       "original_title": "Анимация скейтбордиста",
-      "description": "Скейтбордист едет по улице с разноцветными домами. Камера меняет расстояние и ракурс, показывая персонажа на фоне стилизованного квартала.",
       "date": "08.10.2025",
       "media": [
         {
           "type": "image",
-          "src": "/img/portfolio/scenes/Scate.png",
+          "src": "/img/portfolio/scenes/Scate.webp",
           "alt": "Анимация скейтбордиста — кадр 1",
           "preview": "/img/optimized/5d5388bc301b5c78-320.webp"
         },
@@ -1191,14 +1142,13 @@
           "preview": "/img/optimized/5d5388bc301b5c78-320.webp"
         }
       ],
-      "cover": "/img/portfolio/scenes/Scate.png",
+      "cover": "/img/portfolio/scenes/Scate.webp",
       "category": "scenes-title"
     },
     {
       "id": "work-47",
       "title": "Избушка",
       "original_title": "Избушка",
-      "description": "Низкополигональный дом мага с башней, светящимися окнами и крутой крышей. Небольшую диораму окружают камни и оранжевые хвойные деревья.",
       "date": "19.08.2025",
       "media": [
         {
@@ -1215,7 +1165,6 @@
       "id": "work-48",
       "title": "Средневековая таверна",
       "original_title": "Средневековая таверна",
-      "description": "Средневековая таверна в разрезе: видны оба этажа, лестницы, столы и деревянные ограждения. Цветные ракурсы дополнены вариантом без цвета.",
       "date": "19.08.2025",
       "media": [
         {
@@ -1244,7 +1193,6 @@
       "id": "work-51",
       "title": "Локация для шутера",
       "original_title": "Локация для шутера",
-      "description": "Локация для шутера в виде большого офиса с перегородками и рабочими местами. Разные ракурсы показывают коридоры, лестницы, зоны отдыха и бытовые детали.",
       "date": "25.12.2024",
       "media": [
         {
@@ -1315,7 +1263,6 @@
       "id": "work-49",
       "title": "Процедурный город",
       "original_title": "Процедурный город",
-      "description": "Процедурный город. Плотные кварталы домов разной высоты показаны общим планом и с уровня улицы.",
       "date": "28.11.2024",
       "media": [
         {
@@ -1338,7 +1285,6 @@
       "id": "work-50",
       "title": "Самодельный огнемёт",
       "original_title": "Самодельный огнемёт",
-      "description": "Игровая модель самодельного огнемёта из труб, баллонов и шлангов. Потёртый металл и следы ржавчины поддерживают идею оружия, собранного из подручных деталей.",
       "date": "17.11.2024",
       "media": [
         {
@@ -1385,7 +1331,6 @@
       "id": "work-52",
       "title": "Лесной пейзаж",
       "original_title": "Лесной пейзаж",
-      "description": "Лесной пейзаж с узкой дорогой между скалами. Общие планы крон чередуются с видами дороги и камней, покрытых мхом.",
       "date": "26.10.2024",
       "media": [
         {
@@ -1444,7 +1389,6 @@
       "id": "work-53",
       "title": "Лампа-пончик",
       "original_title": "Лампа-пончик",
-      "description": "Лампа в форме надкушенного пончика с розовой глазурью и посыпкой. Небольшой светильник подвешен внутри выреза; модель сделана для творческого конкурса.",
       "date": "29.09.2024",
       "media": [
         {
@@ -1461,7 +1405,6 @@
       "id": "work-54",
       "title": "Анимация баскетбола",
       "original_title": "Анимация баскетбола",
-      "description": "Баскетбольная анимация с броском на городской площадке. Движение персонажей показано с нескольких ракурсов на фоне кирпичных домов и зрителей.",
       "date": "30.07.2024",
       "media": [
         {
@@ -1484,7 +1427,6 @@
       "id": "work-55",
       "title": "Абстрактная композиция",
       "original_title": "Абстрактная композиция",
-      "description": "Абстрактная композиция в синих тонах: рельефное кольцо окружает сложную центральную форму. Вокруг расположены кубы, треугольники и шестиугольные элементы.",
       "date": "26.05.2024",
       "media": [
         {
@@ -1501,7 +1443,6 @@
       "id": "work-56",
       "title": "Анимация слаймов",
       "original_title": "Анимация слаймов",
-      "description": "Разноцветные слаймы прыгают по поляне и дорожке у большого камня. Мультяшное окружение с травой, деревьями и домиком объединяет несколько планов анимации.",
       "date": "30.04.2024",
       "media": [
         {
@@ -1530,7 +1471,6 @@
       "id": "work-57",
       "title": "Космическая клубника",
       "original_title": "Космическая клубника",
-      "description": "Клубника в сине-фиолетовой космической сцене. Звёздные точки, мягкие облака и холодный свет окружают ягоду и выделяют её фактуру.",
       "date": "26.04.2024",
       "media": [
         {
@@ -1547,7 +1487,6 @@
       "id": "work-58",
       "title": "Анимация пельменей",
       "original_title": "Анимация пельменей",
-      "description": "Пельмени в деревянной миске на столе у кирпичной стены. В анимации над ними поднимается пар, а камера показывает блюдо общим и крупным планом.",
       "date": "23.04.2024",
       "media": [
         {
@@ -1582,7 +1521,6 @@
       "id": "work-59",
       "title": "Заброшенный гараж",
       "original_title": "Заброшенный гараж",
-      "description": "Заброшенный гараж среди деревьев, старых машин и ржавых бочек. Дневные и ночные ракурсы показывают, как меняется одна и та же сцена при разном освещении.",
       "date": "13.04.2024",
       "media": [
         {
@@ -1641,7 +1579,6 @@
       "id": "work-60",
       "title": "Хай-тек спальня",
       "original_title": "Хай-тек спальня",
-      "description": "Спальня в серых тонах с вертикальными стеновыми панелями и подсвеченными нишами. В подборке есть общий вид комнаты и крупные планы декора и телевизионной зоны.",
       "date": "10.04.2024",
       "media": [
         {
@@ -1676,7 +1613,6 @@
       "id": "work-61",
       "title": "Анимация гонки",
       "original_title": "Анимация гонки",
-      "description": "Фиолетовый автомобиль проходит площадку с дорожными конусами. Анимация сочетает общий вид заезда с низкими ракурсами у колёс и кузова.",
       "date": "01.04.2024",
       "media": [
         {
@@ -1699,7 +1635,6 @@
       "id": "work-62",
       "title": "Детская комната",
       "original_title": "Детская комната",
-      "description": "Детская комната с кроватью, компьютерным столом и местом для отдыха у телевизора. Открытый стеллаж разделяет пространство, а кресла-мешки добавляют мягкие формы.",
       "date": "16.03.2024",
       "media": [
         {
@@ -1740,7 +1675,6 @@
       "id": "work-63",
       "title": "Современная ванная",
       "original_title": "Современная ванная",
-      "description": "Ванная комната с отдельной ванной, душевой и зоной умывальника. Общие планы дополнены деталями: круглыми зеркалами, подсветкой, полками и принадлежностями.",
       "date": "03.03.2024",
       "media": [
         {
@@ -1811,7 +1745,6 @@
       "id": "work-64",
       "title": "Остров сокровищ",
       "original_title": "Остров сокровищ",
-      "description": "Небольшой остров с пальмами, маяком и пиратским кораблём у берега. Чёрные паруса выделяются на фоне светлой воды и песка.",
       "date": "14.02.2024",
       "media": [
         {
@@ -1852,7 +1785,6 @@
       "id": "work-65",
       "title": "Анимированный меч",
       "original_title": "Анимированный меч",
-      "description": "Анимация магического меча со светящимся узором на изогнутом клинке. Оружие парит над камнем среди белых световых частиц.",
       "date": "15.01.2024",
       "media": [
         {
@@ -1875,7 +1807,6 @@
       "id": "work-66",
       "title": "Средневековая мельница",
       "original_title": "Средневековая мельница",
-      "description": "Ветряная мельница посреди золотистого поля с пугалом. Сцена собрана как отдельный островок с каменистой кромкой и показана с нескольких сторон.",
       "date": "26.12.2023",
       "media": [
         {
@@ -1904,7 +1835,6 @@
       "id": "work-67",
       "title": "Лесная тропа",
       "original_title": "Лесная тропа",
-      "description": "Лесная тропа с деревянным мостиком и низким туманом. У сцены есть светлая и тёмная версии; во второй среди деревьев появляется светящаяся улыбка.",
       "date": "09.12.2023",
       "media": [
         {
@@ -1933,7 +1863,6 @@
       "id": "work-68",
       "title": "Мистическая труба",
       "original_title": "Мистическая труба",
-      "description": "Внутри заброшенной трубы растут светящиеся грибы, а за решёткой виднеется зловещая улыбка. Фиолетовый и голубой свет задают цвет всей сцены.",
       "date": "07.12.2023",
       "media": [
         {
@@ -1962,7 +1891,6 @@
       "id": "work-69",
       "title": "Меч проклятого короля",
       "original_title": "Меч проклятого короля",
-      "description": "Церемониальный меч проклятого короля, установленный в камне. Резные элементы, цепь и светящиеся знаки показаны с нескольких ракурсов.",
       "date": "02.12.2023",
       "media": [
         {
@@ -1991,7 +1919,6 @@
       "id": "work-70",
       "title": "Пистолет Glock",
       "original_title": "Пистолет Glock",
-      "description": "Модель Glock с тёмным корпусом, рельефной рукоятью и голубыми светящимися вставками. Фиолетовое освещение подчёркивает грани и металлические поверхности.",
       "date": "30.11.2023",
       "media": [
         {
@@ -2020,7 +1947,6 @@
       "id": "work-71",
       "title": "Обручальные кольца",
       "original_title": "Обручальные кольца",
-      "description": "Пара обручальных колец в открытой чёрной коробочке. Общие ракурсы дополнены крупным планом металлических ободков и тонких золотистых полос.",
       "date": "07.10.2023",
       "media": [
         {
@@ -2049,7 +1975,6 @@
       "id": "work-72",
       "title": "Островок с сакурой",
       "original_title": "Островок с сакурой",
-      "description": "Маленькая диорама с цветущей сакурой, травяными уступами и каменной дорожкой. Розовые кроны контрастируют с яркой зеленью островка.",
       "date": "07.10.2023",
       "media": [
         {
@@ -2078,7 +2003,6 @@
       "id": "work-73",
       "title": "Вечернее платье",
       "original_title": "Вечернее платье",
-      "description": "Чёрное вечернее платье по фигуре с боковой шнуровкой. Модель на манекене показана спереди, сбоку и в три четверти.",
       "date": "07.10.2023",
       "media": [
         {
@@ -2102,10 +2026,652 @@
       ],
       "cover": "/img/portfolio/scenes/platia1.jpg",
       "category": "scenes-title"
+    },
+    {
+      "id": "work-77",
+      "title": "Взгляд сквозь дождь",
+      "original_title": "AI девушка под дождём",
+      "date": "08.03.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/AI_Girl.webp",
+          "alt": "Взгляд сквозь дождь — кадр 1",
+          "preview": "/img/optimized/content11-54cce5f4bca5e8ad-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/AI_Girl.mp4",
+          "alt": "Взгляд сквозь дождь — видео 2",
+          "preview": "/img/optimized/content11-54cce5f4bca5e8ad-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/AI_Girl.webp",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-78",
+      "title": "Осенний променад",
+      "original_title": "AI девушка на прогулке",
+      "date": "14.09.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/moshion/AI_Girl_1.webp",
+          "alt": "Осенний променад — кадр 1",
+          "preview": "/img/optimized/content11-c2d45efa03f28cdf-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/moshion/AI_Girl_1.mp4",
+          "alt": "Осенний променад — видео 2",
+          "preview": "/img/optimized/content11-c2d45efa03f28cdf-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/moshion/AI_Girl_1.webp",
+      "category": "motion-title"
+    },
+    {
+      "id": "work-79",
+      "title": "Решимость в оранжевом",
+      "original_title": "Low поли девушка",
+      "date": "26.02.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Girl3.webp",
+          "alt": "Решимость в оранжевом — кадр 1",
+          "preview": "/img/optimized/content11-1db0b88166dbbbca-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Girl2.webp",
+          "alt": "Решимость в оранжевом — кадр 2",
+          "preview": "/img/optimized/content11-5e8d7c80ec08b735-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/Girl1.webp",
+          "alt": "Решимость в оранжевом — кадр 3",
+          "preview": "/img/optimized/content11-0e2292c358cb4951-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/Girl3.webp",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-80",
+      "title": "Тяжёлый дозор",
+      "original_title": "Low поли мужчина",
+      "date": "25.04.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/man1.webp",
+          "alt": "Тяжёлый дозор — кадр 1",
+          "preview": "/img/optimized/content11-948a117823325112-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/man2.webp",
+          "alt": "Тяжёлый дозор — кадр 2",
+          "preview": "/img/optimized/content11-a5906b82deeb6e1a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/man3.webp",
+          "alt": "Тяжёлый дозор — кадр 3",
+          "preview": "/img/optimized/content11-3b4cca8b7a399bab-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/man1.webp",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-81",
+      "title": "Полевой медик",
+      "original_title": "Low поли доктор",
+      "date": "04.05.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/doc1.webp",
+          "alt": "Полевой медик — кадр 1",
+          "preview": "/img/optimized/content11-3173e66f9d72bf7a-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/doc2.webp",
+          "alt": "Полевой медик — кадр 2",
+          "preview": "/img/optimized/content11-b14e844aa1ea7742-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/doc3.webp",
+          "alt": "Полевой медик — кадр 3",
+          "preview": "/img/optimized/content11-305a92d3ed7bd55c-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/doc1.webp",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-82",
+      "title": "Последняя смена",
+      "original_title": "Low поли зомби",
+      "date": "04.08.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/zom1.webp",
+          "alt": "Последняя смена — кадр 1",
+          "preview": "/img/optimized/content11-067e678f1b5d1f84-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/zom2.webp",
+          "alt": "Последняя смена — кадр 2",
+          "preview": "/img/optimized/content11-81c5cfd74d81ed7f-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/3dperson/zom3.webp",
+          "alt": "Последняя смена — кадр 3",
+          "preview": "/img/optimized/content11-1ce78f1ba8faf1af-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/3dperson/zom1.webp",
+      "category": "characters-title"
+    },
+    {
+      "id": "work-83",
+      "title": "Молочный свет",
+      "original_title": "Интерьер",
+      "date": "11.01.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room1.webp",
+          "alt": "Молочный свет — кадр 1",
+          "preview": "/img/optimized/content11-26a58e1bc893f868-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room1.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-84",
+      "title": "Изумрудные комнаты",
+      "original_title": "Интерьер",
+      "date": "05.02.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room2.webp",
+          "alt": "Изумрудные комнаты — кадр 1",
+          "preview": "/img/optimized/content11-7a31288739a904c9-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room2.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-85",
+      "title": "Терракотовый маршрут",
+      "original_title": "Интерьер",
+      "date": "20.02.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room3.webp",
+          "alt": "Терракотовый маршрут — кадр 1",
+          "preview": "/img/optimized/content11-aee30244d48d6a38-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room3.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-86",
+      "title": "Кирпич и графит",
+      "original_title": "Интерьер",
+      "date": "04.06.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room4.webp",
+          "alt": "Кирпич и графит — кадр 1",
+          "preview": "/img/optimized/content11-e7d03c6885fc9a42-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room4.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-87",
+      "title": "Поворот к свету",
+      "original_title": "Интерьер",
+      "date": "05.07.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room5.webp",
+          "alt": "Поворот к свету — кадр 1",
+          "preview": "/img/optimized/content11-246fbd3e7ad049d1-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room5.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-88",
+      "title": "Графитовые крылья",
+      "original_title": "Интерьер",
+      "date": "22.07.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room6.webp",
+          "alt": "Графитовые крылья — кадр 1",
+          "preview": "/img/optimized/content11-334842b99ac7c3c5-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room6.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-89",
+      "title": "Горчичный ритм",
+      "original_title": "Интерьер",
+      "date": "22.09.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room7.webp",
+          "alt": "Горчичный ритм — кадр 1",
+          "preview": "/img/optimized/content11-1eccd5b7b5aef576-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room7.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-90",
+      "title": "Синий орнамент",
+      "original_title": "Интерьер",
+      "date": "05.10.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room8.webp",
+          "alt": "Синий орнамент — кадр 1",
+          "preview": "/img/optimized/content11-6718463bc8945f67-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room8.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-91",
+      "title": "Ледяной контур",
+      "original_title": "Интерьер",
+      "date": "11.07.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room.webp",
+          "alt": "Ледяной контур — кадр 1",
+          "preview": "/img/optimized/content11-63086c5590b7fc40-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-92",
+      "title": "Зелёное равновесие",
+      "original_title": "Интерьер",
+      "date": "14.03.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/scenes/room10.webp",
+          "alt": "Зелёное равновесие — кадр 1",
+          "preview": "/img/optimized/content11-915e57a4fa948fec-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/scenes/room10.webp",
+      "category": "scenes-title"
+    },
+    {
+      "id": "work-93",
+      "title": "Ирис и уголь",
+      "original_title": "Логотип",
+      "date": "03.01.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/l1.webp",
+          "alt": "Ирис и уголь — кадр 1",
+          "preview": "/img/optimized/content11-7cdaa2453d0cab7e-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/l1.webp",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-94",
+      "title": "Пышь",
+      "original_title": "Логотип",
+      "date": "25.03.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/l2.webp",
+          "alt": "Пышь — кадр 1",
+          "preview": "/img/optimized/content11-b8f8bef352799faa-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/l2.webp",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-95",
+      "title": "Усарь",
+      "original_title": "Логотип",
+      "date": "19.06.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/l3.webp",
+          "alt": "Усарь — кадр 1",
+          "preview": "/img/optimized/content11-ea9ab65695228f37-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/l3.webp",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-96",
+      "title": "Витраль",
+      "original_title": "Логотип",
+      "date": "05.08.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/l4.webp",
+          "alt": "Витраль — кадр 1",
+          "preview": "/img/optimized/content11-8e446f4b4d4649b7-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/l4.webp",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-97",
+      "title": "Опорум",
+      "original_title": "Логотип",
+      "date": "03.09.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/l5.webp",
+          "alt": "Опорум — кадр 1",
+          "preview": "/img/optimized/content11-9e6f9bd3238ee96b-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/l5.webp",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-98",
+      "title": "Глинь",
+      "original_title": "Логотип",
+      "date": "09.09.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/l6.webp",
+          "alt": "Глинь — кадр 1",
+          "preview": "/img/optimized/content11-ef80254eeb2be4c8-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/l6.webp",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-99",
+      "title": "Кикра",
+      "original_title": "Логотип",
+      "date": "13.10.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/l7.webp",
+          "alt": "Кикра — кадр 1",
+          "preview": "/img/optimized/content11-d37e5828b6c724cf-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/l7.webp",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-100",
+      "title": "После",
+      "original_title": "Логотип",
+      "date": "20.10.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/l8.webp",
+          "alt": "После — кадр 1",
+          "preview": "/img/optimized/content11-0690e1c7f4147ac2-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/l8.webp",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-101",
+      "title": "Громче тишины",
+      "original_title": "Сайт",
+      "date": "19.01.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s1.webp",
+          "alt": "Громче тишины — кадр 1",
+          "preview": "/img/optimized/content11-42dc75170bd70b10-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s1.mp4",
+          "alt": "Громче тишины — видео 2",
+          "preview": "/img/optimized/content11-42dc75170bd70b10-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s1.webp",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-102",
+      "title": "Сегодня ложимся позже",
+      "original_title": "Сайт",
+      "date": "25.01.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s2.webp",
+          "alt": "Сегодня ложимся позже — кадр 1",
+          "preview": "/img/optimized/content11-f5a7d85304cb5aed-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s2.mp4",
+          "alt": "Сегодня ложимся позже — видео 2",
+          "preview": "/img/optimized/content11-f5a7d85304cb5aed-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s2.webp",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-103",
+      "title": "На своём месте",
+      "original_title": "Сайт",
+      "date": "09.02.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s3.webp",
+          "alt": "На своём месте — кадр 1",
+          "preview": "/img/optimized/content11-af813bc97c01152a-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s3.mp4",
+          "alt": "На своём месте — видео 2",
+          "preview": "/img/optimized/content11-af813bc97c01152a-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s3.webp",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-104",
+      "title": "Встречаемся после заката",
+      "original_title": "Сайт",
+      "date": "16.02.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s4.webp",
+          "alt": "Встречаемся после заката — кадр 1",
+          "preview": "/img/optimized/content11-fc3d3f4302d24257-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s4.mp4",
+          "alt": "Встречаемся после заката — видео 2",
+          "preview": "/img/optimized/content11-fc3d3f4302d24257-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s4.webp",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-105",
+      "title": "Есть что сказать",
+      "original_title": "Сайт",
+      "date": "14.03.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s5.webp",
+          "alt": "Есть что сказать — кадр 1",
+          "preview": "/img/optimized/content11-ec07aa62872d437b-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s5.mp4",
+          "alt": "Есть что сказать — видео 2",
+          "preview": "/img/optimized/content11-ec07aa62872d437b-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s5.webp",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-106",
+      "title": "Вдох между вкладками",
+      "original_title": "Сайт",
+      "date": "17.04.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s6.png",
+          "alt": "Вдох между вкладками — кадр 1",
+          "preview": "/img/optimized/content11-68255bf65baf1ac5-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s6.mp4",
+          "alt": "Вдох между вкладками — видео 2",
+          "preview": "/img/optimized/content11-68255bf65baf1ac5-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s6.png",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-107",
+      "title": "Коробка хорошего дня",
+      "original_title": "Сайт",
+      "date": "17.10.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s7.webp",
+          "alt": "Коробка хорошего дня — кадр 1",
+          "preview": "/img/optimized/content11-4f44ba6d7505a851-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s7.mp4",
+          "alt": "Коробка хорошего дня — видео 2",
+          "preview": "/img/optimized/content11-4f44ba6d7505a851-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s7.webp",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-108",
+      "title": "Зелёные характеры",
+      "original_title": "Сайт",
+      "date": "11.06.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s8.webp",
+          "alt": "Зелёные характеры — кадр 1",
+          "preview": "/img/optimized/content11-3295ccee24ac7597-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s8.mp4",
+          "alt": "Зелёные характеры — видео 2",
+          "preview": "/img/optimized/content11-3295ccee24ac7597-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s8.webp",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-109",
+      "title": "Система проснулась",
+      "original_title": "Сайт",
+      "date": "25.11.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/s9.webp",
+          "alt": "Система проснулась — кадр 1",
+          "preview": "/img/optimized/content11-24ae131db12c5f9e-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/s9.mp4",
+          "alt": "Система проснулась — видео 2",
+          "preview": "/img/optimized/content11-24ae131db12c5f9e-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/s9.webp",
+      "category": "websites-title"
     }
   ],
-  "source_project_count": 79,
-  "published_project_count": 76,
+  "source_project_count": 112,
+  "published_project_count": 109,
   "removed_empty_placeholders": 3,
-  "media_count": 211
+  "media_count": 263
 }
