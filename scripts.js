@@ -583,7 +583,7 @@
 
       // Only original combined animate-card elements moved; .fade-up alone did not.
       const targets = $$('.services-page .svc, .portfolio-card');
-      const delays = [50,120,180,240,300,360,420,480];
+      const delays = [50,120,180,240,300,360,420,480,540];
       const reveal = element => {
         element.classList.remove('reveal-pending');
         if (reducedMotion.matches) return;

@@ -224,6 +224,14 @@ if scope in ['full', 'carousel']:
     check('carousel:single active keyboard link retained',all(x in home_script for x in ['item.inert=offset!==0','item.tabIndex=offset===0?0:-1',"item.setAttribute('aria-hidden',String(offset!==0))"]))
     if scope=='carousel':write_report()
 
+# All service cards are native links, including the app development service.
+service_cards = re.findall(r'<article class="svc">[\s\S]*?</article>', texts['services.html'])
+check('services:nine cards', len(service_cards) == 9)
+check('services:all cards link to Telegram', all(any(tag == 'a' and 'clickable-card' in d.get('class', '').split() and d.get('href') == 'https://t.me/Ded_Timon' and d.get('target') == '_blank' and {'noopener', 'noreferrer'}.issubset(d.get('rel', '').split()) for tag, d in Document(card).nodes) for card in service_cards))
+check('services:application card follows ChatGPT', len(service_cards) == 9 and '<h2>ChatGPT</h2>' in service_cards[7] and '<h2>Приложение</h2>' in service_cards[8])
+check('services:approved application artwork', len(service_cards) == 9 and any(tag == 'img' and d.get('src') == '/img/optimized/app-service-33433be0ea75acc0-640.webp' and d.get('alt') == 'Приложение' and d.get('width') == '640' and d.get('height') == '360' for tag, d in Document(service_cards[8]).nodes) and local_exists('/img/optimized/app-service-33433be0ea75acc0-640.webp'))
+check('services:application description', len(service_cards) == 9 and 'Разработка мобильных и настольных приложений: от идеи и дизайна интерфейса до готового решения.' in service_cards[8])
+
 media_refs=set()
 for name,doc in pages.items():
     nodes=doc.nodes
