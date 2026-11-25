@@ -120,16 +120,16 @@ if scope in ['full', 'content']:
     projects=manifest['projects']
     cards=[d for _,d in pages['portfolio.html'].nodes if 'portfolio-card' in d.get('class','').split()]
     summaries=ContentDocument(texts['portfolio.html']).cards
-    check('content:109 individual projects', len(projects)==len(cards)==109 and len({p['id'] for p in projects})==109)
+    check('content:114 individual projects', len(projects)==len(cards)==114 and len({p['id'] for p in projects})==114)
     check('content:project descriptions removed',all('description' not in p for p in projects) and not re.search(r'data-description|project-summary|portfolio-full-description|projectDescription',texts['portfolio.html']+css))
     by_id={c['id']:c for c in cards}
     for project in projects:
         card=by_id.get(project['id'],{})
         check(f'content:{project["id"]}:manifest/card/native descriptions absent','description' not in project and 'data-description' not in card and not ''.join(summaries.get(project['id'],[])).strip())
         check(f'content:{project["id"]}:title and media unchanged',card.get('data-title')==project['title'] and json.loads(card.get('data-media','[]'))==project['media'])
-    check('content:263 media preserved',sum(len(p['media']) for p in projects)==manifest['media_count']==263)
+    check('content:272 media preserved',sum(len(p['media']) for p in projects)==manifest['media_count']==272)
     media_digest=hashlib.sha256(json.dumps([(p['id'],p['media']) for p in sorted(projects,key=lambda p:p['id'])],ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-    check('content:media fingerprint at accepted content14',media_digest=='0971a0e64074ef9c03801cc3b12a56dc3e415fae1ad6a7074dcd6d8a89ca40fe')
+    check('content:media fingerprint at November 2026 update',media_digest=='a924e001d2a105e160a0b8e66e2ddeb22c6f5d884b6753c34892920112425e8c')
     policy_texts=[]
     expected_headings=['Просмотр сайта и поиск','Cookies, хранилище и аналитика','Изображения, видео и шрифты','Хостинг GitHub Pages','Внешние ссылки','Вопросы о конфиденциальности']
     for name,doc in pages.items():
@@ -147,13 +147,13 @@ if scope in ['full', 'content']:
 
 # Catalog-only checks retain all default CI gates and do not replay content/privacy locally.
 if scope in ['full', 'catalog']:
-    catalog_expected = {'baseline': 'owner-accepted-content-14', 'ids': ['logos-title', 'motion-title', 'characters-title', 'presentations-title', 'websites-title', 'scenes-title'], 'labels': ['Логотипы', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы'], 'order': {'logos-title': ['work-100', 'work-99', 'work-98', 'work-97', 'work-96', 'work-95', 'work-94', 'work-01', 'work-93', 'work-02', 'work-03', 'work-04', 'work-75', 'work-05', 'work-76', 'work-06', 'work-07', 'work-08', 'work-09', 'work-10', 'work-11', 'work-12', 'work-13', 'work-14', 'work-15', 'work-16'], 'motion-title': ['work-78', 'work-77', 'work-17', 'work-74', 'work-18', 'work-27', 'work-19', 'work-20', 'work-21', 'work-22', 'work-23', 'work-24', 'work-25', 'work-26'], 'characters-title': ['work-82', 'work-81', 'work-80', 'work-79', 'work-28', 'work-29', 'work-30', 'work-31', 'work-32', 'work-33', 'work-34', 'work-35'], 'presentations-title': ['work-36', 'work-37', 'work-38'], 'websites-title': ['work-109', 'work-107', 'work-108', 'work-106', 'work-105', 'work-104', 'work-103', 'work-102', 'work-101', 'work-39', 'work-40', 'work-41'], 'scenes-title': ['work-90', 'work-89', 'work-88', 'work-91', 'work-87', 'work-86', 'work-92', 'work-85', 'work-84', 'work-83', 'work-42', 'work-43', 'work-44', 'work-45', 'work-46', 'work-47', 'work-48', 'work-51', 'work-49', 'work-50', 'work-52', 'work-53', 'work-54', 'work-55', 'work-56', 'work-57', 'work-58', 'work-59', 'work-60', 'work-61', 'work-62', 'work-63', 'work-64', 'work-65', 'work-66', 'work-67', 'work-68', 'work-69', 'work-70', 'work-71', 'work-72', 'work-73']}, 'manifest_digest': 'bbf638b1f6e7249e3b7716f25df5dd6fc0c359a335c1e6b293da650d5a2c2128', 'media_digest': '0971a0e64074ef9c03801cc3b12a56dc3e415fae1ad6a7074dcd6d8a89ca40fe', 'immutable_media_digest': 'dc57ee1674e3eb25cf160250e58e61960e45ab73461883ddba8673d8cd2d28f0', 'nav_labels': ['Логотипы и графика', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы']}
+    catalog_expected = {'baseline': 'owner-requested-2026-11-25', 'ids': ['logos-title', 'motion-title', 'characters-title', 'presentations-title', 'websites-title', 'scenes-title'], 'labels': ['Логотипы', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы'], 'order': {'logos-title': ['work-114', 'work-113', 'work-100', 'work-99', 'work-98', 'work-97', 'work-96', 'work-95', 'work-94', 'work-01', 'work-93', 'work-02', 'work-03', 'work-04', 'work-75', 'work-05', 'work-76', 'work-06', 'work-07', 'work-08', 'work-09', 'work-10', 'work-11', 'work-12', 'work-13', 'work-14', 'work-15', 'work-16'], 'motion-title': ['work-78', 'work-77', 'work-17', 'work-74', 'work-18', 'work-27', 'work-19', 'work-20', 'work-21', 'work-22', 'work-23', 'work-24', 'work-25', 'work-26'], 'characters-title': ['work-82', 'work-81', 'work-80', 'work-79', 'work-28', 'work-29', 'work-30', 'work-31', 'work-32', 'work-33', 'work-34', 'work-35'], 'presentations-title': ['work-36', 'work-37', 'work-38'], 'websites-title': ['work-109', 'work-112', 'work-111', 'work-110', 'work-107', 'work-108', 'work-106', 'work-105', 'work-104', 'work-103', 'work-102', 'work-101', 'work-39', 'work-40', 'work-41'], 'scenes-title': ['work-90', 'work-89', 'work-88', 'work-91', 'work-87', 'work-86', 'work-92', 'work-85', 'work-84', 'work-83', 'work-42', 'work-43', 'work-44', 'work-45', 'work-46', 'work-47', 'work-48', 'work-51', 'work-49', 'work-50', 'work-52', 'work-53', 'work-54', 'work-55', 'work-56', 'work-57', 'work-58', 'work-59', 'work-60', 'work-61', 'work-62', 'work-63', 'work-64', 'work-65', 'work-66', 'work-67', 'work-68', 'work-69', 'work-70', 'work-71', 'work-72', 'work-73']}, 'manifest_digest': 'ddc89141f6a75ac5ce873f11c7b364bee3f3c81a5dcabd6714b9feb0996d6df2', 'media_digest': 'a924e001d2a105e160a0b8e66e2ddeb22c6f5d884b6753c34892920112425e8c', 'immutable_media_digest': '444b8cbe72447168729a69b2a4298cc5ca794a66b4c361e7f4e42a40e2287222', 'nav_labels': ['Логотипы и графика', 'Моушн-дизайн', '3D-персонажи', 'Презентации', 'Сайты', '3D-сцены и предметы']}
     catalog_manifest=json.loads((ROOT/'docs/content-manifest.json').read_text(encoding='utf-8'))
     projects=catalog_manifest['projects']
     ordered=sorted(projects,key=lambda p:p['id'])
     canonical=lambda value:hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-    check('catalog:109 projects and263 media',len(projects)==catalog_manifest['published_project_count']==109 and sum(len(p['media']) for p in projects)==catalog_manifest['media_count']==263)
-    check('catalog:only accepted content14 metadata',canonical(ordered)==catalog_expected['manifest_digest'])
+    check('catalog:114 projects and272 media',len(projects)==catalog_manifest['published_project_count']==114 and sum(len(p['media']) for p in projects)==catalog_manifest['media_count']==272)
+    check('catalog:only accepted November 2026 metadata',canonical(ordered)==catalog_expected['manifest_digest'])
     check('catalog:all media paths type preview and covers immutable',canonical([(p['id'],p['cover'],[{k:x[k] for k in ['src','type','preview']} for x in p['media']])for p in ordered])==catalog_expected['immutable_media_digest'])
     check('catalog:software metadata removed',all('tech' not in p for p in projects))
     section_cards={};category=None
@@ -262,8 +262,8 @@ for name,doc in pages.items():
 
 cards=[d for _,d in pages['portfolio.html'].nodes if 'portfolio-card' in d.get('class','').split()]
 manifest=json.loads((ROOT/'docs/content-manifest.json').read_text(encoding='utf-8'))
-check('109 substantive projects retained',len(cards)==109==manifest['published_project_count'])
-check('all manifest media retained',sum(len(json.loads(c['data-media'])) for c in cards)==manifest['media_count']==263)
+check('114 substantive projects retained',len(cards)==114==manifest['published_project_count'])
+check('all manifest media retained',sum(len(json.loads(c['data-media'])) for c in cards)==manifest['media_count']==272)
 check('project descriptions absent',all('data-description' not in c for c in cards) and all('description' not in p for p in manifest['projects']))
 check('all original media represented', {m['src'] for p in manifest['projects'] for m in p['media']}==media_refs)
 check('no deleted contact icons',not any((ROOT/'img/index'/name).exists() for name in ['VK.png','Kwork.png']))
