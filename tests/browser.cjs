@@ -344,9 +344,11 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     for(const link of await fallback.locator('.carousel-item').all())assert.ok((await link.getAttribute('href')).startsWith('/portfolio.html'));
     assert.equal(await fallback.locator('.carousel-controls').count(),0);
     assert.ok(await fallback.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    await fallback.goto(base+'/services.html'); assert.equal(await fallback.locator('.svc').count(),8);
+    await fallback.goto(base+'/services.html'); assert.equal(await fallback.locator('.svc').count(),9);
     await fallback.getByRole('heading',{name:'TG-Бот',exact:true}).waitFor();
     await fallback.getByRole('heading',{name:'ChatGPT',exact:true}).waitFor();
+    await fallback.getByRole('heading',{name:'Приложение',exact:true}).waitFor();
+    assert.equal(await fallback.locator('.svc').last().locator('a.clickable-card').getAttribute('href'),'https://t.me/Ded_Timon');
     await context.close();
   });
   await test('identity:original-mobile-card-alignment+disclosure', async () => {
@@ -459,10 +461,10 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     assert.equal(await page.locator('.contacts-section,.category-count,.category-nav a span').count(),0);
     await page.locator('#projectToolsToggle').click();await page.waitForTimeout(320);
     assert.equal(await page.locator('#projectToolsToggle').getAttribute('aria-expanded'),'true');await page.keyboard.press('Escape');
-    await load('/services.html');assert.equal(await page.locator('.svc .text-link').count(),0);assert.equal(await page.locator('.svc > a.clickable-card').count(),8);
+    await load('/services.html');assert.equal(await page.locator('.svc .text-link').count(),0);assert.equal(await page.locator('.svc > a.clickable-card').count(),9);
     await page.waitForTimeout(1100);assert.equal(await page.locator('.svc').first().evaluate(e=>getComputedStyle(e).opacity),'1');
     const last=page.locator('.svc').last();await last.scrollIntoViewIfNeeded();await page.waitForTimeout(70);
-    const reveal=await last.evaluate(e=>e.getAnimations().map(a=>a.effect.getTiming()));assert.ok(reveal.some(a=>a.duration===600&&a.delay===480&&a.easing==='ease'));
+    const reveal=await last.evaluate(e=>e.getAnimations().map(a=>a.effect.getTiming()));assert.ok(reveal.some(a=>a.duration===600&&a.delay===540&&a.easing==='ease'));
     assert.ok(await last.locator('img').evaluate(e=>e.getAnimations().some(a=>a.effect.getTiming().duration===500)));
     await page.waitForTimeout(1100);assert.equal(await last.evaluate(e=>getComputedStyle(e).opacity),'1');
     await page.mouse.move(400,200);await page.waitForTimeout(100);await page.mouse.move(420,220);assert.ok(await page.locator('.blue-particle').count()>0);
@@ -471,6 +473,25 @@ async function closeTitle08Probe(target, label, {reduced=false, screenshot=false
     await page.waitForFunction(()=>document.querySelectorAll('.blue-particle').length===0,null,{timeout:1500});
     await page.waitForTimeout(120);assert.equal(await page.locator('.blue-particle').count(),0,'Particles must not keep an idle loop alive');
     await page.emulateMedia({reducedMotion:'reduce'});await page.mouse.move(450,230);assert.equal(await page.locator('.blue-particle').count(),0);
+  });
+  await test('services:app-development-artwork-and-contact', async () => {
+    await page.emulateMedia({reducedMotion:'reduce'});
+    for(const width of [375,1440]) {
+      await page.setViewportSize({width,height:1000});await load('/services.html');
+      const cards=page.locator('.services-page .svc');assert.equal(await cards.count(),9);
+      assert.equal(await cards.nth(7).locator('h2').textContent(),'ChatGPT');
+      const app=cards.last(), link=app.locator('a.clickable-card'), img=app.locator('img');
+      assert.equal(await app.locator('h2').textContent(),'Приложение');
+      assert.equal(await app.locator('p').textContent(),'Разработка мобильных и настольных приложений: от идеи и дизайна интерфейса до готового решения.');
+      assert.equal(await link.getAttribute('href'),'https://t.me/Ded_Timon');
+      assert.equal(await link.getAttribute('target'),'_blank');
+      assert.equal(await link.getAttribute('rel'),'noopener noreferrer');
+      await app.scrollIntoViewIfNeeded();await img.evaluate(i=>i.decode());
+      assert.deepEqual(await img.evaluate(i=>[i.naturalWidth,i.naturalHeight]),[640,360]);
+      assert.equal(await img.getAttribute('src'),'/img/optimized/app-service-33433be0ea75acc0-640.webp');
+      await link.focus();assert.ok(await link.evaluate(el=>document.activeElement===el));
+      await layout();
+    }
   });
   await test('identity:measured-original-service-layout', async () => {
     await page.emulateMedia({reducedMotion:'reduce'});
