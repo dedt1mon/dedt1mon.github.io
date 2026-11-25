@@ -2668,10 +2668,114 @@
       ],
       "cover": "/img/portfolio/sait/s9.webp",
       "category": "websites-title"
+    },
+    {
+      "id": "work-110",
+      "title": "ЛАД",
+      "original_title": "Сайт",
+      "date": "06.11.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/sait4.png",
+          "alt": "ЛАД — кадр 1",
+          "preview": "/img/optimized/nov26-26c2f6ffc873367f-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/sait4.mp4",
+          "alt": "ЛАД — видео 2",
+          "preview": "/img/optimized/nov26-26c2f6ffc873367f-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/sait4.png",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-111",
+      "title": "FORMA",
+      "original_title": "Сайт",
+      "date": "19.11.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/sait5.png",
+          "alt": "FORMA — кадр 1",
+          "preview": "/img/optimized/nov26-8bcc6d0cf7fd89db-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/sait5.mp4",
+          "alt": "FORMA — видео 2",
+          "preview": "/img/optimized/nov26-8bcc6d0cf7fd89db-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/sait5.png",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-112",
+      "title": "NEON DISTRICT",
+      "original_title": "Сайт",
+      "date": "24.11.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/sait/sait6.png",
+          "alt": "NEON DISTRICT — кадр 1",
+          "preview": "/img/optimized/nov26-5580d5b1aab07d4d-320.webp"
+        },
+        {
+          "type": "video",
+          "src": "/img/portfolio/sait/sait6.mp4",
+          "alt": "NEON DISTRICT — видео 2",
+          "preview": "/img/optimized/nov26-5580d5b1aab07d4d-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/sait/sait6.png",
+      "category": "websites-title"
+    },
+    {
+      "id": "work-113",
+      "title": "Атель",
+      "original_title": "Логотип",
+      "date": "15.11.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/Atel.png",
+          "alt": "Атель — кадр 1",
+          "preview": "/img/optimized/nov26-903b9ba6e620b26d-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/Atel.png",
+      "category": "logos-title"
+    },
+    {
+      "id": "work-114",
+      "title": "Вектор",
+      "original_title": "Логотип",
+      "date": "21.11.2026",
+      "media": [
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/Kamaz.jpg",
+          "alt": "Вектор — кадр 1",
+          "preview": "/img/optimized/nov26-68b7fd3a9d780626-320.webp"
+        },
+        {
+          "type": "image",
+          "src": "/img/portfolio/logo/Kamaz1.jpg",
+          "alt": "Вектор — кадр 2",
+          "preview": "/img/optimized/nov26-6c827f5292aff25d-320.webp"
+        }
+      ],
+      "cover": "/img/portfolio/logo/Kamaz.jpg",
+      "category": "logos-title"
     }
   ],
-  "source_project_count": 112,
-  "published_project_count": 109,
+  "source_project_count": 117,
+  "published_project_count": 114,
   "removed_empty_placeholders": 3,
-  "media_count": 263
+  "media_count": 272
 }
